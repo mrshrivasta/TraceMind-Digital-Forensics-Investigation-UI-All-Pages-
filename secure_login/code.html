@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cipher Obsidian | Secure Authentication</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#000000",
+                        "on-secondary-fixed": "#324052",
+                        "outline-variant": "#2b4680",
+                        "on-error-container": "#ff9993",
+                        "error-dim": "#bb5551",
+                        "on-secondary": "#122131",
+                        "on-tertiary": "#573500",
+                        "on-surface": "#dee5ff",
+                        "tertiary-dim": "#e79400",
+                        "primary": "#7bd0ff",
+                        "primary-dim": "#47c4ff",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "background": "#060e20",
+                        "primary-container": "#004c69",
+                        "secondary-container": "#2e3c4e",
+                        "tertiary-fixed-dim": "#e79400",
+                        "secondary": "#909fb4",
+                        "inverse-surface": "#faf8ff",
+                        "inverse-primary": "#00668b",
+                        "surface": "#060e20",
+                        "error": "#ee7d77",
+                        "primary-fixed": "#c4e7ff",
+                        "surface-variant": "#00225a",
+                        "on-primary-container": "#97d8ff",
+                        "secondary-fixed": "#d4e4fa",
+                        "surface-dim": "#060e20",
+                        "tertiary": "#ffb148",
+                        "primary-fixed-dim": "#a2dcff",
+                        "on-tertiary-container": "#4a2c00",
+                        "on-surface-variant": "#91aaeb",
+                        "surface-tint": "#7bd0ff",
+                        "inverse-on-surface": "#4d556b",
+                        "surface-container": "#05183c",
+                        "error-container": "#7f2927",
+                        "surface-container-highest": "#00225a",
+                        "on-primary-fixed": "#00445e",
+                        "secondary-dim": "#909fb4",
+                        "surface-container-high": "#031d4b",
+                        "on-tertiary-fixed": "#2a1700",
+                        "tertiary-fixed": "#f8a010",
+                        "outline": "#5b74b1",
+                        "on-tertiary-fixed-variant": "#563400"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .technical-grid {
+            background-image: 
+                linear-gradient(to right, rgba(43, 70, 128, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(43, 70, 128, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .forensic-glow {
+            box-shadow: inset 0 1px 0 0 rgba(196, 231, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Background Layer: Forensic Grid & Ambient Glow -->
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+<div class="absolute inset-0 technical-grid"></div>
+<div class="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-primary/5 blur-[120px]"></div>
+<div class="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-surface-variant/20 blur-[120px]"></div>
+<!-- Faint Scrolling Hex / Data Stream (CSS Simulated) -->
+<div class="absolute top-0 right-10 bottom-0 w-24 opacity-5 overflow-hidden">
+<div class="font-headline text-[10px] leading-relaxed break-all">
+                0F172A 7BD0FF 00225A 2B4680 05183C 0F172A 7BD0FF 00225A 2B4680 05183C 0F172A 7BD0FF 00225A 2B4680 05183C 0F172A 7BD0FF 00225A 2B4680 05183C 0F172A 7BD0FF 00225A 2B4680 05183C 0F172A 7BD0FF 00225A 2B4680 05183C 
+            </div>
+</div>
+</div>
+<!-- Main Content Stage -->
+<main class="z-10 w-full max-w-md px-6 py-12 flex flex-col items-center">
+<!-- Logo Branding -->
+<div class="mb-10 text-center">
+<div class="inline-flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary text-4xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+<h1 class="font-headline font-bold text-2xl tracking-tighter text-on-surface uppercase">
+                Cipher <span class="text-primary">Obsidian</span>
+</h1>
+<p class="font-headline text-[0.625rem] tracking-[0.2em] text-on-surface-variant uppercase mt-1">Digital Forensics &amp; Surveillance</p>
+</div>
+<!-- Central Login Card -->
+<div class="w-full bg-surface-container-high/60 backdrop-blur-xl border border-outline-variant/15 forensic-glow p-8 space-y-8 relative">
+<!-- Decorative corner accents -->
+<div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary/40 -mt-[1px] -ml-[1px]"></div>
+<div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary/40 -mt-[1px] -mr-[1px]"></div>
+<div class="space-y-2">
+<h2 class="font-headline text-lg font-bold text-on-surface">Secure Terminal Access</h2>
+<div class="flex items-center gap-2">
+<span class="h-[2px] w-8 bg-primary"></span>
+<p class="text-[0.6875rem] font-headline text-on-surface-variant uppercase tracking-widest">Authentication Required</p>
+</div>
+</div>
+<form class="space-y-6">
+<!-- Investigator ID -->
+<div class="space-y-2 group">
+<label class="font-headline text-[0.6875rem] text-on-surface-variant uppercase tracking-wider block ml-1" for="investigator_id">Investigator ID</label>
+<div class="relative flex items-center">
+<div class="absolute left-4 text-on-surface-variant group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">account_circle</span>
+</div>
+<input class="w-full bg-surface-container border-none focus:ring-0 focus:outline-none pl-12 py-4 font-headline text-sm text-on-surface placeholder:text-on-surface-variant/30 border-l-2 border-transparent focus:border-primary transition-all" id="investigator_id" name="investigator_id" placeholder="CID-XXXX-000" type="text"/>
+</div>
+</div>
+<!-- Access Password -->
+<div class="space-y-2 group">
+<label class="font-headline text-[0.6875rem] text-on-surface-variant uppercase tracking-wider block ml-1" for="password">Access Password</label>
+<div class="relative flex items-center">
+<div class="absolute left-4 text-on-surface-variant group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">lock</span>
+</div>
+<input class="w-full bg-surface-container border-none focus:ring-0 focus:outline-none pl-12 pr-12 py-4 font-headline text-sm text-on-surface placeholder:text-on-surface-variant/30 border-l-2 border-transparent focus:border-primary transition-all" id="password" name="password" placeholder="••••••••••••" type="password"/>
+<button class="absolute right-4 text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+</div>
+<!-- Secure Terminal ID (Optional) -->
+<div class="space-y-2 group">
+<label class="font-headline text-[0.6875rem] text-on-surface-variant uppercase tracking-wider block ml-1" for="terminal_id">Terminal ID (Optional)</label>
+<div class="relative flex items-center">
+<div class="absolute left-4 text-on-surface-variant group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl">terminal</span>
+</div>
+<input class="w-full bg-surface-container border-none focus:ring-0 focus:outline-none pl-12 py-4 font-headline text-sm text-on-surface placeholder:text-on-surface-variant/30 border-l-2 border-transparent focus:border-primary transition-all" id="terminal_id" name="terminal_id" placeholder="NODE-ALPHA-7" type="text"/>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full bg-primary text-on-primary font-headline font-bold uppercase tracking-[0.2em] py-4 hover:bg-primary-dim active:bg-inverse-primary transition-colors flex items-center justify-center gap-3" type="submit">
+<span class="material-symbols-outlined text-lg">verified_user</span>
+                    Authenticate
+                </button>
+</form>
+<div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+<a class="font-headline text-[0.6875rem] text-primary/70 hover:text-primary uppercase tracking-widest transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">person_add</span>
+                    Request Access
+                </a>
+<a class="font-headline text-[0.6875rem] text-on-surface-variant hover:text-primary uppercase tracking-widest transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">help</span>
+                    Trouble Logging In?
+                </a>
+</div>
+</div>
+<!-- Security Warning -->
+<div class="mt-8 max-w-sm text-center">
+<p class="text-[0.625rem] font-headline text-on-surface-variant/50 leading-relaxed uppercase tracking-tighter">
+                UNAUTHORIZED ACCESS IS PROHIBITED. ALL SESSION DATA, KEYSTROKES, AND ORIGIN METADATA ARE LOGGED IN COMPLIANCE WITH SECURITY PROTOCOL 142-B.
+            </p>
+</div>
+</main>
+<!-- Shared Footer Component -->
+<footer class="fixed bottom-0 w-full flex justify-between items-center px-8 py-4 bg-[#060e20] border-t border-[#2b4680]/15 z-20">
+<div class="flex items-center gap-6">
+<span class="text-[#7bd0ff] font-bold font-['Space_Grotesk'] text-[0.6875rem] tracking-wider uppercase">Cipher Obsidian</span>
+<div class="flex items-center gap-4">
+<a class="font-['Space_Grotesk'] text-[0.6875rem] tracking-wider uppercase text-[#dee5ff]/60 hover:text-[#7bd0ff] hover:bg-[#031d4b] transition-colors duration-150 px-2 py-1" href="#">Forgot Password</a>
+<a class="font-['Space_Grotesk'] text-[0.6875rem] tracking-wider uppercase text-[#dee5ff]/60 hover:text-[#7bd0ff] hover:bg-[#031d4b] transition-colors duration-150 px-2 py-1" href="#">System Status</a>
+<a class="font-['Space_Grotesk'] text-[0.6875rem] tracking-wider uppercase text-[#dee5ff]/60 hover:text-[#7bd0ff] hover:bg-[#031d4b] transition-colors duration-150 px-2 py-1" href="#">Privacy Policy</a>
+<a class="font-['Space_Grotesk'] text-[0.6875rem] tracking-wider uppercase text-[#dee5ff]/60 hover:text-[#7bd0ff] hover:bg-[#031d4b] transition-colors duration-150 px-2 py-1" href="#">Security Protocol</a>
+</div>
+</div>
+<div class="font-['Space_Grotesk'] text-[0.6875rem] tracking-wider uppercase text-[#dee5ff]/60">
+            © 2024 Cipher Obsidian Forensic Systems. All Rights Reserved.
+        </div>
+</footer>
+</body></html>

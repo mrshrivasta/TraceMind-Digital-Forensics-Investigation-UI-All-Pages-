@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_CIPHER // OPERATOR_01</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "secondary-container": "#2e3c4e",
+                "on-primary-fixed": "#00445e",
+                "surface-bright": "#002867",
+                "on-secondary-fixed": "#324052",
+                "primary-container": "#004c69",
+                "on-secondary-fixed-variant": "#4e5d6f",
+                "on-error-container": "#ff9993",
+                "outline": "#5b74b1",
+                "on-surface-variant": "#91aaeb",
+                "surface-dim": "#060e20",
+                "surface-container-lowest": "#000000",
+                "tertiary-fixed": "#f8a010",
+                "on-primary-fixed-variant": "#006286",
+                "on-tertiary-fixed-variant": "#563400",
+                "surface-tint": "#7bd0ff",
+                "surface-container-low": "#06122d",
+                "surface-container": "#05183c",
+                "on-primary-container": "#97d8ff",
+                "primary": "#7bd0ff",
+                "background": "#060e20",
+                "primary-dim": "#47c4ff",
+                "inverse-primary": "#00668b",
+                "secondary": "#909fb4",
+                "tertiary-fixed-dim": "#e79400",
+                "tertiary-dim": "#e79400",
+                "outline-variant": "#2b4680",
+                "on-tertiary": "#573500",
+                "surface-container-highest": "#00225a",
+                "surface-variant": "#00225a",
+                "inverse-on-surface": "#4d556b",
+                "tertiary-container": "#f8a010",
+                "error-container": "#7f2927",
+                "on-tertiary-fixed": "#2a1700",
+                "primary-fixed-dim": "#a2dcff",
+                "on-background": "#dee5ff",
+                "on-secondary": "#122131",
+                "secondary-fixed": "#d4e4fa",
+                "error": "#ee7d77",
+                "on-tertiary-container": "#4a2c00",
+                "on-secondary-container": "#b1c0d6",
+                "tertiary": "#ffb148",
+                "on-primary": "#004560",
+                "surface-container-high": "#031d4b",
+                "primary-fixed": "#c4e7ff",
+                "inverse-surface": "#faf8ff",
+                "on-surface": "#dee5ff",
+                "on-error": "#490106",
+                "surface": "#060e20",
+                "error-dim": "#bb5551",
+                "secondary-fixed-dim": "#c6d6ec",
+                "secondary-dim": "#909fb4"
+            },
+            "borderRadius": {
+                "DEFAULT": "0px",
+                "lg": "0px",
+                "xl": "0px",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Space Grotesk"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #060e20;
+            color: #dee5ff;
+        }
+        .technical-mono {
+            font-family: 'Space Grotesk', monospace;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #06122d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b4680;
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 z-50 flex justify-between items-center w-full px-6 h-14 bg-[#06122d] border-none font-['Space_Grotesk'] tracking-tight text-sm">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#7bd0ff] uppercase">SENTINEL_CIPHER</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] pb-1 uppercase" href="#">TIMELINE</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-colors duration-150 uppercase" href="#">GEOSPATIAL</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-colors duration-150 uppercase" href="#">NETWORK</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-colors duration-150 uppercase" href="#">ANOMALIES</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<button class="p-2 text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors"><span class="material-symbols-outlined">admin_panel_settings</span></button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 flex flex-col pt-16 bg-[#06122d] z-40 border-none font-['Space_Grotesk'] text-xs font-medium uppercase tracking-widest">
+<div class="px-4 py-6 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<div class="text-[#7bd0ff] font-bold">OPERATOR_01</div>
+<div class="text-[10px] text-on-surface-variant">CLEARANCE: OMEGA</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 mt-4">
+<a class="flex items-center gap-3 bg-[#031d4b] text-[#7bd0ff] border-l-4 border-[#7bd0ff] px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill">dashboard</span>
+<span>DASHBOARD</span>
+</a>
+<a class="flex items-center gap-3 text-[#dee5ff]/40 px-4 py-3 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>EVIDENCE_LOCKER</span>
+</a>
+<a class="flex items-center gap-3 text-[#dee5ff]/40 px-4 py-3 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span>SYSTEM_LOGS</span>
+</a>
+<a class="flex items-center gap-3 text-[#dee5ff]/40 px-4 py-3 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span>FORENSIC_TOOLS</span>
+</a>
+<a class="flex items-center gap-3 text-[#dee5ff]/40 px-4 py-3 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>ARCHIVE</span>
+</a>
+</nav>
+<div class="mt-auto pb-6">
+<a class="flex items-center gap-3 text-[#dee5ff]/40 px-4 py-3 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>SUPPORT</span>
+</a>
+<a class="flex items-center gap-3 text-[#dee5ff]/40 px-4 py-3 hover:bg-[#031d4b] hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>LOGOUT</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Stage -->
+<main class="ml-64 mt-14 p-6 h-[calc(100vh-3.5rem)] overflow-y-auto bg-surface">
+<!-- Behavioral Profile Header -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+<div class="bg-surface-container-low p-4 relative group">
+<div class="text-[10px] technical-mono uppercase text-on-surface-variant mb-1">Subject_Identity</div>
+<div class="text-xl technical-mono font-bold text-primary tracking-tighter">X-RAY_DELTA_92</div>
+<div class="absolute top-4 right-4 text-xs text-tertiary-fixed flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">visibility</span> WATCHLIST
+                </div>
+</div>
+<div class="bg-surface-container-low p-4 border-l-2 border-error">
+<div class="text-[10px] technical-mono uppercase text-on-surface-variant mb-1">Anomalous_Score</div>
+<div class="flex items-end gap-2">
+<div class="text-2xl technical-mono font-bold text-error">88.4</div>
+<div class="text-[10px] text-error pb-1">CRITICAL</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 border-l-2 border-tertiary">
+<div class="text-[10px] technical-mono uppercase text-on-surface-variant mb-1">Exfiltration_Risk</div>
+<div class="flex items-end gap-2">
+<div class="text-2xl technical-mono font-bold text-tertiary">HIGH</div>
+<div class="text-[10px] text-on-surface-variant pb-1">UL/DL: 4.2GB</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 border-l-2 border-primary">
+<div class="text-[10px] technical-mono uppercase text-on-surface-variant mb-1">Active_Hours</div>
+<div class="text-2xl technical-mono font-bold text-primary">2200 - 0400</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6 h-full min-h-[800px]">
+<!-- Activity Timeline (Center-Left) -->
+<section class="col-span-12 lg:col-span-5 bg-surface-container-low flex flex-col overflow-hidden">
+<div class="p-4 bg-surface-container-high flex justify-between items-center">
+<h2 class="technical-mono text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">event_note</span> Activity_Timeline
+                    </h2>
+<span class="text-[10px] technical-mono text-on-surface-variant">LOG_STREAM: ENABLED</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4">
+<div class="space-y-6 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[1px] before:bg-outline-variant/30">
+<!-- Timeline Entry 1 -->
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1 w-6 h-6 bg-error flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-sm text-on-error">lock_open</span>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="technical-mono text-xs text-error font-bold">14:22:09.112</span>
+<span class="px-1.5 py-0.5 bg-error-container/20 text-error text-[9px] font-bold">HIGH_RISK</span>
+</div>
+<div class="text-sm font-medium mb-1">Unauthorized_Access_Attempt</div>
+<div class="text-xs text-on-surface-variant technical-mono">FILE: /etc/shadow_backup</div>
+<div class="mt-2 hidden group-hover:block p-2 bg-surface-container-highest border-l-2 border-error">
+<div class="grid grid-cols-2 gap-2 text-[10px] technical-mono">
+<span class="text-on-surface-variant">IP_ADDR:</span> <span>192.168.1.104</span>
+<span class="text-on-surface-variant">MAC:</span> <span>00:0C:29:4F:8B:35</span>
+<span class="text-on-surface-variant">DEVICE:</span> <span>S-LAB-WS04</span>
+</div>
+</div>
+</div>
+<!-- Timeline Entry 2 -->
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1 w-6 h-6 bg-primary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-sm text-on-primary">location_on</span>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="technical-mono text-xs text-primary font-bold">13:58:12.441</span>
+<span class="px-1.5 py-0.5 bg-primary-container/20 text-primary text-[9px] font-bold">LOW_RISK</span>
+</div>
+<div class="text-sm font-medium mb-1">GPS_Geofence_Exit</div>
+<div class="text-xs text-on-surface-variant technical-mono">LOC: 40.7128° N, 74.0060° W</div>
+</div>
+<!-- Timeline Entry 3 -->
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1 w-6 h-6 bg-tertiary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-sm text-on-tertiary">mail</span>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="technical-mono text-xs text-tertiary font-bold">13:45:00.002</span>
+<span class="px-1.5 py-0.5 bg-tertiary-container/20 text-tertiary text-[9px] font-bold">MED_RISK</span>
+</div>
+<div class="text-sm font-medium mb-1">Encrypted_Comms_Outbound</div>
+<div class="text-xs text-on-surface-variant technical-mono">DEST: signal_bridge_09.onion</div>
+</div>
+<!-- Timeline Entry 4 -->
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1 w-6 h-6 bg-primary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-sm text-on-primary">login</span>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="technical-mono text-xs text-primary font-bold">12:30:44.891</span>
+<span class="px-1.5 py-0.5 bg-primary-container/20 text-primary text-[9px] font-bold">LOW_RISK</span>
+</div>
+<div class="text-sm font-medium mb-1">Standard_User_Login</div>
+<div class="text-xs text-on-surface-variant technical-mono">OS: Windows 11 Enterprise (22H2)</div>
+</div>
+<!-- Timeline Entry 5 -->
+<div class="relative pl-8 group">
+<div class="absolute left-0 top-1 w-6 h-6 bg-error flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-sm text-on-error">bolt</span>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="technical-mono text-xs text-error font-bold">11:02:15.550</span>
+<span class="px-1.5 py-0.5 bg-error-container/20 text-error text-[9px] font-bold">HIGH_RISK</span>
+</div>
+<div class="text-sm font-medium mb-1">System_Kernel_Tampering</div>
+<div class="text-xs text-on-surface-variant technical-mono">PID: 4402 -&gt; Injection Hook Detected</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column -->
+<div class="col-span-12 lg:col-span-7 flex flex-col gap-6">
+<!-- Geo-Location Matrix (Top-Right) -->
+<section class="flex-1 bg-surface-container-low min-h-[350px] overflow-hidden flex flex-col">
+<div class="p-4 bg-surface-container-high flex justify-between items-center">
+<h2 class="technical-mono text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">public</span> Geospatial_Matrix
+                        </h2>
+<div class="flex gap-2">
+<button class="px-2 py-1 text-[9px] bg-primary text-on-primary technical-mono">HEATMAP</button>
+<button class="px-2 py-1 text-[9px] border border-outline text-primary technical-mono">VECTORS</button>
+</div>
+</div>
+<div class="flex-1 relative bg-[#01050f]">
+<img alt="Dark technical map of a city grid with glowing data points and heat overlays in deep blues and neon cyans" class="w-full h-full object-cover opacity-40 grayscale contrast-125 mix-blend-screen" data-location="New York City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAypF9R9eefmHqrAUZ19hqRRNqCPHjRa3zsYW_LFX59EFuI0Jnz1X49ItQU9tu-73kBn6vwwtcX0a7RZKkgqwEM3emyJCroNsZyE-otrgm3KQKA9iTHvJnU84-kuLB-OTddVVvv15Vy-GB_5c_1kOtHa8pmeqn8hAS-QmW4C8V_4XXY6nLyMyL44lyA6e4lyff-C73eNDXqkUqZmk04lnINeQHS4swXiGO2565H3f49GQkkeHqJQABGcF9f7Sc4sQW1g7kHMGH2M6Q"/>
+<!-- Decorative Overlays -->
+<div class="absolute top-4 left-4 p-2 bg-surface-container-highest/80 backdrop-blur-md border border-primary/20 text-[10px] technical-mono">
+<div class="text-primary mb-1">COORDINATES_ACTIVE</div>
+<div>LAT: 40.7128° N</div>
+<div>LNG: 74.0060° W</div>
+</div>
+<!-- Map Pins -->
+<div class="absolute top-1/4 left-1/3 w-12 h-12 bg-error/20 rounded-full animate-pulse flex items-center justify-center">
+<div class="w-2 h-2 bg-error rounded-full"></div>
+</div>
+<div class="absolute top-1/2 right-1/4 w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Social/Communication Graph (Bottom-Right) -->
+<section class="flex-1 bg-surface-container-low min-h-[350px] overflow-hidden flex flex-col">
+<div class="p-4 bg-surface-container-high flex justify-between items-center">
+<h2 class="technical-mono text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">hub</span> Comms_Graph_Network
+                        </h2>
+<span class="text-[10px] technical-mono text-on-surface-variant">NODE_COUNT: 24</span>
+</div>
+<div class="flex-1 relative p-6 flex items-center justify-center">
+<!-- Simulated Node Link Diagram -->
+<div class="relative w-full h-full">
+<!-- Center Node -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 border-2 border-primary flex items-center justify-center bg-surface-container-high z-20">
+<span class="material-symbols-outlined text-2xl text-primary" data-weight="fill">person</span>
+</div>
+<!-- Links -->
+<div class="absolute top-1/2 left-1/2 w-[180px] h-[1px] bg-gradient-to-r from-primary to-transparent -translate-y-1/2 origin-left rotate-[45deg] opacity-40"></div>
+<div class="absolute top-1/2 left-1/2 w-[150px] h-[1px] bg-gradient-to-r from-error to-transparent -translate-y-1/2 origin-left rotate-[160deg] opacity-40"></div>
+<div class="absolute top-1/2 left-1/2 w-[200px] h-[1px] bg-gradient-to-r from-tertiary to-transparent -translate-y-1/2 origin-left rotate-[280deg] opacity-40"></div>
+<div class="absolute top-1/2 left-1/2 w-[120px] h-[1px] bg-gradient-to-r from-primary to-transparent -translate-y-1/2 origin-left rotate-[340deg] opacity-40"></div>
+<!-- Peripheral Nodes -->
+<div class="absolute top-1/4 left-3/4 -translate-x-1/2 -translate-y-1/2 group">
+<div class="w-10 h-10 border border-primary-container bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-primary">chat</span>
+</div>
+<div class="absolute top-12 left-0 technical-mono text-[9px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="text-primary">@ghost_protocol</div>
+<div class="text-on-surface-variant">IM_FREQ: 124/DAY</div>
+</div>
+</div>
+<div class="absolute bottom-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 group">
+<div class="w-10 h-10 border border-error bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-error">call</span>
+</div>
+<div class="absolute top-12 left-0 technical-mono text-[9px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="text-error">+1 (555) 0192</div>
+<div class="text-on-surface-variant">ENCRYPTED_VOICE</div>
+</div>
+</div>
+<div class="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 group">
+<div class="w-10 h-10 border border-tertiary bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-tertiary">mail</span>
+</div>
+<div class="absolute top-12 left-0 technical-mono text-[9px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="text-tertiary">admin@cipher.net</div>
+<div class="text-on-surface-variant">SMTP_TLS_1.3</div>
+</div>
+</div>
+</div>
+<!-- Legend -->
+<div class="absolute bottom-4 right-4 p-3 bg-surface-container-highest flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-3 h-[1px] bg-primary"></span>
+<span class="text-[9px] technical-mono uppercase">Standard</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-[1px] bg-error"></span>
+<span class="text-[9px] technical-mono uppercase">Suspicious</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-[1px] bg-tertiary"></span>
+<span class="text-[9px] technical-mono uppercase">Outbound</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer Data Bar -->
+<footer class="mt-6 p-3 bg-surface-container-high flex justify-between items-center text-[10px] technical-mono border-t border-primary/10">
+<div class="flex gap-6">
+<span class="flex items-center gap-2 text-primary">
+<span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                    SECURE_LINK_ACTIVE
+                </span>
+<span class="text-on-surface-variant">NODE: US-EAST-01</span>
+<span class="text-on-surface-variant">LATENCY: 14MS</span>
+</div>
+<div class="flex gap-4 items-center">
+<span class="text-on-surface-variant uppercase">Encryption: AES-256-GCM</span>
+<span class="px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 uppercase font-bold tracking-widest">Operator: Omega_Clear</span>
+</div>
+</footer>
+</main>
+</body></html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS_v2.0 | Correlator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#060e20",
+                        "secondary-dim": "#909fb4",
+                        "outline-variant": "#2b4680",
+                        "on-tertiary": "#573500",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "inverse-surface": "#faf8ff",
+                        "on-tertiary-container": "#4a2c00",
+                        "surface-container": "#05183c",
+                        "surface": "#060e20",
+                        "inverse-on-surface": "#4d556b",
+                        "surface-container-lowest": "#000000",
+                        "on-secondary-fixed-variant": "#4e5d6f",
+                        "secondary": "#909fb4",
+                        "on-primary-fixed-variant": "#006286",
+                        "tertiary": "#ffb148",
+                        "surface-variant": "#00225a",
+                        "tertiary-fixed": "#f8a010",
+                        "surface-bright": "#002867",
+                        "primary-fixed": "#c4e7ff",
+                        "primary-container": "#004c69",
+                        "on-error-container": "#ff9993",
+                        "surface-container-highest": "#00225a",
+                        "tertiary-fixed-dim": "#e79400",
+                        "on-primary-fixed": "#00445e",
+                        "on-surface": "#dee5ff",
+                        "on-primary": "#004560",
+                        "error-container": "#7f2927",
+                        "tertiary-container": "#f8a010",
+                        "on-tertiary-fixed-variant": "#563400",
+                        "on-secondary-fixed": "#324052",
+                        "on-secondary-container": "#b1c0d6",
+                        "primary": "#7bd0ff",
+                        "secondary-fixed": "#d4e4fa",
+                        "surface-container-high": "#031d4b",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-low": "#06122d",
+                        "error-dim": "#bb5551",
+                        "on-background": "#dee5ff",
+                        "tertiary-dim": "#e79400",
+                        "on-surface-variant": "#91aaeb",
+                        "secondary-container": "#2e3c4e",
+                        "inverse-primary": "#00668b",
+                        "error": "#ee7d77",
+                        "surface-tint": "#7bd0ff",
+                        "surface-dim": "#060e20",
+                        "on-primary-container": "#97d8ff",
+                        "primary-fixed-dim": "#a2dcff",
+                        "primary-dim": "#47c4ff",
+                        "on-secondary": "#122131",
+                        "outline": "#5b74b1",
+                        "on-error": "#490106"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        body { background-color: #060e20; color: #dee5ff; font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { backdrop-filter: blur(12px); background-color: rgba(0, 34, 90, 0.6); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full border-b-0 bg-[#060e20] flex justify-between items-center px-6 h-14 z-50 font-['Space_Grotesk'] tracking-tight">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-tighter text-[#7bd0ff] uppercase">SENTINEL_FORENSICS_v2.0</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 px-2 h-full flex items-center" href="#">Dashboard</a>
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] bg-[#031d4b] transition-colors duration-150 px-2 h-full flex items-center" href="#">Correlator</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 px-2 h-full flex items-center" href="#">Timeline</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 px-2 h-full flex items-center" href="#">Evidence</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-surface-container px-3 py-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-primary">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs w-48 text-on-surface placeholder-on-surface-variant/40" placeholder="QUERY_RESOURCES..." type="text"/>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[#dee5ff]/60 cursor-pointer hover:text-[#7bd0ff]">settings</span>
+<span class="material-symbols-outlined text-[#dee5ff]/60 cursor-pointer hover:text-[#7bd0ff]">notifications</span>
+<span class="material-symbols-outlined text-[#7bd0ff] cursor-pointer">account_circle</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Left) -->
+<aside class="fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-64 bg-[#06122d] flex flex-col py-4 z-40 transition-all font-['Space_Grotesk'] text-xs uppercase">
+<div class="px-6 mb-8">
+<h2 class="text-[#7bd0ff] font-black tracking-widest">INVESTIGATION_ALPHA</h2>
+<p class="text-[10px] text-on-surface-variant/60">CASE_ID: 994-X82</p>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar">
+<div class="space-y-1">
+<div class="px-6 py-2 text-[#dee5ff]/40 text-[10px] tracking-widest font-bold">INVENTORY</div>
+<button class="w-full flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] transition-all">
+<span class="material-symbols-outlined text-lg">rebase_edit</span>
+<span>Entities</span>
+</button>
+<button class="w-full flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] transition-all">
+<span class="material-symbols-outlined text-lg">folder_open</span>
+<span>File_System</span>
+</button>
+<button class="w-full flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] transition-all">
+<span class="material-symbols-outlined text-lg">memory</span>
+<span>Memory</span>
+</button>
+<button class="w-full flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] transition-all">
+<span class="material-symbols-outlined text-lg">hub</span>
+<span>Network</span>
+</button>
+<button class="w-full flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] transition-all">
+<span class="material-symbols-outlined text-lg">settings_ethernet</span>
+<span>Registry</span>
+</button>
+<button class="w-full flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] transition-all">
+<span class="material-symbols-outlined text-lg">fingerprint</span>
+<span>Artifacts</span>
+</button>
+</div>
+<div class="mt-8 px-6">
+<button class="w-full py-3 bg-primary text-on-primary font-bold flex items-center justify-center gap-2 tracking-tighter">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">add</span>
+                    NEW_CORRELATION
+                </button>
+</div>
+</div>
+<div class="px-6 pt-4 mt-auto border-t border-outline-variant/10">
+<button class="w-full flex items-center gap-3 py-2 text-[#dee5ff]/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">help</span>
+<span>Help</span>
+</button>
+<button class="w-full flex items-center gap-3 py-2 text-[#dee5ff]/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">terminal</span>
+<span>Console</span>
+</button>
+</div>
+</aside>
+<!-- Main Workspace Area -->
+<main class="ml-64 mt-14 h-[calc(100vh-3.5rem)] flex flex-col bg-surface overflow-hidden relative">
+<!-- Analysis Filters Bar -->
+<div class="h-12 w-full bg-surface-container-low flex items-center px-6 gap-6 z-30">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase tracking-widest">Time Range</span>
+<div class="flex bg-surface-container h-8 items-center px-2 border-l-2 border-primary">
+<span class="text-xs font-mono text-primary px-2">2023-10-24 08:00</span>
+<span class="text-on-surface-variant/40 text-[10px]">&gt;&gt;</span>
+<span class="text-xs font-mono text-primary px-2">2023-10-25 12:00</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase tracking-widest">Confidence Score</span>
+<div class="flex gap-1">
+<div class="w-8 h-1.5 bg-primary"></div>
+<div class="w-8 h-1.5 bg-primary"></div>
+<div class="w-8 h-1.5 bg-primary"></div>
+<div class="w-8 h-1.5 bg-surface-container-highest"></div>
+<span class="text-[10px] font-mono ml-2">75%</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase tracking-widest">Connection Type</span>
+<select class="bg-surface-container-high border-none text-[10px] h-8 text-on-surface focus:ring-0 uppercase font-headline">
+<option>All_Types</option>
+<option>Lateral_Movement</option>
+<option>Data_Exfiltration</option>
+</select>
+</div>
+</div>
+<!-- The Central Canvas & Sidebars -->
+<div class="flex flex-1 overflow-hidden relative">
+<!-- Node-Link Graph Visualization Area -->
+<div class="flex-1 relative bg-surface-dim overflow-hidden flex items-center justify-center">
+<!-- Background Grid -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#7bd0ff 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
+<!-- Mock Graph Nodes -->
+<div class="relative w-full h-full">
+<!-- Central Node -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+<div class="w-16 h-16 bg-primary-container border-2 border-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-primary" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div class="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
+<span class="text-[10px] font-mono bg-primary px-2 py-0.5 text-on-primary font-bold">USER_SVC_SQL</span>
+</div>
+</div>
+<!-- Connection Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none">
+<line stroke="#7bd0ff" stroke-dasharray="4" stroke-width="1" x1="50%" x2="30%" y1="50%" y2="30%"></line>
+<line stroke="#ee7d77" stroke-width="2" x1="50%" x2="70%" y1="50%" y2="25%"></line>
+<line stroke="#7bd0ff" stroke-width="1" x1="50%" x2="65%" y1="50%" y2="70%"></line>
+<line stroke="#7bd0ff" stroke-width="1" x1="30%" x2="20%" y1="30%" y2="55%"></line>
+</svg>
+<!-- Orbiting Nodes -->
+<div class="absolute top-[30%] left-[30%] -translate-x-1/2 -translate-y-1/2 group">
+<div class="w-12 h-12 bg-surface-container-high border border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-xl text-on-surface-variant">dns</span>
+</div>
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] font-mono opacity-60">192.168.1.105</span>
+</div>
+<div class="absolute top-[25%] left-[70%] -translate-x-1/2 -translate-y-1/2 group">
+<div class="w-12 h-12 bg-error-container border border-error flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-xl text-error">warning</span>
+</div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] font-mono text-error font-bold whitespace-nowrap">EXT_MALICIOUS_IP</div>
+</div>
+<div class="absolute top-[70%] left-[65%] -translate-x-1/2 -translate-y-1/2 group">
+<div class="w-12 h-12 bg-surface-container-high border border-outline-variant flex items-center justify-center group-hover:border-primary cursor-pointer">
+<span class="material-symbols-outlined text-xl text-on-surface-variant">description</span>
+</div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-mono opacity-60">dump_hashes.exe</span>
+</div>
+</div>
+<!-- Graph HUD -->
+<div class="absolute bottom-6 left-6 flex gap-2">
+<button class="w-8 h-8 bg-surface-container flex items-center justify-center hover:bg-surface-bright"><span class="material-symbols-outlined text-sm">add</span></button>
+<button class="w-8 h-8 bg-surface-container flex items-center justify-center hover:bg-surface-bright"><span class="material-symbols-outlined text-sm">remove</span></button>
+<button class="w-8 h-8 bg-surface-container flex items-center justify-center hover:bg-surface-bright"><span class="material-symbols-outlined text-sm">center_focus_strong</span></button>
+</div>
+</div>
+<!-- Right Sidebar: Relationship Properties -->
+<aside class="w-80 bg-surface-container-low border-l-0 overflow-y-auto flex flex-col">
+<div class="p-6">
+<h3 class="text-xs font-headline font-bold text-primary uppercase tracking-widest mb-4">Link Logic</h3>
+<div class="space-y-4">
+<div class="bg-surface-container p-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-mono text-on-surface-variant">RELATION_ID</span>
+<span class="text-[10px] font-mono text-primary">#R-8821</span>
+</div>
+<h4 class="text-sm font-bold mb-1">Sequential Access</h4>
+<p class="text-[10px] text-on-surface-variant leading-relaxed">Multiple file read operations occurring within <span class="text-tertiary">200ms</span> of login from <span class="text-primary">USER_SVC_SQL</span>.</p>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-headline font-bold text-on-surface-variant uppercase">Logic Definitions</label>
+<div class="flex items-center justify-between p-3 bg-surface-container-high border-l-2 border-primary">
+<span class="text-[10px] font-mono">Shared IP Address</span>
+<span class="material-symbols-outlined text-xs text-primary">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer">
+<span class="text-[10px] font-mono">Common MD5 Hash</span>
+<span class="material-symbols-outlined text-xs text-on-surface-variant/20">radio_button_unchecked</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer">
+<span class="text-[10px] font-mono">Simultaneous Auth</span>
+<span class="material-symbols-outlined text-xs text-on-surface-variant/20">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<h3 class="text-xs font-headline font-bold text-primary uppercase tracking-widest mb-4">Properties</h3>
+<div class="space-y-3">
+<div class="flex flex-col gap-1">
+<span class="text-[9px] text-on-surface-variant uppercase">Weight Multiplier</span>
+<input class="accent-primary bg-surface-container h-1 appearance-none" type="range"/>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-4">
+<button class="py-2 bg-surface-container-highest text-[10px] font-bold text-primary border border-primary/20">EXPORT_LOGIC</button>
+<button class="py-2 bg-error-container text-[10px] font-bold text-error border border-error/20">DELETE_LINK</button>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Bottom Panel: Correlation Sequence -->
+<div class="h-48 bg-surface-container-low border-t-0 p-6 z-30">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center gap-3">
+<h3 class="text-xs font-headline font-bold text-primary uppercase tracking-widest">Correlation Sequence</h3>
+<span class="text-[10px] font-mono bg-surface-container px-2 py-0.5 text-on-surface-variant">ACTIVE_PATH: P-04</span>
+</div>
+<div class="flex gap-4">
+<span class="text-[10px] font-mono text-tertiary">LATENCY_ANOMALY: +450ms</span>
+<span class="text-[10px] font-mono text-primary">NODES: 07</span>
+</div>
+</div>
+<!-- Mini Timeline / Path Viz -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-2">
+<!-- Step 1 -->
+<div class="flex items-center flex-shrink-0">
+<div class="bg-surface-container border-l-2 border-primary p-3 w-40">
+<div class="text-[9px] font-mono text-on-surface-variant/60 mb-1">08:00:12.44</div>
+<div class="text-[10px] font-bold text-primary uppercase truncate">AUTH_SUCCESS</div>
+<div class="text-[9px] font-mono text-on-surface truncate">USER_SVC_SQL</div>
+</div>
+<div class="w-6 h-[1px] bg-outline-variant"></div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-center flex-shrink-0">
+<div class="bg-surface-container border-l-2 border-primary p-3 w-40">
+<div class="text-[9px] font-mono text-on-surface-variant/60 mb-1">08:00:13.01</div>
+<div class="text-[10px] font-bold text-primary uppercase truncate">FILE_QUERY</div>
+<div class="text-[9px] font-mono text-on-surface truncate">master.db/hashes</div>
+</div>
+<div class="w-6 h-[1px] bg-outline-variant"></div>
+</div>
+<!-- Step 3 (Highlight) -->
+<div class="flex items-center flex-shrink-0">
+<div class="bg-error-container/20 border-l-2 border-error p-3 w-40 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-8 h-8 bg-error/10 rotate-45 translate-x-4 -translate-y-4"></div>
+<div class="text-[9px] font-mono text-error/60 mb-1">08:00:14.22</div>
+<div class="text-[10px] font-bold text-error uppercase truncate">EXFIL_DETECTED</div>
+<div class="text-[9px] font-mono text-on-surface truncate">TCP: 45.12.33.2</div>
+</div>
+<div class="w-6 h-[1px] bg-outline-variant"></div>
+</div>
+<!-- Step 4 -->
+<div class="flex items-center flex-shrink-0">
+<div class="bg-surface-container border-l-2 border-primary p-3 w-40 opacity-40">
+<div class="text-[9px] font-mono text-on-surface-variant/60 mb-1">08:00:15.89</div>
+<div class="text-[10px] font-bold text-primary uppercase truncate">LOG_WIPE_ATTEMPT</div>
+<div class="text-[9px] font-mono text-on-surface truncate">SVC_EVENT_LOG</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Buttons for Evidence Handling -->
+<div class="fixed bottom-24 right-8 flex flex-col gap-3 z-50">
+<button class="w-12 h-12 bg-surface-container-highest border border-primary/20 text-primary flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all group" title="Snapshot Canvas">
+<span class="material-symbols-outlined">camera</span>
+</button>
+<button class="w-12 h-12 bg-primary text-on-primary flex items-center justify-center font-bold" title="Generate Report">
+<span class="material-symbols-outlined">description</span>
+</button>
+</div>
+</body></html>

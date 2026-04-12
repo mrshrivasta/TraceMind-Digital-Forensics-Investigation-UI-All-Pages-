@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS | Case Report Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container-lowest": "#000000",
+                "surface-dim": "#060e20",
+                "on-secondary-fixed-variant": "#4e5d6f",
+                "on-error": "#490106",
+                "secondary-container": "#2e3c4e",
+                "on-primary": "#004560",
+                "inverse-surface": "#faf8ff",
+                "on-tertiary-fixed-variant": "#563400",
+                "error-dim": "#bb5551",
+                "surface-tint": "#7bd0ff",
+                "on-surface-variant": "#91aaeb",
+                "primary-fixed-dim": "#a2dcff",
+                "on-background": "#dee5ff",
+                "surface-bright": "#002867",
+                "primary-container": "#004c69",
+                "tertiary-fixed": "#f8a010",
+                "surface-container-low": "#06122d",
+                "primary-fixed": "#c4e7ff",
+                "surface-container": "#05183c",
+                "error-container": "#7f2927",
+                "on-secondary": "#122131",
+                "surface": "#060e20",
+                "tertiary-container": "#f8a010",
+                "inverse-primary": "#00668b",
+                "on-primary-container": "#97d8ff",
+                "on-secondary-container": "#b1c0d6",
+                "secondary": "#909fb4",
+                "on-tertiary": "#573500",
+                "primary": "#7bd0ff",
+                "inverse-on-surface": "#4d556b",
+                "secondary-fixed-dim": "#c6d6ec",
+                "surface-variant": "#00225a",
+                "on-tertiary-container": "#4a2c00",
+                "on-error-container": "#ff9993",
+                "outline": "#5b74b1",
+                "surface-container-high": "#031d4b",
+                "outline-variant": "#2b4680",
+                "on-tertiary-fixed": "#2a1700",
+                "error": "#ee7d77",
+                "background": "#060e20",
+                "secondary-fixed": "#d4e4fa",
+                "tertiary-fixed-dim": "#e79400",
+                "on-surface": "#dee5ff",
+                "on-primary-fixed-variant": "#006286",
+                "on-primary-fixed": "#00445e",
+                "tertiary-dim": "#e79400",
+                "primary-dim": "#47c4ff",
+                "on-secondary-fixed": "#324052",
+                "surface-container-highest": "#00225a",
+                "secondary-dim": "#909fb4",
+                "tertiary": "#ffb148"
+            },
+            "borderRadius": {
+                "DEFAULT": "0rem",
+                "lg": "0rem",
+                "xl": "0rem",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Space Grotesk"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-14 w-full bg-[#060e20] border-b-0">
+<div class="flex items-center gap-8">
+<div class="text-lg font-bold tracking-tighter text-[#7bd0ff]">SENTINEL_FORENSICS</div>
+<nav class="hidden md:flex gap-6">
+<a class="text-[#7bd0ff] font-bold font-['Space_Grotesk'] tracking-tight text-sm active:scale-95 duration-150" href="#">Case #8821-X</a>
+<a class="text-[#dee5ff]/60 font-['Space_Grotesk'] tracking-tight text-sm hover:bg-[#031d4b] transition-colors duration-150 active:scale-95" href="#">Investigator Logs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="p-2 text-[#7bd0ff] hover:bg-[#031d4b] duration-150"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-[#7bd0ff] hover:bg-[#031d4b] duration-150"><span class="material-symbols-outlined">settings</span></button>
+<button class="p-2 text-[#7bd0ff] hover:bg-[#031d4b] duration-150"><span class="material-symbols-outlined">help</span></button>
+</div>
+<button class="bg-[#004c69] text-[#7bd0ff] px-4 py-1.5 text-xs font-bold tracking-widest active:scale-95 duration-150 uppercase">CLOSE_CASE</button>
+<img alt="Investigator Profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="close-up of professional cyber forensics investigator profile photo with cool blue laboratory lighting background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgv0AoKF0EyAORZTjcWQDix1KK-Kk_q1rm9n2GXxoqD7GE746M23jRSyIzmAE9NPsdV71U-ez7ygWasAAdI8qgVG1V-khkanSDbYZwz2tExISD-4fvx09WnjGr2U7qhT9g6dVxBVjJPzlQczOig2dWBzQcrMydmYeWkQL4Falw7Sdn6jVRvcl1_Hb73Ll1sz5t0FDS642fT2O3NzgCQPN47ZCBDOlWqHBI5hzEjnSaXuMqj24kiE1cZ4owremw28NsyQ-BnTxsV5w"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-64 bg-[#06122d] border-r-0 flex flex-col py-4 z-40">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#7bd0ff]" style="font-variation-settings: 'FILL' 1;">folder_managed</span>
+<div>
+<h2 class="text-[#7bd0ff] font-black font-['Space_Grotesk'] text-xs uppercase tracking-widest">Case Analysis</h2>
+<p class="text-[#dee5ff]/40 text-[10px] font-mono">V2.4.0-STABLE</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/50 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all duration-150 font-['Space_Grotesk'] text-xs font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> Summary
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/50 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all duration-150 font-['Space_Grotesk'] text-xs font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="fingerprint">fingerprint</span> Evidence Findings
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 bg-[#031d4b] text-[#7bd0ff] border-l-2 border-[#7bd0ff] transition-all duration-150 font-['Space_Grotesk'] text-xs font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span> Timeline Highlights
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/50 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all duration-150 font-['Space_Grotesk'] text-xs font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span> Export Settings
+            </a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="flex items-center gap-4 py-3 text-[#dee5ff]/50 hover:text-[#7bd0ff] font-['Space_Grotesk'] text-xs font-medium tracking-wide">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span> System Health
+            </div>
+</div>
+</aside>
+<!-- Main Content Stage -->
+<main class="ml-64 mt-14 p-8 bg-surface min-h-[calc(100vh-3.5rem)]">
+<!-- Case Header -->
+<section class="mb-8 flex justify-between items-end">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<span class="px-2 py-0.5 bg-primary-container text-on-primary-container text-[10px] font-bold tracking-tighter uppercase">Investigation Active</span>
+<span class="text-on-surface-variant text-[10px] font-mono tracking-widest">TS-CLEARANCE: LEVEL 4</span>
+</div>
+<h1 class="text-4xl font-extrabold tracking-tighter text-on-surface mb-1 uppercase">CASE #8821-X: SYSTEM_INFILTRATION</h1>
+<p class="text-on-surface-variant font-mono text-sm">LEAD INVESTIGATOR: <span class="text-primary">AGENT_SARAH_CONNOR</span> | START_DATE: 2023.10.12</p>
+</div>
+<div class="text-right">
+<div class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">Last Modification</div>
+<div class="font-mono text-sm text-primary">2023.11.04 14:22:01 UTC</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-1">
+<!-- Report Progress (Module Completion) -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-low p-6 flex flex-col gap-6">
+<h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">monitoring</span> Report Generation Status
+                </h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-[11px] mb-2 font-mono">
+<span class="text-on-surface">Executive Summary</span>
+<span class="text-primary">100%</span>
+</div>
+<div class="h-1 bg-surface-container-high w-full">
+<div class="h-full bg-primary" style="width: 100%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] mb-2 font-mono">
+<span class="text-on-surface">Technical Findings</span>
+<span class="text-primary">85%</span>
+</div>
+<div class="h-1 bg-surface-container-high w-full">
+<div class="h-full bg-primary" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] mb-2 font-mono">
+<span class="text-on-surface">Chain of Custody</span>
+<span class="text-primary">100%</span>
+</div>
+<div class="h-1 bg-surface-container-high w-full">
+<div class="h-full bg-primary" style="width: 100%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] mb-2 font-mono">
+<span class="text-on-surface-variant">Appendix &amp; Artifacts</span>
+<span class="text-tertiary">42%</span>
+</div>
+<div class="h-1 bg-surface-container-high w-full">
+<div class="h-full bg-tertiary" style="width: 42%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Key Findings Summary -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-high p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Critical Forensic Artifacts
+                    </h3>
+<span class="text-[10px] bg-error-container text-on-error-container px-2 py-0.5 font-bold uppercase tracking-tighter">High Severity Alert</span>
+</div>
+<div class="grid grid-cols-2 gap-4 flex-1">
+<div class="bg-surface-container p-4 border-l-2 border-error">
+<div class="text-[10px] font-mono text-error uppercase mb-2">Registry Inconsistency</div>
+<p class="text-sm text-on-surface font-medium leading-snug">Hidden registry key discovered at HKLM:\SOFTWARE\WOW6432Node\System32Svc with persistence flags.</p>
+<div class="mt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">history</span>
+<span class="text-[10px] font-mono text-on-surface-variant">T1543.003 - MITRE ATT&amp;CK</span>
+</div>
+</div>
+<div class="bg-surface-container p-4 border-l-2 border-tertiary">
+<div class="text-[10px] font-mono text-tertiary uppercase mb-2">Encrypted Tunneling</div>
+<p class="text-sm text-on-surface font-medium leading-snug">Outbound traffic on Port 443 identified with non-standard SSL certificate patterns to unknown RU-based IP.</p>
+<div class="mt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">lan</span>
+<span class="text-[10px] font-mono text-on-surface-variant">IP: 91.241.12.84</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Evidence Statistics -->
+<div class="col-span-12 md:col-span-7 bg-surface-container-low p-6">
+<h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-6">Evidence Volume Distribution</h3>
+<div class="flex items-end gap-2 h-48">
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 h-full relative">
+<div class="absolute bottom-0 w-full bg-primary" style="height: 85%"></div>
+</div>
+<span class="text-[9px] font-mono text-on-surface-variant uppercase">Storage</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 h-full relative">
+<div class="absolute bottom-0 w-full bg-primary" style="height: 45%"></div>
+</div>
+<span class="text-[9px] font-mono text-on-surface-variant uppercase">Network</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 h-full relative">
+<div class="absolute bottom-0 w-full bg-primary" style="height: 65%"></div>
+</div>
+<span class="text-[9px] font-mono text-on-surface-variant uppercase">Memory</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 h-full relative">
+<div class="absolute bottom-0 w-full bg-primary" style="height: 25%"></div>
+</div>
+<span class="text-[9px] font-mono text-on-surface-variant uppercase">Registry</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/20 h-full relative">
+<div class="absolute bottom-0 w-full bg-primary" style="height: 15%"></div>
+</div>
+<span class="text-[9px] font-mono text-on-surface-variant uppercase">Logs</span>
+</div>
+</div>
+<div class="mt-6 grid grid-cols-3 border-t border-outline-variant pt-4">
+<div>
+<div class="text-[10px] text-on-surface-variant uppercase">Total Files</div>
+<div class="text-xl font-headline font-bold text-on-surface">1.4M+</div>
+</div>
+<div>
+<div class="text-[10px] text-on-surface-variant uppercase">Analyzed Size</div>
+<div class="text-xl font-headline font-bold text-on-surface">12.4 TB</div>
+</div>
+<div>
+<div class="text-[10px] text-on-surface-variant uppercase">Flagged Items</div>
+<div class="text-xl font-headline font-bold text-error">482</div>
+</div>
+</div>
+</div>
+<!-- Export / Distribution Panel -->
+<div class="col-span-12 md:col-span-5 bg-surface-container p-6">
+<h3 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-6">Export &amp; Distribution</h3>
+<div class="space-y-2">
+<button class="w-full text-left bg-surface-container-high hover:bg-primary-container p-3 flex justify-between items-center transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">picture_as_pdf</span>
+<div>
+<div class="text-xs font-bold text-on-surface uppercase">Full PDF Report</div>
+<div class="text-[9px] text-on-surface-variant font-mono">ENCRYPTED | V1.4.2</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-primary">download</span>
+</button>
+<button class="w-full text-left bg-surface-container-high hover:bg-primary-container p-3 flex justify-between items-center transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">folder_zip</span>
+<div>
+<div class="text-xs font-bold text-on-surface uppercase">Evidence Archive (Raw)</div>
+<div class="text-[9px] text-on-surface-variant font-mono">7-ZIP LZS64 | AES-256</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-primary">lock</span>
+</button>
+<button class="w-full text-left bg-surface-container-high hover:bg-primary-container p-3 flex justify-between items-center transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">share</span>
+<div>
+<div class="text-xs font-bold text-on-surface uppercase">Secure Transmission</div>
+<div class="text-[9px] text-on-surface-variant font-mono">SEND TO: DOJ_PORTAL_ST-1</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[16px] text-primary">send</span>
+</button>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant">
+<h4 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-3">Recent Logs</h4>
+<ul class="space-y-2 font-mono text-[9px] text-on-surface-variant">
+<li class="flex justify-between"><span>PDF_GEN_SYS</span> <span class="text-on-surface">SUCCESS</span></li>
+<li class="flex justify-between"><span>ENCRYPT_AES_256</span> <span class="text-on-surface">VERIFIED</span></li>
+<li class="flex justify-between"><span>RECIP_AGENT_F</span> <span class="text-primary">PENDING</span></li>
+</ul>
+</div>
+</div>
+<!-- Investigator Attestation -->
+<div class="col-span-12 bg-surface-container-highest p-8 border-t border-primary/20">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="max-w-2xl">
+<h3 class="text-lg font-headline font-bold text-on-surface mb-2 tracking-tight uppercase italic">Digital Forensics Attestation</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed font-light">
+                            I hereby attest that the forensic analysis documented in this report has been conducted in accordance with established digital forensic principles and the Chain of Custody has been preserved throughout the lifecycle of the investigation. All evidence presented is true to the best of my expert knowledge and professional judgment.
+                        </p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-64 h-24 bg-surface-container-low flex items-center justify-center border-b border-primary/50 relative">
+<span class="font-['Space_Grotesk'] text-primary/30 absolute top-2 left-2 text-[8px] uppercase font-bold">Encrypted Signature Hash</span>
+<div class="text-primary font-mono text-xs opacity-80 tracking-widest">
+                                0xAF32...E99B2
+                            </div>
+<!-- Mock signature line -->
+<img alt="Digital Signature" class="h-16 mix-blend-screen opacity-90" data-alt="clean digital electronic signature on dark background with blue glowing lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMPsDSqLWw2WZmTR1k7szGyyfqbIHvsYg5Zvf_RKYOeuRjVKH0NlDe76yRyaClGGJ_Gk5xK2gmxSgT13AQ1PUUqBWp2LjCCaTDemJ6FDxX2sdNYjEs0SqIa5WJQ-WgCTTg8fStiTWBmFX_W9vIuK3klsTrQkAFdsZV--6eZurE17EotrFTwcHfvMkE5yLmVQRxp37fWW0RQFiP54XHIM5SQ43LqujWvsjycwyjVe7RdZ4KS08w0NOmmSE13FqgbG_ElvxVKZJvZ0Y"/>
+</div>
+<div class="text-center">
+<div class="text-xs font-bold text-on-surface">AGENT SARAH CONNOR</div>
+<div class="text-[10px] font-mono text-on-surface-variant">DFA-CERT #9822-LC23</div>
+<div class="text-[10px] font-mono text-primary mt-1 uppercase tracking-widest">Signed: 2023.11.04 15:44:12</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- System Footer Metadata -->
+<footer class="mt-12 flex justify-between items-center text-[9px] font-mono text-on-surface-variant uppercase tracking-[0.2em]">
+<div>Sentinel Forensics Suite v2.4.0 (Stable-Build)</div>
+<div class="flex gap-6">
+<span>Memory: 24.1 / 128.0 GB</span>
+<span>CPU: 12% Load</span>
+<span>Encryption: RSA-4096</span>
+</div>
+<div>© 2023 Cyber Defense Command</div>
+</footer>
+</main>
+</body></html>

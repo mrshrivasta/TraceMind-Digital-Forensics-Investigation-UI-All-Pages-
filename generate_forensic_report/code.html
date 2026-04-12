@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Generate Report | SENTINEL FORENSICS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#c4e7ff",
+                    "surface-variant": "#00225a",
+                    "surface-tint": "#7bd0ff",
+                    "background": "#060e20",
+                    "error": "#ee7d77",
+                    "on-surface-variant": "#91aaeb",
+                    "tertiary-fixed-dim": "#e79400",
+                    "primary": "#7bd0ff",
+                    "on-secondary-fixed": "#324052",
+                    "tertiary": "#ffb148",
+                    "primary-container": "#004c69",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-high": "#031d4b",
+                    "on-primary-fixed-variant": "#006286",
+                    "on-secondary-fixed-variant": "#4e5d6f",
+                    "surface-dim": "#060e20",
+                    "surface-bright": "#002867",
+                    "on-surface": "#dee5ff",
+                    "inverse-on-surface": "#4d556b",
+                    "surface-container": "#05183c",
+                    "on-secondary-container": "#b1c0d6",
+                    "outline-variant": "#2b4680",
+                    "on-primary": "#004560",
+                    "error-dim": "#bb5551",
+                    "tertiary-container": "#f8a010",
+                    "secondary-container": "#2e3c4e",
+                    "surface-container-lowest": "#000000",
+                    "inverse-surface": "#faf8ff",
+                    "on-error": "#490106",
+                    "secondary-dim": "#909fb4",
+                    "on-tertiary-fixed-variant": "#563400",
+                    "secondary": "#909fb4",
+                    "on-background": "#dee5ff",
+                    "primary-fixed-dim": "#a2dcff",
+                    "on-secondary": "#122131",
+                    "tertiary-fixed": "#f8a010",
+                    "tertiary-dim": "#e79400",
+                    "error-container": "#7f2927",
+                    "inverse-primary": "#00668b",
+                    "surface": "#060e20",
+                    "surface-container-highest": "#00225a",
+                    "surface-container-low": "#06122d",
+                    "on-primary-fixed": "#00445e",
+                    "secondary-fixed-dim": "#c6d6ec",
+                    "on-tertiary-container": "#4a2c00",
+                    "primary-dim": "#47c4ff",
+                    "on-tertiary": "#573500",
+                    "secondary-fixed": "#d4e4fa",
+                    "outline": "#5b74b1",
+                    "on-error-container": "#ff9993",
+                    "on-primary-container": "#97d8ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"],
+                    "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #060e20; }
+        ::-webkit-scrollbar-thumb { background: #2b4680; }
+        .glass-panel {
+            background: linear-gradient(180deg, rgba(123, 208, 255, 0.05) 0%, rgba(0, 76, 105, 0.05) 100%);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 w-full bg-[#060e20] border-none font-['Space_Grotesk'] tracking-tight">
+<div class="text-xl font-bold tracking-widest text-[#7bd0ff] uppercase">SENTINEL FORENSICS</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors duration-150" href="#">Dashboard</a>
+<a class="text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors duration-150" href="#">Investigations</a>
+<a class="text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors duration-150" href="#">Archive</a>
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] pb-1 hover:text-[#7bd0ff] transition-colors duration-150" href="#">Reports</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors">settings</button>
+<button class="material-symbols-outlined text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors">account_circle</button>
+</div>
+</nav>
+<!-- SideNavBar (Left) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col py-4 bg-[#06122d] border-none font-['Space_Grotesk'] text-sm">
+<div class="px-6 mb-8">
+<div class="text-[#7bd0ff] font-bold">Report Builder</div>
+<div class="text-[10px] text-[#dee5ff]/40 tracking-widest mt-1">CASE_ID: 88-0421</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">dashboard_customize</span>
+<span>Template Gallery</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#7bd0ff] bg-[#031d4b] border-l-4 border-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">segment</span>
+<span>Section Editor</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">database</span>
+<span>Metadata</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span>Peer Review</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+<span>Export</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 flex h-[calc(100vh-64px)] overflow-hidden">
+<!-- Live Preview Stage -->
+<section class="flex-1 bg-surface overflow-y-auto p-12 flex justify-center">
+<div class="w-full max-w-4xl bg-surface-container-low shadow-2xl relative">
+<!-- Watermark Decor -->
+<div class="absolute inset-0 pointer-events-none border border-outline-variant/10 m-4 flex items-center justify-center overflow-hidden opacity-5">
+<span class="text-9xl font-headline font-bold -rotate-45 whitespace-nowrap">CLASSIFIED FORENSICS</span>
+</div>
+<!-- Document Shell -->
+<div class="relative z-10 p-16 min-h-[1100px] flex flex-col gap-12">
+<!-- Header -->
+<header class="flex justify-between items-start border-b border-outline-variant/20 pb-8">
+<div class="flex gap-6">
+<div class="w-16 h-16 bg-primary/20 flex items-center justify-center border border-primary/40">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h1 class="font-headline text-2xl font-bold tracking-tight text-on-surface">CASE SUMMARY REPORT</h1>
+<p class="font-mono text-xs text-on-surface-variant uppercase tracking-widest mt-1">Ref: NY-FED-2024-00129</p>
+</div>
+</div>
+<div class="text-right font-mono text-[10px] text-on-surface-variant leading-relaxed">
+<p>DATE: 2024-10-24 14:22:01 UTC</p>
+<p>AGENCY: SENTINEL GLOBAL INTELLIGENCE</p>
+<p>OFFICER: DET. J. VOIGHT</p>
+</div>
+</header>
+<!-- Section: Executive Summary -->
+<section class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="h-4 w-1 bg-primary"></div>
+<h2 class="font-headline font-bold text-sm tracking-widest uppercase text-primary">01. Executive Overview</h2>
+</div>
+<p class="text-sm leading-relaxed text-on-surface-variant font-light italic">
+                            Preliminary analysis of extracted volatile memory from the target machine (ID: LCK-001) suggests a sophisticated exfiltration event initiated via a spear-phishing vector. Forensic artifacts indicate unauthorized persistent access maintained through a modified binary in the system boot partition.
+                        </p>
+</section>
+<!-- Section: Evidence Matrix -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="h-4 w-1 bg-primary"></div>
+<h2 class="font-headline font-bold text-sm tracking-widest uppercase text-primary">02. Evidence Detail &amp; Hash Validation</h2>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs">
+<thead>
+<tr class="bg-surface-container-high/50 border-b border-outline-variant/30 text-on-surface-variant">
+<th class="py-3 px-4 font-medium tracking-wider">EVIDENCE ID</th>
+<th class="py-3 px-4 font-medium tracking-wider">SOURCE</th>
+<th class="py-3 px-4 font-medium tracking-wider">MD5 HASH SIGNATURE</th>
+<th class="py-3 px-4 font-medium tracking-wider">INTEGRITY</th>
+</tr>
+</thead>
+<tbody class="font-mono">
+<tr class="bg-surface-container-low border-b border-outline-variant/10">
+<td class="py-4 px-4 text-primary">IMG_2024_A1</td>
+<td class="py-4 px-4">NVMe Slot 1</td>
+<td class="py-4 px-4 text-[10px]">7d9c8e1a4f0b2c3d5e6f7a8b9c0d1e2f</td>
+<td class="py-4 px-4">
+<span class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                                                SECURE
+                                            </span>
+</td>
+</tr>
+<tr class="bg-surface-container-high/20 border-b border-outline-variant/10">
+<td class="py-4 px-4 text-primary">MEM_DUMP_04</td>
+<td class="py-4 px-4">DDR4 Bank B</td>
+<td class="py-4 px-4 text-[10px]">a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6</td>
+<td class="py-4 px-4">
+<span class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                                                SECURE
+                                            </span>
+</td>
+</tr>
+<tr class="bg-surface-container-low">
+<td class="py-4 px-4 text-primary">LOG_SYS_EXT</td>
+<td class="py-4 px-4">Cloud Mirror</td>
+<td class="py-4 px-4 text-[10px]">f0e9d8c7b6a5f4e3d2c1b0a9f8e7d6c5</td>
+<td class="py-4 px-4">
+<span class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+                                                PENDING
+                                            </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Page Footer -->
+<footer class="mt-auto pt-8 border-t border-outline-variant/20 flex justify-between items-end font-mono text-[10px] text-on-surface-variant/40">
+<div>
+                            PROTECTED BY AES-256 ENCRYPTION PROTOCOL<br/>
+                            PROPERTY OF SENTINEL FORENSICS UNIT
+                        </div>
+<div class="text-right">
+                            PAGE 01 / 14
+                        </div>
+</footer>
+</div>
+</div>
+</section>
+<!-- Configuration Sidebar (Right) -->
+<aside class="w-80 bg-surface-container-low flex flex-col p-6 overflow-y-auto">
+<h2 class="font-headline font-bold text-xs tracking-[0.2em] uppercase text-on-surface mb-6 border-b border-outline-variant/20 pb-4">Configuration</h2>
+<div class="space-y-8">
+<!-- Template Selection -->
+<div class="space-y-3">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Report Template</label>
+<select class="w-full bg-surface-container text-sm py-3 px-4 border-none focus:ring-0 focus:border-none focus:outline-none appearance-none">
+<option>Full Case Summary</option>
+<option>Executive Overview</option>
+<option>Evidence Detail Only</option>
+</select>
+</div>
+<!-- Report Sections Checklist -->
+<div class="space-y-4">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Inclusion Sections</label>
+<div class="grid gap-2">
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative w-4 h-4 bg-surface-container flex items-center justify-center">
+<input checked="" class="peer hidden" type="checkbox"/>
+<div class="w-2 h-2 bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="text-xs text-on-surface/80 group-hover:text-primary transition-colors">Case Information</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative w-4 h-4 bg-surface-container flex items-center justify-center">
+<input checked="" class="peer hidden" type="checkbox"/>
+<div class="w-2 h-2 bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="text-xs text-on-surface/80 group-hover:text-primary transition-colors">Evidence List</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative w-4 h-4 bg-surface-container flex items-center justify-center">
+<input checked="" class="peer hidden" type="checkbox"/>
+<div class="w-2 h-2 bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="text-xs text-on-surface/80 group-hover:text-primary transition-colors">Investigation Timeline</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative w-4 h-4 bg-surface-container flex items-center justify-center">
+<input class="peer hidden" type="checkbox"/>
+<div class="w-2 h-2 bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="text-xs text-on-surface/60 group-hover:text-primary transition-colors">Log Analysis</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative w-4 h-4 bg-surface-container flex items-center justify-center">
+<input checked="" class="peer hidden" type="checkbox"/>
+<div class="w-2 h-2 bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="text-xs text-on-surface/80 group-hover:text-primary transition-colors">Memory Analysis</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="relative w-4 h-4 bg-surface-container flex items-center justify-center">
+<input class="peer hidden" type="checkbox"/>
+<div class="w-2 h-2 bg-primary opacity-0 peer-checked:opacity-100"></div>
+</div>
+<span class="text-xs text-on-surface/60 group-hover:text-primary transition-colors">Chain of Custody</span>
+</label>
+</div>
+</div>
+<!-- Metadata Inputs -->
+<div class="space-y-4">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Metadata Settings</label>
+<div class="space-y-1 group">
+<label class="text-[9px] text-on-surface-variant/60 ml-2">AUTHOR</label>
+<input class="w-full bg-surface-container border-none text-sm px-4 py-2 focus:ring-0" type="text" value="Det. J. Voight"/>
+</div>
+<div class="space-y-1 group">
+<label class="text-[9px] text-on-surface-variant/60 ml-2">CLASSIFICATION</label>
+<select class="w-full bg-surface-container border-none text-sm px-4 py-2 focus:ring-0 appearance-none text-error">
+<option>Confidential</option>
+<option selected="">Restricted</option>
+<option>Top Secret</option>
+</select>
+</div>
+<div class="space-y-1 group">
+<label class="text-[9px] text-on-surface-variant/60 ml-2">RECIPIENT AGENCY</label>
+<input class="w-full bg-surface-container border-none text-sm px-4 py-2 focus:ring-0" placeholder="e.g. DOJ Forensic Lab" type="text"/>
+</div>
+</div>
+<!-- Primary Action -->
+<div class="pt-4 mt-auto">
+<button class="w-full bg-primary text-on-primary font-headline font-bold py-4 text-xs tracking-[0.2em] flex items-center justify-center gap-2 group transition-all active:scale-95">
+                        GENERATE &amp; EXPORT
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">file_download</span>
+</button>
+<div class="mt-4 flex gap-2">
+<button class="flex-1 border border-outline-variant/30 text-[10px] text-on-surface-variant py-2 hover:bg-surface-container-high transition-colors">PDF (Vector)</button>
+<button class="flex-1 border border-outline-variant/30 text-[10px] text-on-surface-variant py-2 hover:bg-surface-container-high transition-colors">HTML (Raw)</button>
+</div>
+</div>
+</div>
+</aside>
+<!-- Preview Navigation (Contextual Sidebar Right-most or floating) -->
+<nav class="w-16 bg-[#06122d] flex flex-col items-center py-8 gap-6 border-l border-outline-variant/10">
+<button class="w-8 h-8 flex items-center justify-center text-primary bg-primary/10" title="Summary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">list</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary" title="Evidence Table">
+<span class="material-symbols-outlined text-sm">table_rows</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary" title="Log Visuals">
+<span class="material-symbols-outlined text-sm">bar_chart</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary" title="Timeline">
+<span class="material-symbols-outlined text-sm">history</span>
+</button>
+<div class="mt-auto pb-4">
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant/40 hover:text-primary">
+<span class="material-symbols-outlined text-sm">zoom_in</span>
+</button>
+</div>
+</nav>
+</main>
+<!-- Floating Utility Info (Contextual Data Overlay) -->
+<div class="fixed bottom-6 left-72 z-50 glass-panel px-4 py-2 border border-outline-variant/20 flex items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-primary"></div>
+<span class="font-mono text-[10px] text-on-surface-variant">RENDER: STABLE</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-primary"></div>
+<span class="font-mono text-[10px] text-on-surface-variant">PAGES: 14</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-tertiary"></div>
+<span class="font-mono text-[10px] text-on-surface-variant">FLAGS: 02</span>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS | THREAT_INTEL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#5b74b1",
+                    "primary": "#7bd0ff",
+                    "surface-container-lowest": "#000000",
+                    "surface-container-highest": "#00225a",
+                    "surface-container-high": "#031d4b",
+                    "on-error": "#490106",
+                    "secondary-fixed": "#d4e4fa",
+                    "on-primary-fixed-variant": "#006286",
+                    "surface-container-low": "#06122d",
+                    "tertiary": "#ffb148",
+                    "on-tertiary-container": "#4a2c00",
+                    "surface-tint": "#7bd0ff",
+                    "surface-bright": "#002867",
+                    "secondary-fixed-dim": "#c6d6ec",
+                    "tertiary-fixed-dim": "#e79400",
+                    "on-tertiary-fixed-variant": "#563400",
+                    "on-secondary-fixed-variant": "#4e5d6f",
+                    "secondary": "#909fb4",
+                    "surface": "#060e20",
+                    "on-surface-variant": "#91aaeb",
+                    "on-secondary": "#122131",
+                    "on-primary-container": "#97d8ff",
+                    "on-background": "#dee5ff",
+                    "surface-dim": "#060e20",
+                    "surface-container": "#05183c",
+                    "secondary-dim": "#909fb4",
+                    "error-dim": "#bb5551",
+                    "on-primary": "#004560",
+                    "error-container": "#7f2927",
+                    "inverse-surface": "#faf8ff",
+                    "on-secondary-fixed": "#324052",
+                    "tertiary-fixed": "#f8a010",
+                    "on-tertiary": "#573500",
+                    "outline-variant": "#2b4680",
+                    "primary-fixed-dim": "#a2dcff",
+                    "error": "#ee7d77",
+                    "on-error-container": "#ff9993",
+                    "secondary-container": "#2e3c4e",
+                    "on-primary-fixed": "#00445e",
+                    "surface-variant": "#00225a",
+                    "primary-fixed": "#c4e7ff",
+                    "inverse-on-surface": "#4d556b",
+                    "inverse-primary": "#00668b",
+                    "background": "#060e20",
+                    "on-surface": "#dee5ff",
+                    "tertiary-container": "#f8a010",
+                    "primary-dim": "#47c4ff",
+                    "tertiary-dim": "#e79400",
+                    "on-tertiary-fixed": "#2a1700",
+                    "primary-container": "#004c69",
+                    "on-secondary-container": "#b1c0d6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: linear-gradient(180deg, rgba(123, 208, 255, 0.05) 0%, rgba(0, 76, 105, 0) 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary/30 selection:text-primary">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col justify-between py-4 bg-slate-950 text-sky-400 font-['Space_Grotesk'] text-xs uppercase tracking-tighter h-full w-20 flex flex-col border-r-0 z-50">
+<div class="flex flex-col items-center gap-8">
+<div class="text-sky-400 font-black flex flex-col items-center">
+<span class="material-symbols-outlined text-2xl">security</span>
+<span class="mt-1">OP_CENTER</span>
+</div>
+<nav class="flex flex-col w-full">
+<!-- Terminal Active for Intelligence Lookup -->
+<a class="group flex flex-col items-center py-4 transition-all duration-150 text-sky-400 border-l-2 border-sky-400 bg-sky-400/5" href="#">
+<span class="material-symbols-outlined mb-1">terminal</span>
+<span>TERMINAL</span>
+</a>
+<a class="group flex flex-col items-center py-4 transition-all duration-150 text-slate-500 hover:bg-slate-900 hover:text-sky-300" href="#">
+<span class="material-symbols-outlined mb-1">biotech</span>
+<span>SCANNER</span>
+</a>
+<a class="group flex flex-col items-center py-4 transition-all duration-150 text-slate-500 hover:bg-slate-900 hover:text-sky-300" href="#">
+<span class="material-symbols-outlined mb-1">lan</span>
+<span>NETWORK</span>
+</a>
+<a class="group flex flex-col items-center py-4 transition-all duration-150 text-slate-500 hover:bg-slate-900 hover:text-sky-300" href="#">
+<span class="material-symbols-outlined mb-1">folder_open</span>
+<span>FILESYSTEM</span>
+</a>
+<a class="group flex flex-col items-center py-4 transition-all duration-150 text-slate-500 hover:bg-slate-900 hover:text-sky-300" href="#">
+<span class="material-symbols-outlined mb-1">lock</span>
+<span>VAULT</span>
+</a>
+</nav>
+</div>
+<div class="flex flex-col w-full">
+<a class="group flex flex-col items-center py-4 text-slate-500 hover:bg-slate-900 hover:text-sky-300 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mb-1">help</span>
+<span>HELP</span>
+</a>
+<a class="group flex flex-col items-center py-4 text-slate-500 hover:bg-slate-900 hover:text-sky-300 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mb-1">logout</span>
+<span>LOGOUT</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="ml-20 flex flex-col min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-slate-950 flex justify-between items-center w-full px-6 py-3 sticky top-0 z-40 border-none">
+<div class="flex items-center gap-8">
+<div class="text-xl font-bold uppercase tracking-widest text-sky-400 font-['Space_Grotesk'] tracking-tight">
+                    SENTINEL_FORENSICS
+                </div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-sky-400 font-bold border-b-2 border-sky-400 pb-1 font-['Space_Grotesk'] text-sm hover:text-sky-300 transition-colors duration-150" href="#">INTEL_FEED</a>
+<a class="text-slate-400 font-medium font-['Space_Grotesk'] text-sm hover:text-sky-300 transition-colors duration-150" href="#">INVESTIGATIONS</a>
+<a class="text-slate-400 font-medium font-['Space_Grotesk'] text-sm hover:text-sky-300 transition-colors duration-150" href="#">ARCHIVE</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:text-sky-300 transition-opacity active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-slate-400 hover:text-sky-300 transition-opacity active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 bg-surface-container-high border border-outline-variant/30 flex items-center justify-center">
+<img alt="Investigator Profile" data-alt="High-contrast monochromatic avatar of a professional forensic investigator in tactical gear, sharp cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-J4UhJrCB7Jp0mF5GQdRxIuqvqcZxQe3duR1BQOygZyXStXGxnDyvCCD_D0EAYdSZCTBPGeYlL99QlYoqtsbWtn8C7K233iDgNf3i1tkyeiOu2R-httwH4roFpzsIaLhYmvPZplWLrtsZmgkfyBaExP5feWhNBcl2C6nZvJA7CvGHDGQai69wteqvYv4WSWLhA4gB6BfFAFV4WwDllYtX6pDVrsg9hiUlcNUs3AgNfKpRxy1vrc_RVBWK4dDi4_vdN2IB_hDMGAA"/>
+</div>
+</div>
+</header>
+<main class="flex-1 p-6 space-y-6">
+<!-- Quick Stats Bar -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-0 bg-surface-container-low border-b border-outline-variant/10">
+<div class="p-4 border-r border-outline-variant/10 flex flex-col">
+<span class="text-[10px] font-bold text-on-surface-variant tracking-[0.2em] uppercase">Active Feeds</span>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-2xl font-['Space_Grotesk'] text-primary">12</span>
+<div class="flex gap-1">
+<div class="w-1 h-4 bg-primary"></div>
+<div class="w-1 h-4 bg-primary/40"></div>
+<div class="w-1 h-4 bg-primary/20"></div>
+</div>
+</div>
+</div>
+<div class="p-4 border-r border-outline-variant/10 flex flex-col">
+<span class="text-[10px] font-bold text-on-surface-variant tracking-[0.2em] uppercase">Indicators (24h)</span>
+<div class="mt-1">
+<span class="text-2xl font-['Space_Grotesk'] text-tertiary">4,812</span>
+<span class="text-xs text-tertiary/60 ml-2">↑ 12%</span>
+</div>
+</div>
+<div class="p-4 border-r border-outline-variant/10 flex flex-col">
+<span class="text-[10px] font-bold text-on-surface-variant tracking-[0.2em] uppercase">System Trust</span>
+<div class="mt-1 flex items-center gap-2">
+<span class="text-2xl font-['Space_Grotesk'] text-primary">99.4%</span>
+<div class="flex-1 h-1 bg-surface-container-highest max-w-[80px]">
+<div class="h-full bg-primary w-[99%]"></div>
+</div>
+</div>
+</div>
+<div class="p-4 flex flex-col bg-surface-container">
+<span class="text-[10px] font-bold text-on-surface-variant tracking-[0.2em] uppercase">Uplink Status</span>
+<div class="mt-1 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(123,208,255,0.6)]"></span>
+<span class="text-sm font-['Space_Grotesk'] text-on-surface">SYNCHRONIZED</span>
+</div>
+</div>
+</div>
+<!-- Central Search Section -->
+<section class="flex flex-col items-center justify-center py-12 px-4 glass-panel border border-outline-variant/20">
+<div class="w-full max-w-3xl text-center space-y-6">
+<h2 class="text-3xl font-black tracking-tighter text-on-surface headline uppercase">Intelligence Lookup</h2>
+<p class="text-on-surface-variant text-sm max-w-lg mx-auto">Input hash (MD5/SHA256), IP address, domain, or forensic artifact to query the sentinel network.</p>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+<span class="material-symbols-outlined text-primary group-focus-within:animate-pulse">search</span>
+</div>
+<input class="w-full bg-surface-container border-none py-6 pl-14 pr-32 focus:ring-0 focus:border-l-4 focus:border-primary text-xl font-['Space_Grotesk'] text-on-surface placeholder:text-on-surface-variant/30" placeholder="0x8f2c... or 192.168.1.1" type="text"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-2">
+<button class="bg-primary text-on-primary px-6 py-4 font-black text-sm tracking-widest uppercase hover:bg-primary-dim transition-colors">
+                                EXECUTE
+                            </button>
+</div>
+</div>
+<div class="flex flex-wrap justify-center gap-2">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">MD5</span>
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">SHA-256</span>
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">IPv4/v6</span>
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">URL</span>
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider">CVE-ID</span>
+</div>
+</div>
+</section>
+<!-- Main Dashboard Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Recent Investigations -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-low border border-outline-variant/10">
+<div class="p-4 bg-surface-container flex justify-between items-center">
+<h3 class="text-sm font-bold tracking-[0.2em] uppercase text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">history</span>
+                            Recent Investigations
+                        </h3>
+<button class="text-[10px] text-primary font-bold uppercase tracking-widest">View Full Archive</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-high/50">
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Indicator</th>
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Type</th>
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest text-center">Status</th>
+<th class="px-6 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Timestamp</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-mono text-xs text-on-surface">185.122.204.103</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">IP_ADDR</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-block px-2 py-0.5 bg-error/10 text-error text-[10px] font-bold uppercase border border-error/20">Malicious</span>
+</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">2023.10.24 14:22:01</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-mono text-xs text-on-surface">system-update-kb88.exe</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">FILE_HASH</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-block px-2 py-0.5 bg-tertiary/10 text-tertiary text-[10px] font-bold uppercase border border-tertiary/20">Suspicious</span>
+</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">2023.10.24 13:45:12</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-mono text-xs text-on-surface">internal.dev.vault</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">DOMAIN</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-block px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold uppercase border border-primary/20">Clean</span>
+</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">2023.10.24 11:02:44</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-mono text-xs text-on-surface">92.204.1.44</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">IP_ADDR</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-block px-2 py-0.5 bg-error/10 text-error text-[10px] font-bold uppercase border border-error/20">Malicious</span>
+</td>
+<td class="px-6 py-4 text-xs text-on-surface-variant">2023.10.24 09:15:30</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Threat Landscape Visualization -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-low border border-outline-variant/10 p-4">
+<h3 class="text-sm font-bold tracking-[0.2em] uppercase text-on-surface-variant mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-xs">public</span>
+                            Global Hotspots
+                        </h3>
+<div class="aspect-video bg-surface-container relative overflow-hidden">
+<img alt="Global Threat Map" class="w-full h-full object-cover opacity-60" data-alt="Digital world map illustration with neon blue grid lines and pulsing orange clusters showing global cyber threat activity on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhe-5mIy1g_Y4bSKR57YkB3nrEm5nPs11WFTacIyyhoNW_0w4DB0SY-WXNoPP8-LCSWIWBUFGboq5i-GD2i9Vl3G3rdVHatpAC58J_kZ03ssdKt5xcooTo1jcNaxoeTrVepdjBxOWxVptPLfsPoC2tA9-z4Je--HT-d_wskIrhBs5hTdsRrdGVKnChnzrYBlp1o-eSD6a-oohq73U3N6fjweYa2g5NTk2buIuvn-_Gx0SACD8f7C7s9m2aS-O4atXLpVXIErhqQmc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+<!-- Map Overlays -->
+<div class="absolute top-4 right-4 flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-error"></span>
+<span class="text-[9px] font-bold text-on-surface">CRITICAL</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-tertiary"></span>
+<span class="text-[9px] font-bold text-on-surface text-opacity-70">ACTIVE</span>
+</div>
+</div>
+</div>
+<div class="mt-4 space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Region: Eastern Europe</span>
+<span class="text-error font-bold">HIGH</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest">
+<div class="h-full bg-error w-4/5"></div>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Region: East Asia</span>
+<span class="text-tertiary font-bold">MED</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest">
+<div class="h-full bg-tertiary w-1/2"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Integration Management -->
+<section class="space-y-4">
+<h3 class="text-sm font-bold tracking-[0.2em] uppercase text-on-surface-variant px-1">Integration Status</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+<!-- Provider Card 1 -->
+<div class="bg-surface-container-low border border-outline-variant/10 p-3 flex items-center justify-between group hover:border-primary/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center">
+<img alt="VirusTotal" data-alt="Small tech logo representing a virus detection service with dark technical styling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPGhkV3d9UB27uc-RmhybgxNLpUCbbma1ZjABr1k_yFTjNmTWQxLO-Hv5Us1h4O_rAskTy4kZ56ER9Hb8GUR5TLMzlG1reiLdSEoeT4gOyuKvfcejscc5IzcMmEezRAHSqPDqGrKSEmyLlIE2PKMDp18P3De8gHrr-rz4r3s8hkFI0eTRysos7tctlx1wELwI_efSkq_nBY2AzquRNOFgyFKsu4iId7VEU2F6XUEn0QFmDy4J0oVOX8p5uo87vp1amNJXUybV12xw"/>
+</div>
+<div>
+<p class="text-[10px] font-black text-on-surface">VIRUSTOTAL</p>
+<p class="text-[9px] text-primary">ONLINE</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-sm text-primary">link</span>
+</div>
+<!-- Provider Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant/10 p-3 flex items-center justify-between group hover:border-primary/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center">
+<img alt="AlienVault" data-alt="Small tech logo representing a cybersecurity vault service with minimalist blue icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcQ4rcvXWTzOv_OaBR3-oy3F9McPcl-u3iDWV9rdwVN4hU_a7YKr3_Sg-Oo_ss1zJh0jCIa0tQcYuPZ_8UfSDYlaJw3Hw_vQI6rWSOfhabYsyx8ckMm0JFCf95nyjABtPUfidh9FUYF6rtVTfwUcL5maBsVqfr19iBr9nO63T7eUsIkTBBdXCa-KAyIPfIeG1n5iZ2_BCS3U_8EjOQ6jrHfmucCXNGbC95e7GT4k9BlI2_hbbISKGxile4UBa2iKyXyC_vkbYzozo"/>
+</div>
+<div>
+<p class="text-[10px] font-black text-on-surface">ALIENVAULT</p>
+<p class="text-[9px] text-primary">ONLINE</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-sm text-primary">link</span>
+</div>
+<!-- Provider Card 3 -->
+<div class="bg-surface-container-low border border-outline-variant/10 p-3 flex items-center justify-between group border-tertiary/30">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center">
+<img alt="MISP" data-alt="Small technical logo representing a malware intelligence sharing platform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjuGSeNg_0lH7tj51XLHY9_WoDZhpu6RkTcE1pOdoAn8PKBHlsDZpdQ0e2NwtpDX9rxIh09LUGUwmFgyXUCp3t_jO3JAircDHzKSML9Kd7NI8rDSTb_mV1QDqEIdwno66bEeKLKS8BI42tHfMrKTpoP0Zl2ubZq53h3AFjcpGDiAbak0Y7WkPllqTevjjwzOayFHoVazBNXq4YnM5O5G_mxrRefQI32lI3EHR86bwBbnrdJhxkN715e39-zizcYMduA2b_WuGAHdE"/>
+</div>
+<div>
+<p class="text-[10px] font-black text-on-surface">MISP_NODE</p>
+<p class="text-[9px] text-tertiary">PENDING</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-sm text-tertiary" style="font-variation-settings: 'FILL' 1;">sync</span>
+</div>
+<!-- Provider Card 4 -->
+<div class="bg-surface-container-low border border-outline-variant/10 p-3 flex items-center justify-between group hover:border-primary/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center">
+<img alt="Crowdstrike" data-alt="Minimalist cybersecurity company logo in a high-tech frame" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyvMrebt1BiHg3Gl_zbr85Ee8l3lCiNTUUt57EDg-ZkqS7vltFCry5c6uI1HxCpkcJVqxZuUVQAjxGB5JONWi-vCb1gcB9x0pvgt3t4RvFGVephmD57F5ZU2_V81OFRzh8toZZA1arV0WopyrSki84vbEoIcrIkHn7ZWZrEH29nengW9CX5xZxjDvh_dX27TJNdqdBhDJwuULefZhgqeC-SUdanhi2r1-5y-BXSpUU-7zf-QyY2a9pxV_i74j7YV8bdZme_4IIuGA"/>
+</div>
+<div>
+<p class="text-[10px] font-black text-on-surface">FALCON_X</p>
+<p class="text-[9px] text-primary">ONLINE</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-sm text-primary">link</span>
+</div>
+<!-- Provider Card 5 -->
+<div class="bg-surface-container-low border border-outline-variant/10 p-3 flex items-center justify-between opacity-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center">
+<img alt="Add" data-alt="Question mark icon for adding new integration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0IpkkRmKnbWOBIolc7S_NqIFmoQT42UWVB6DI18QDC9jVVJrqhhs50vdbuOh2Fn9aPm7cx-NAtOWyie1gCgBohK6vCGXvgRhtQ3cpqN-0GjBi70tjv3w_DySHJtaSxGahOfNFD1omFYtRh7XzvFGi6LZiK0FUiMjnPurTjec_5N2LVTrtlGJ5oOr7E7tqzjZ82EMqX0mFOmbeb4V7U7RJr3_8xqWL6dSXO0QnnTxCFlSv0AqXnlk8pAo2kxSf_f7wIsH2ZcfI-pM"/>
+</div>
+<div>
+<p class="text-[10px] font-black text-on-surface-variant">SHODAN</p>
+<p class="text-[9px] text-on-surface-variant">DISCONNECTED</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-sm">link_off</span>
+</div>
+<!-- Add New -->
+<button class="bg-surface-container border border-dashed border-outline-variant/30 p-3 flex items-center justify-center gap-2 group hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">add</span>
+<span class="text-[10px] font-black text-on-surface-variant">NEW_SOURCE</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Footer / Data Stream -->
+<footer class="bg-slate-950 border-t border-outline-variant/10 py-2 px-6 flex justify-between items-center text-[9px] font-mono tracking-widest text-slate-500">
+<div class="flex gap-4">
+<span>COORD: 37.7749° N, 122.4194° W</span>
+<span>LATENCY: 14MS</span>
+<span class="text-primary/70">ENCRYPTION: AES-256-GCM</span>
+</div>
+<div class="flex gap-4 items-center">
+<span class="animate-pulse">● LIVE_STREAM_CONNECTED</span>
+<span>V.2.0.48</span>
+</div>
+</footer>
+</div>
+</body></html>

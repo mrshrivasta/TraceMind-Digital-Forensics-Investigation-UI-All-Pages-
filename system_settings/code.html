@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL FORENSICS | CORE_OS Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#e79400",
+                        "on-tertiary": "#573500",
+                        "tertiary-dim": "#e79400",
+                        "on-primary": "#004560",
+                        "inverse-on-surface": "#4d556b",
+                        "primary-fixed": "#c4e7ff",
+                        "on-error": "#490106",
+                        "on-primary-fixed-variant": "#006286",
+                        "background": "#060e20",
+                        "secondary-fixed": "#d4e4fa",
+                        "on-surface-variant": "#91aaeb",
+                        "primary-dim": "#47c4ff",
+                        "on-tertiary-fixed-variant": "#563400",
+                        "surface-dim": "#060e20",
+                        "inverse-primary": "#00668b",
+                        "on-background": "#dee5ff",
+                        "on-surface": "#dee5ff",
+                        "surface-bright": "#002867",
+                        "primary-container": "#004c69",
+                        "on-primary-fixed": "#00445e",
+                        "outline": "#5b74b1",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-lowest": "#000000",
+                        "on-secondary": "#122131",
+                        "surface-tint": "#7bd0ff",
+                        "tertiary-fixed": "#f8a010",
+                        "outline-variant": "#2b4680",
+                        "secondary-container": "#2e3c4e",
+                        "surface": "#060e20",
+                        "inverse-surface": "#faf8ff",
+                        "error-dim": "#bb5551",
+                        "secondary-dim": "#909fb4",
+                        "on-error-container": "#ff9993",
+                        "on-secondary-fixed-variant": "#4e5d6f",
+                        "surface-container": "#05183c",
+                        "tertiary": "#ffb148",
+                        "surface-variant": "#00225a",
+                        "error-container": "#7f2927",
+                        "primary": "#7bd0ff",
+                        "on-primary-container": "#97d8ff",
+                        "on-tertiary-container": "#4a2c00",
+                        "surface-container-highest": "#00225a",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "on-secondary-fixed": "#324052",
+                        "error": "#ee7d77",
+                        "surface-container-low": "#06122d",
+                        "secondary": "#909fb4",
+                        "surface-container-high": "#031d4b",
+                        "tertiary-container": "#f8a010",
+                        "on-secondary-container": "#b1c0d6",
+                        "primary-fixed-dim": "#a2dcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #060e20;
+        }
+        .headline-font { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="bg-[#060e20] dark:bg-[#060e20] fixed top-0 w-full z-50 flex justify-between items-center px-6 h-14 font-['Space_Grotesk'] tracking-tight">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-widest text-[#7bd0ff] uppercase">SENTINEL FORENSICS</span>
+<div class="hidden md:flex items-center bg-[#05183c] px-3 py-1 gap-2">
+<span class="material-symbols-outlined text-[#7bd0ff] text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs text-[#dee5ff]/60 w-64 placeholder:text-[#dee5ff]/30" placeholder="SEARCH_FILES_OR_METADATA..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 p-2"><span class="material-symbols-outlined">settings</span></button>
+<button class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 p-2"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 p-2"><span class="material-symbols-outlined">help</span></button>
+<div class="h-8 w-8 bg-[#031d4b] flex items-center justify-center border border-[#7bd0ff]/20">
+<img alt="Investigator Profile" class="w-6 h-6" data-alt="close-up of a high-tech biometric identification scanner glowing with soft blue light in a dark room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA63yAg33-0zjRGBGECtQ68C9-bpePw7EJdU5T5EEKhiTUZTJGbr7Rup-_5jKIMqYpm_Bt-N8OnwO6LsqA0HM7H3CzqZ7SDy0BlCvkrX6YJROjpC8riO8IYcRqiag1wUoKplJb0fOvONgkf3y2WtXd9xlDMq5tUWFt7UeqY_7vP_tEfu3F7-PpJhtiP5rOCMFnLI2qGwDGCCemJ_t4a1CLpJJK8BVA7BwnaLSWiPQew6stGPgK2t5cDooGY1w4-9jeZZlKSRflWjE"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="bg-[#06122d] dark:bg-[#06122d] flex flex-col h-full fixed left-0 top-0 pt-14 w-64 font-['Space_Grotesk'] text-sm uppercase tracking-wider hidden md:flex">
+<div class="p-6 flex flex-col gap-1 border-b border-[#031d4b]">
+<span class="text-[#7bd0ff] font-black tracking-[0.2em]">CORE_OS</span>
+<span class="text-[10px] text-[#7bd0ff]/50">V.2.4.0-STABLE</span>
+<div class="mt-4 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">memory</span>
+</div>
+<div>
+<div class="text-[10px] text-on-surface-variant leading-none">UNIT_ID</div>
+<div class="text-xs font-bold text-on-surface">SENTINEL UNIT 01</div>
+</div>
+</div>
+</div>
+<div class="flex-1 py-4">
+<nav class="flex flex-col">
+<!-- General: Inactive -->
+<a class="text-[#dee5ff]/70 hover:bg-[#031d4b]/50 px-6 py-3 flex items-center gap-3 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined">settings_applications</span> General
+                </a>
+<!-- Security: Active -->
+<a class="bg-[#031d4b] text-[#7bd0ff] border-l-2 border-[#7bd0ff] px-6 py-3 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">security</span> Security
+                </a>
+<!-- Integrations -->
+<a class="text-[#dee5ff]/70 hover:bg-[#031d4b]/50 px-6 py-3 flex items-center gap-3 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined">extension</span> Integrations
+                </a>
+<!-- Storage -->
+<a class="text-[#dee5ff]/70 hover:bg-[#031d4b]/50 px-6 py-3 flex items-center gap-3 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined">database</span> Storage
+                </a>
+<!-- System Logs -->
+<a class="text-[#dee5ff]/70 hover:bg-[#031d4b]/50 px-6 py-3 flex items-center gap-3 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined">terminal</span> System Logs
+                </a>
+</nav>
+</div>
+<div class="p-4 border-t border-[#031d4b]">
+<button class="w-full bg-[#7bd0ff] text-[#004560] py-3 text-xs font-bold tracking-[0.1em] hover:bg-[#47c4ff] active:bg-[#00668b] transition-colors">
+                RUN DIAGNOSTICS
+            </button>
+<a class="mt-4 text-[#dee5ff]/70 hover:bg-[#031d4b]/50 px-4 py-3 flex items-center gap-3 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined">logout</span> Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:pl-64 pt-14 min-h-screen">
+<div class="max-w-7xl mx-auto p-8 lg:p-12">
+<!-- Header Section -->
+<header class="mb-12">
+<h1 class="headline-font text-4xl font-extrabold tracking-tight text-on-surface mb-2 uppercase">System Configuration</h1>
+<div class="flex items-center gap-3 text-on-surface-variant font-mono text-xs">
+<span class="flex items-center gap-1"><span class="w-2 h-2 bg-primary rounded-full"></span> STATION_ACTIVE</span>
+<span class="text-outline-variant">|</span>
+<span>LAST_MODIFIED: 2023.10.27_14:02:01</span>
+</div>
+</header>
+<!-- Settings Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+<!-- LEFT COLUMN: General & Security -->
+<div class="xl:col-span-7 space-y-8">
+<!-- Section: General Settings -->
+<section class="bg-surface-container-low p-6 border-l-4 border-primary">
+<div class="flex items-center justify-between mb-6">
+<h2 class="headline-font text-lg font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">settings_applications</span> GENERAL_PREFERENCES
+                            </h2>
+<span class="text-[10px] text-on-surface-variant font-mono">ID: CFG_GEN_01</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Application Theme</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="bg-surface-container-high border border-primary p-3 flex items-center justify-center gap-2 text-xs font-bold text-primary">
+<span class="w-3 h-3 bg-[#060e20] border border-primary/30"></span> CIPHER OBSIDIAN
+                                    </button>
+<button class="bg-surface-container hover:bg-surface-container-high transition-colors p-3 flex items-center justify-center gap-2 text-xs font-bold text-on-surface-variant">
+<span class="w-3 h-3 bg-[#1e293b] border border-white/10"></span> SENTINEL CORE
+                                    </button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Global Language</label>
+<select class="w-full bg-surface-container text-on-surface text-sm border-none focus:ring-2 focus:ring-primary h-10 px-4">
+<option>English (US) - UTF-8</option>
+<option>Deutsch (DE) - ISO</option>
+<option>日本語 (JP) - SHIFT_JIS</option>
+</select>
+</div>
+</div>
+<div class="mt-6 p-4 bg-surface-container">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs font-bold text-on-surface">COMPACT_UI_MODE</p>
+<p class="text-[10px] text-on-surface-variant">Maximize information density for multi-monitor setups</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none">
+<div class="block overflow-hidden h-5 rounded-none bg-primary-container"></div>
+<div class="absolute block w-5 h-5 bg-primary top-0 right-0 cursor-pointer"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Security & Authentication -->
+<section class="bg-surface-container-low p-6">
+<div class="flex items-center justify-between mb-6">
+<h2 class="headline-font text-lg font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">lock</span> SECURITY_AUTH
+                            </h2>
+<span class="text-[10px] text-on-surface-variant font-mono">ID: CFG_SEC_99</span>
+</div>
+<div class="space-y-6">
+<div class="bg-surface p-4 border border-outline-variant/20">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest mb-3 block">Forensic API Keys</label>
+<div class="space-y-3">
+<div class="flex gap-2">
+<div class="flex-1 relative">
+<div class="absolute left-0 top-0 w-1 h-full bg-primary"></div>
+<input class="w-full bg-surface-container-high border-none text-xs font-mono py-2 pl-4 text-primary" type="password" value="••••••••••••••••••••••••••••••"/>
+</div>
+<span class="bg-secondary-container px-3 flex items-center text-[10px] font-bold text-on-secondary-container">VIRUSTOTAL</span>
+</div>
+<div class="flex gap-2">
+<div class="flex-1 relative">
+<div class="absolute left-0 top-0 w-1 h-full bg-outline-variant"></div>
+<input class="w-full bg-surface-container-high border-none text-xs font-mono py-2 pl-4 text-on-surface-variant" placeholder="ENTER_API_KEY..." type="password"/>
+</div>
+<span class="bg-secondary-container px-3 flex items-center text-[10px] font-bold text-on-secondary-container">ALIENVAULT</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container p-4">
+<p class="text-xs font-bold text-on-surface mb-1">SESSION_TIMEOUT</p>
+<div class="flex items-center gap-2">
+<input class="w-16 bg-surface border-none text-sm text-primary p-1 text-center" type="number" value="15"/>
+<span class="text-[10px] text-on-surface-variant font-mono uppercase">Minutes</span>
+</div>
+</div>
+<div class="bg-surface-container p-4 flex items-center justify-between">
+<div>
+<p class="text-xs font-bold text-on-surface">2FA_ENFORCEMENT</p>
+<p class="text-[10px] text-on-surface-variant">Hardware keys required</p>
+</div>
+<div class="relative inline-block w-10 align-middle select-none">
+<div class="block overflow-hidden h-5 rounded-none bg-surface-variant"></div>
+<div class="absolute block w-5 h-5 bg-outline top-0 left-0 cursor-pointer"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN: Protocols, Storage, System -->
+<div class="xl:col-span-5 space-y-8">
+<!-- Section: Forensic Acquisition Protocols -->
+<section class="bg-surface-container-low p-6 border-l-4 border-tertiary">
+<div class="flex items-center justify-between mb-4">
+<h2 class="headline-font text-lg font-bold text-tertiary flex items-center gap-2">
+<span class="material-symbols-outlined">biotech</span> ACQUISITION_PROTOCOLS
+                            </h2>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container p-4">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest block mb-2">Primary Hashing Algorithm</label>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-[10px] font-bold">SHA-256</span>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant text-[10px] font-bold">MD5</span>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant text-[10px] font-bold">SHA-512</span>
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant text-[10px] font-bold">BLAKE3</span>
+</div>
+</div>
+<div class="bg-surface-container p-4">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest block mb-2">Compression Level (GZIP)</label>
+<input class="w-full accent-tertiary h-1 bg-surface-variant appearance-none" type="range"/>
+<div class="flex justify-between text-[10px] font-mono mt-1 text-on-surface-variant">
+<span>FASTEST</span>
+<span>BALANCED</span>
+<span>ULTRA</span>
+</div>
+</div>
+<div class="flex items-center gap-3 bg-surface-container p-4">
+<input checked="" class="rounded-none bg-surface border-none text-tertiary focus:ring-0" type="checkbox"/>
+<span class="text-xs text-on-surface">Auto-extract metadata from EXIF/XMP</span>
+</div>
+</div>
+</section>
+<!-- Section: Storage & Archiving -->
+<section class="bg-surface-container-low p-6">
+<h2 class="headline-font text-lg font-bold text-primary flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined">database</span> STORAGE_ARCHIVE
+                        </h2>
+<div class="space-y-4">
+<div class="space-y-1">
+<label class="text-[10px] font-bold text-on-surface-variant uppercase">Evidence Mount Path</label>
+<div class="flex gap-2">
+<div class="flex-1 bg-surface-container p-2 font-mono text-[11px] text-on-surface truncate">/mnt/sentinel/evidence/cases_2023/</div>
+<button class="bg-surface-variant px-3 py-1 text-[10px] font-bold text-on-surface hover:bg-primary hover:text-on-primary transition-colors">BROWSE</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface p-4 border-t-2 border-primary-container">
+<div class="text-[10px] text-on-surface-variant uppercase mb-1">DISK_USAGE</div>
+<div class="text-xl font-bold text-primary">82.4%</div>
+<div class="w-full bg-surface-container h-1 mt-2">
+<div class="bg-primary h-1" style="width: 82.4%"></div>
+</div>
+</div>
+<div class="bg-surface p-4 border-t-2 border-outline-variant/30">
+<div class="text-[10px] text-on-surface-variant uppercase mb-1">RETENTION</div>
+<div class="text-xl font-bold text-on-surface">365 <span class="text-xs font-normal opacity-60">DAYS</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: System Diagnostics -->
+<section class="bg-surface-container-high p-6 border border-primary/20">
+<div class="flex items-start justify-between">
+<div>
+<h2 class="headline-font text-lg font-bold text-[#7bd0ff] uppercase tracking-tighter">SENTINEL_DIAGNOSTICS</h2>
+<p class="text-[10px] font-mono text-primary/60 mt-1 uppercase">Kernel: 5.15.0-87-focal-forensics</p>
+</div>
+<div class="bg-error-container text-on-error-container text-[10px] px-2 py-1 font-bold">1_UPDATE_AVAILABLE</div>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<button class="flex items-center justify-between p-3 bg-surface hover:bg-surface-bright transition-colors text-xs text-on-surface group">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">refresh</span>
+                                    CHECK_FOR_UPDATES
+                                </span>
+<span class="text-[10px] font-mono opacity-40">AUTO_CHECK_ON</span>
+</button>
+<button class="flex items-center justify-between p-3 bg-surface hover:bg-surface-bright transition-colors text-xs text-on-surface group">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">history</span>
+                                    VIEW_AUDIT_LOGS
+                                </span>
+<span class="text-[10px] font-mono opacity-40">24KB</span>
+</button>
+</div>
+</section>
+</div>
+</div>
+<!-- Global Actions Footer -->
+<footer class="mt-12 flex justify-end gap-4 border-t border-outline-variant/20 pt-8">
+<button class="px-8 py-3 bg-surface-container text-on-surface text-xs font-bold tracking-widest hover:bg-surface-container-high transition-colors">RESET_TO_DEFAULTS</button>
+<button class="px-10 py-3 bg-primary text-on-primary text-xs font-bold tracking-widest hover:bg-primary-dim transition-colors shadow-[0_0_20px_rgba(123,208,255,0.2)]">COMMIT_CHANGES</button>
+</footer>
+</div>
+</main>
+<!-- Mobile BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#06122d] flex items-center justify-around px-4 z-50">
+<button class="flex flex-col items-center gap-1 text-[#dee5ff]/60">
+<span class="material-symbols-outlined">settings_applications</span>
+<span class="text-[10px] uppercase">Gen</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#7bd0ff]">
+<span class="material-symbols-outlined">security</span>
+<span class="text-[10px] uppercase font-bold">Sec</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#dee5ff]/60">
+<span class="material-symbols-outlined">database</span>
+<span class="text-[10px] uppercase">Storage</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#dee5ff]/60">
+<span class="material-symbols-outlined">terminal</span>
+<span class="text-[10px] uppercase">Logs</span>
+</button>
+</nav>
+</body></html>

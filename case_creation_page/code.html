@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cipher Obsidian - New Case Creation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#f8a010",
+                      "on-tertiary": "#573500",
+                      "on-primary-fixed": "#00445e",
+                      "surface-variant": "#00225a",
+                      "primary-fixed": "#c4e7ff",
+                      "inverse-on-surface": "#4d556b",
+                      "on-error-container": "#ff9993",
+                      "secondary-container": "#2e3c4e",
+                      "primary-fixed-dim": "#a2dcff",
+                      "error": "#ee7d77",
+                      "outline-variant": "#2b4680",
+                      "inverse-surface": "#faf8ff",
+                      "error-container": "#7f2927",
+                      "on-secondary-fixed": "#324052",
+                      "primary-dim": "#47c4ff",
+                      "tertiary-container": "#f8a010",
+                      "primary-container": "#004c69",
+                      "on-secondary-container": "#b1c0d6",
+                      "on-tertiary-fixed": "#2a1700",
+                      "tertiary-dim": "#e79400",
+                      "inverse-primary": "#00668b",
+                      "on-surface": "#dee5ff",
+                      "background": "#060e20",
+                      "on-primary-fixed-variant": "#006286",
+                      "surface-container-low": "#06122d",
+                      "surface-bright": "#002867",
+                      "tertiary": "#ffb148",
+                      "on-tertiary-container": "#4a2c00",
+                      "surface-tint": "#7bd0ff",
+                      "primary": "#7bd0ff",
+                      "outline": "#5b74b1",
+                      "surface-container-high": "#031d4b",
+                      "on-error": "#490106",
+                      "secondary-fixed": "#d4e4fa",
+                      "surface-container-lowest": "#000000",
+                      "surface-container-highest": "#00225a",
+                      "on-background": "#dee5ff",
+                      "on-primary-container": "#97d8ff",
+                      "on-primary": "#004560",
+                      "error-dim": "#bb5551",
+                      "surface-dim": "#060e20",
+                      "surface-container": "#05183c",
+                      "secondary-dim": "#909fb4",
+                      "on-tertiary-fixed-variant": "#563400",
+                      "tertiary-fixed-dim": "#e79400",
+                      "secondary-fixed-dim": "#c6d6ec",
+                      "surface": "#060e20",
+                      "on-surface-variant": "#91aaeb",
+                      "on-secondary": "#122131",
+                      "on-secondary-fixed-variant": "#4e5d6f",
+                      "secondary": "#909fb4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0px",
+                      "lg": "0px",
+                      "xl": "0px",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Space Grotesk"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #060e20;
+            color: #dee5ff;
+            font-family: 'Inter', sans-serif;
+        }
+        .technical-label {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-left: 2px solid #7bd0ff !important;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-[#060e20] text-[#7bd0ff] font-['Space_Grotesk'] tracking-tight docked full-width top-0 border-none flex justify-between items-center w-full px-6 h-14 z-50">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-[#7bd0ff] uppercase tracking-widest">SENTINEL_FORENSICS</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors duration-150 py-1" href="#">Dashboard</a>
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] pb-1 hover:text-[#7bd0ff] transition-colors duration-150" href="#">Cases</a>
+<a class="text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors duration-150 py-1" href="#">Evidence</a>
+<a class="text-[#dee5ff]/60 hover:text-[#7bd0ff] transition-colors duration-150 py-1" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#dee5ff]/60 hover:text-[#7bd0ff]">notifications</button>
+<button class="material-symbols-outlined text-[#dee5ff]/60 hover:text-[#7bd0ff]">settings</button>
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center border border-outline-variant/30">
+<img alt="Investigator Profile" class="w-full h-full object-cover" data-alt="close up headshot of a professional investigator with a serious expression and short hair in cool blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB51bUsMnTWosOHL72Wwwf8CP8Ul5IqRA5QRL6EbGxM12R4TNPcZ9GTbpPV871AYPXaOCG9u_09DwOuzYOPzupUNVf_zea6FaPrCv6ctKLOuyQOmEiu_toW9DwqmvAQlaH5t_sI5x7l_5W0FR_r0zNuNNCVRY0XKVTqqJK0iIS_1Hh8rieX2iL2BCkoR1AMQY7uvhNY1qBRW7i3vO7Euuw_6wo6XVsclXXKfS_ExaALABvhx3kBLbXJGafHP4x-v4ADoIRpDtEmxvQ"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-[#06122d] text-[#7bd0ff] font-['Inter'] text-sm uppercase tracking-wider docked left-0 h-full w-64 border-none flex flex-col overflow-hidden shrink-0">
+<div class="p-6 bg-[#031d4b]">
+<div class="text-[#7bd0ff] font-black tracking-tighter">NODE_ALPHA</div>
+<div class="text-[10px] text-[#dee5ff]/40">V.2.0.4-STABLE</div>
+</div>
+<div class="mt-4 flex flex-col grow">
+<a class="text-[#dee5ff]/40 py-3 px-6 flex items-center gap-3 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="radar">radar</span>
+<span>Active Scans</span>
+</a>
+<a class="text-[#dee5ff]/40 py-3 px-6 flex items-center gap-3 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="memory">memory</span>
+<span>Live Memory</span>
+</a>
+<a class="text-[#dee5ff]/40 py-3 px-6 flex items-center gap-3 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="lan">lan</span>
+<span>Network Logs</span>
+</a>
+<a class="text-[#dee5ff]/40 py-3 px-6 flex items-center gap-3 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings_ethernet">settings_ethernet</span>
+<span>Registry</span>
+</a>
+<a class="text-[#dee5ff]/40 py-3 px-6 flex items-center gap-3 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="history">history</span>
+<span>Timeline</span>
+</a>
+</div>
+<div class="p-6">
+<button class="w-full py-3 bg-[#7bd0ff] text-[#004560] font-bold text-xs tracking-widest hover:bg-primary-dim active:opacity-80 transition-all">
+                    NEW_INCIDENT
+                </button>
+</div>
+<div class="mt-auto border-t border-outline-variant/10">
+<a class="text-[#dee5ff]/40 py-3 px-6 flex items-center gap-3 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff]" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help_center">help_center</span>
+<span>Help</span>
+</a>
+<a class="text-[#dee5ff]/40 py-3 px-6 flex items-center gap-3 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff]" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="terminal">terminal</span>
+<span>Terminal</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background p-8">
+<div class="max-w-6xl mx-auto">
+<!-- Header Actions -->
+<div class="flex justify-between items-end mb-8 border-b border-outline-variant/20 pb-6">
+<div>
+<h1 class="text-3xl font-headline font-bold text-on-surface tracking-tight">INITIALIZE CASE</h1>
+<p class="text-on-surface-variant font-label text-sm mt-1">Populating new secure forensic container in CIPHER_OBSIDIAN environment.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 text-primary font-bold text-xs technical-label border border-outline-variant hover:bg-surface-container-high transition-colors">
+                            CANCEL
+                        </button>
+<button class="px-8 py-2 bg-primary text-on-primary font-bold text-xs technical-label hover:bg-primary-dim transition-colors relative overflow-hidden group">
+<span class="relative z-10">SAVE CASE</span>
+<div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100"></div>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-6">
+<!-- Column Left: Primary Data -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<!-- Case Metadata Section -->
+<section class="bg-surface-container-low p-6 space-y-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 text-[10px] technical-label text-outline opacity-30">SECTION_01_META</div>
+<h2 class="technical-label text-primary text-xs font-bold border-l-2 border-primary pl-3">Case Metadata</h2>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Case Identification ID</label>
+<input class="w-full bg-surface-container border-none text-on-surface px-4 py-3 font-mono text-sm focus:bg-surface-container-high transition-all" type="text" value="CASE-2023-09-8812"/>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Case Reference Name</label>
+<input class="w-full bg-surface-container border-none text-on-surface px-4 py-3 text-sm focus:bg-surface-container-high transition-all" placeholder="e.g. Project Cobalt Breach" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Classification Type</label>
+<select class="w-full bg-surface-container border-none text-on-surface px-4 py-3 text-sm focus:bg-surface-container-high appearance-none">
+<option>Internal Investigation</option>
+<option>Criminal Proceeding</option>
+<option>Data Breach Response</option>
+<option>Intellectual Property Theft</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">System Priority Level</label>
+<div class="flex gap-2">
+<button class="flex-1 py-3 text-[10px] technical-label border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">Low</button>
+<button class="flex-1 py-3 text-[10px] technical-label border border-outline-variant text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">Medium</button>
+<button class="flex-1 py-3 text-[10px] technical-label border border-primary text-primary bg-primary-container/20">High</button>
+<button class="flex-1 py-3 text-[10px] technical-label border border-error/50 text-error/80 hover:text-error hover:bg-error-container/10 transition-colors">Critical</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Inquiry Details Section -->
+<section class="bg-surface-container-low p-6 space-y-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 text-[10px] technical-label text-outline opacity-30">SECTION_02_INQUIRY</div>
+<h2 class="technical-label text-primary text-xs font-bold border-l-2 border-primary pl-3">Inquiry Details</h2>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Incident Timestamp</label>
+<input class="w-full bg-surface-container border-none text-on-surface px-4 py-3 text-sm focus:bg-surface-container-high transition-all" type="datetime-local"/>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Discovery Timestamp</label>
+<input class="w-full bg-surface-container border-none text-on-surface px-4 py-3 text-sm focus:bg-surface-container-high transition-all" type="datetime-local"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Incident Narrative / Description</label>
+<textarea class="w-full bg-surface-container border-none text-on-surface px-4 py-4 text-sm focus:bg-surface-container-high transition-all resize-none" placeholder="Provide detailed context regarding the initial findings, indicators of compromise, and reported anomalies..." rows="6"></textarea>
+</div>
+</section>
+</div>
+<!-- Column Right: Secondary/Sidebar -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Team Assignment -->
+<section class="bg-surface-container-low p-6 space-y-6 border-t-2 border-outline-variant">
+<h2 class="technical-label text-primary text-xs font-bold">Team Deployment</h2>
+<div class="space-y-4">
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Lead Investigator</label>
+<div class="flex items-center gap-3 bg-surface-container px-4 py-3">
+<div class="w-6 h-6 bg-primary-container flex items-center justify-center text-[10px] font-bold text-on-primary-container">EH</div>
+<select class="flex-1 bg-transparent border-none text-on-surface text-sm p-0 focus:ring-0">
+<option>Elias Thorne</option>
+<option>Sarah Jenkins</option>
+<option>David Miller</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Secondary Agents</label>
+<div class="bg-surface-container p-3 space-y-2 min-h-[100px]">
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1 bg-secondary-container px-2 py-1 text-[10px] text-on-secondary-container font-medium">
+                                                AGENT_M_VOIGHT
+                                                <button class="material-symbols-outlined text-[12px]">close</button>
+</span>
+<span class="inline-flex items-center gap-1 bg-secondary-container px-2 py-1 text-[10px] text-on-secondary-container font-medium">
+                                                AGENT_K_REESE
+                                                <button class="material-symbols-outlined text-[12px]">close</button>
+</span>
+</div>
+<div class="text-[10px] text-on-surface-variant italic mt-4">+ ADD FIELD OPERATIVE</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Assigned Unit</label>
+<input class="w-full bg-surface-container border-none text-on-surface px-4 py-3 text-sm focus:bg-surface-container-high transition-all" type="text" value="CYBER_CRIME_DIVISION_7"/>
+</div>
+</div>
+</section>
+<!-- Scope & Evidence -->
+<section class="bg-surface-container-low p-6 space-y-6">
+<h2 class="technical-label text-primary text-xs font-bold">Operational Scope</h2>
+<div class="space-y-4">
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Forensic Tags</label>
+<input class="w-full bg-surface-container border-none text-on-surface px-4 py-3 text-sm focus:bg-surface-container-high" placeholder="Press enter to add keyword..." type="text"/>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="px-2 py-0.5 bg-surface-container-high border border-outline-variant/30 text-[9px] technical-label text-on-surface-variant">malware</span>
+<span class="px-2 py-0.5 bg-surface-container-high border border-outline-variant/30 text-[9px] technical-label text-on-surface-variant">exfiltration</span>
+<span class="px-2 py-0.5 bg-surface-container-high border border-outline-variant/30 text-[9px] technical-label text-on-surface-variant">ransomware_v4</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-[10px] technical-label text-on-surface-variant">Evidence Manifest / Intake Form</label>
+<div class="border-2 border-dashed border-outline-variant/50 p-6 flex flex-col items-center justify-center gap-2 hover:border-primary transition-colors cursor-pointer group bg-surface-container-low/50">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">cloud_upload</span>
+<span class="text-[10px] technical-label text-on-surface-variant group-hover:text-on-surface transition-colors">UPLOAD_ASSETS</span>
+<span class="text-[9px] text-outline-variant/60">PDF, XLSX, TXT (MAX 50MB)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Visual Context Map -->
+<div class="h-40 w-full relative grayscale contrast-125 brightness-50">
+<img alt="System Topology Map" class="w-full h-full object-cover" data-alt="abstract technical wireframe map of a data network with glowing nodes and interconnecting lines in deep blue and cyan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyuQ6qSWMgU2BWusOZ7VYdUqlCoei_h9H0Jns_Yrr0qG96FD07bQGyzNCqgAQnn-UGIavRR-bTGKtMFR34_cwlb6OeCU2DKrffKLC1ac1l7A5QpmkTdWqvHEI7kOjg17SHOCdqz10WryXwK-_TTgGK0ei_cBJzwqc-kpyhiQY-wVncA1ov6Bmv7mPMob_2KJ7xZOl_wpC-S26DVNGZLtHIT_zMPWqEFREuFacej--f6XohpAFbgdS_CqqPeQ6sxJVoFeGvndwn674"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+<div class="absolute bottom-2 left-2 text-[8px] technical-label text-primary font-bold bg-background/80 px-2 py-1">COORD_SYSTEM: 40.7128° N, 74.0060° W</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<footer class="md:hidden bg-[#06122d] h-16 flex items-center justify-around px-4 border-none fixed bottom-0 left-0 w-full z-50">
+<button class="flex flex-col items-center text-[#dee5ff]/40">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[9px] technical-label">Home</span>
+</button>
+<button class="flex flex-col items-center text-[#7bd0ff]">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-[9px] technical-label">Cases</span>
+</button>
+<button class="flex flex-col items-center text-[#dee5ff]/40">
+<span class="material-symbols-outlined">shield</span>
+<span class="text-[9px] technical-label">Security</span>
+</button>
+<button class="flex flex-col items-center text-[#dee5ff]/40">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[9px] technical-label">Profile</span>
+</button>
+</footer>
+</body></html>

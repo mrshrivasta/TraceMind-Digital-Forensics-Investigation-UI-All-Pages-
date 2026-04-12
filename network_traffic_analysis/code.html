@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS | Network Traffic Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#4e5d6f",
+                        "secondary-fixed": "#d4e4fa",
+                        "outline": "#5b74b1",
+                        "error-container": "#7f2927",
+                        "on-tertiary-fixed": "#2a1700",
+                        "tertiary-fixed": "#f8a010",
+                        "primary-fixed-dim": "#a2dcff",
+                        "secondary-container": "#2e3c4e",
+                        "background": "#060e20",
+                        "inverse-surface": "#faf8ff",
+                        "outline-variant": "#2b4680",
+                        "primary-fixed": "#c4e7ff",
+                        "on-error": "#490106",
+                        "tertiary-fixed-dim": "#e79400",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "on-secondary-container": "#b1c0d6",
+                        "on-primary-fixed-variant": "#006286",
+                        "on-secondary-fixed": "#324052",
+                        "inverse-primary": "#00668b",
+                        "tertiary-dim": "#e79400",
+                        "secondary": "#909fb4",
+                        "on-primary-container": "#97d8ff",
+                        "surface-container-low": "#06122d",
+                        "surface-container": "#05183c",
+                        "surface-dim": "#060e20",
+                        "surface-bright": "#002867",
+                        "on-tertiary": "#573500",
+                        "on-secondary": "#122131",
+                        "surface-container-high": "#031d4b",
+                        "surface-variant": "#00225a",
+                        "surface-tint": "#7bd0ff",
+                        "on-tertiary-fixed-variant": "#563400",
+                        "tertiary": "#ffb148",
+                        "inverse-on-surface": "#4d556b",
+                        "error": "#ee7d77",
+                        "error-dim": "#bb5551",
+                        "surface-container-lowest": "#000000",
+                        "on-surface": "#dee5ff",
+                        "secondary-dim": "#909fb4",
+                        "on-error-container": "#ff9993",
+                        "surface-container-highest": "#00225a",
+                        "primary-container": "#004c69",
+                        "primary-dim": "#47c4ff",
+                        "on-tertiary-container": "#4a2c00",
+                        "tertiary-container": "#f8a010",
+                        "on-surface-variant": "#91aaeb",
+                        "on-background": "#dee5ff",
+                        "surface": "#060e20",
+                        "primary": "#7bd0ff",
+                        "on-primary": "#004560",
+                        "on-primary-fixed": "#00445e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #060e20; }
+        ::-webkit-scrollbar-thumb { background: #2b4680; }
+        .glass-panel {
+            background: linear-gradient(180deg, rgba(123, 208, 255, 0.05) 0%, rgba(0, 76, 105, 0) 100%);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface select-none overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-6 h-14 bg-[#060e20] font-['Space_Grotesk'] tracking-tight z-50">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-widest text-[#7bd0ff]">SENTINEL_FORENSICS</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 px-3 py-1" href="#">DASHBOARD</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 px-3 py-1" href="#">INVESTIGATIONS</a>
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] pb-1 font-bold" href="#">NETWORK</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 px-3 py-1" href="#">REPORTS</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-sm text-[#7bd0ff]/40">search</span>
+<input class="bg-surface-container-low border-none text-xs w-64 pl-9 pr-4 py-1.5 focus:ring-1 focus:ring-[#7bd0ff] placeholder-[#dee5ff]/20" placeholder="QUERY_STRING..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-[#7bd0ff]/60 hover:text-[#7bd0ff]">notifications</button>
+<button class="material-symbols-outlined text-[#7bd0ff]/60 hover:text-[#7bd0ff]">settings</button>
+<div class="w-8 h-8 bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<img alt="Investigator Avatar" class="w-full h-full object-cover grayscale brightness-75 contrast-125" data-alt="portrait of a focused professional investigator in a dimly lit dark tech environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7t3OTtEVrq7ofupQ6LTdXEAZ5w4rPKKdKQDmfxyf3oXQz9wUsQ8hPB21AoSKkAspwvyheHxtAGSb5L6f4sxNYa_MK7vtCfniPSoR8aRoxJQnCf02bdHZ96l61MZ-l01HkNTFQ4GyDIhmlx4BbJ6WzRav3Odr-iO1qv3ADxjHPczscnbnm7hNX-500qAqmjVuzXD2qxFqY93A1qxaK7gSuTSjJdnj5_6DcMlF7pVXo0C3_9Z-4lZ2eIieGoiyFmmXX1js7MUnxN78"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex flex-col pt-4 bg-[#06122d] w-64 z-40">
+<div class="px-6 mb-8">
+<h2 class="text-[#7bd0ff] font-black font-headline text-xs tracking-widest">CYBER_UNIT_01</h2>
+<p class="text-[10px] text-[#dee5ff]/40 uppercase tracking-tighter">Active Session: 12.04.88</p>
+</div>
+<nav class="flex flex-col flex-1">
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] font-headline text-xs uppercase tracking-tighter transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg">radar</span>
+<span>Live Stream</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] font-headline text-xs uppercase tracking-tighter transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg">receipt_long</span>
+<span>Packet Logs</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 bg-[#031d4b] text-[#7bd0ff] border-l-2 border-[#7bd0ff] font-headline text-xs uppercase tracking-tighter" href="#">
+<span class="material-symbols-outlined text-lg">hub</span>
+<span>Protocol Map</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] font-headline text-xs uppercase tracking-tighter transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg">emergency_home</span>
+<span>Flagged Nodes</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#00225a] hover:text-[#7bd0ff] font-headline text-xs uppercase tracking-tighter transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg">history</span>
+<span>Archive</span>
+</a>
+</nav>
+<div class="p-6 bg-[#031d4b]/20 mt-auto">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-headline tracking-tighter text-[#7bd0ff]/60 uppercase">Buffer Usage</span>
+<span class="text-[10px] text-[#7bd0ff]">84%</span>
+</div>
+<div class="w-full h-1 bg-surface-container">
+<div class="h-full bg-primary" style="width: 84%"></div>
+</div>
+</div>
+</aside>
+<!-- Main Content Stage -->
+<main class="ml-64 flex-1 flex flex-col overflow-hidden bg-surface">
+<!-- Context Header / Filters -->
+<div class="h-12 border-b-0 bg-surface-container-low px-6 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-[#7bd0ff]">filter_alt</span>
+<span class="text-[11px] font-headline font-bold text-[#7bd0ff] uppercase tracking-widest">Filters Applied:</span>
+</div>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 bg-surface-container-high text-[10px] text-on-surface-variant border border-outline-variant/30 font-headline uppercase">Time: Last 15m</span>
+<span class="px-2 py-0.5 bg-surface-container-high text-[10px] text-on-surface-variant border border-outline-variant/30 font-headline uppercase">Protocol: TLS, HTTP/S</span>
+<span class="px-2 py-0.5 bg-primary-container/30 text-[10px] text-primary border border-primary/20 font-headline uppercase">Node: 192.168.1.105</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary text-[10px] font-bold px-3 py-1 uppercase tracking-widest hover:bg-primary-dim transition-colors">Capture Active</button>
+<button class="text-[10px] border border-outline-variant text-[#7bd0ff] font-bold px-3 py-1 uppercase tracking-widest hover:bg-surface-container-high">Export PCAP</button>
+</div>
+</div>
+<!-- Dashboard Grid Layout -->
+<div class="flex-1 overflow-y-auto p-4 grid grid-cols-12 grid-rows-6 gap-4">
+<!-- Central Visualization (The Map/Graph) -->
+<div class="col-span-8 row-span-4 bg-surface-container-low relative overflow-hidden group">
+<div class="absolute inset-0 z-0 grayscale contrast-125 opacity-20">
+<img alt="Network Map Background" class="w-full h-full object-cover" data-alt="abstract satellite view of global communication network with glowing blue connection lines and tech data overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxMLV50vhU0gs5h2JF-yZ56WV9b-9HegP5Xt1TF1hVQ2HEfmZKKv3x_ZMdNQb9kwr_sXGGC-fYYHctyFEyUvCWnOEXVthnt6UgKbkRnEtT5BBupEKjB0oEobphsUoV-H_GaKLSN2uueAzyCwgwAhagkQpXbyPbvkSHU1_VO4qiHZ9DIk2BRz2d7mdD7_hCo151wBfCzlLBy9AsVmPFAb_awgLXPL9P-baR0KiWTAjotxWUBwA_M1d9iHoqtlzpzuo2xeJ6We9DWSA"/>
+</div>
+<div class="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+<!-- Simulated Node Graph SVG Overlay -->
+<svg class="w-full h-full" viewbox="0 0 800 500">
+<circle class="fill-primary/40 stroke-primary animate-pulse" cx="400" cy="250" r="10"></circle>
+<circle class="stroke-primary/20" cx="400" cy="250" fill="none" r="120" stroke-dasharray="4 4"></circle>
+<line class="stroke-primary/40" stroke-width="1" x1="400" x2="200" y1="250" y2="100"></line>
+<circle class="fill-primary" cx="200" cy="100" r="4"></circle>
+<text class="fill-on-surface-variant font-headline text-[10px]" x="210" y="95">172.16.0.42</text>
+<line class="stroke-error/40" stroke-width="2" x1="400" x2="600" y1="250" y2="150"></line>
+<circle class="fill-error animate-pulse" cx="600" cy="150" r="6"></circle>
+<text class="fill-error font-headline font-bold text-[10px]" x="610" y="145">EXTERNAL: 88.21.0.4 (RU)</text>
+<line class="stroke-tertiary/40" stroke-width="1" x1="400" x2="550" y1="250" y2="380"></line>
+<circle class="fill-tertiary" cx="550" cy="380" r="4"></circle>
+<text class="fill-on-surface-variant font-headline text-[10px]" x="560" y="375">192.168.1.12</text>
+</svg>
+</div>
+<!-- Metadata Overlays -->
+<div class="absolute top-4 left-4 z-20 glass-panel p-3 border-l-2 border-primary">
+<h3 class="text-[10px] font-headline text-[#7bd0ff] font-black uppercase tracking-widest mb-1">Inbound Traffic</h3>
+<p class="text-xl font-headline font-bold">1.42 GB/s</p>
+</div>
+<div class="absolute top-4 right-4 z-20 glass-panel p-3 border-l-2 border-error text-right">
+<h3 class="text-[10px] font-headline text-error font-black uppercase tracking-widest mb-1">Anomalies Detected</h3>
+<p class="text-xl font-headline font-bold">14 Active</p>
+</div>
+</div>
+<!-- Alerts & Flags Panel -->
+<div class="col-span-4 row-span-4 bg-surface-container-high p-4 flex flex-col gap-4 overflow-hidden">
+<div class="flex items-center justify-between">
+<h3 class="text-xs font-headline font-black text-[#7bd0ff] uppercase tracking-widest">High Risk Connections</h3>
+<span class="material-symbols-outlined text-error text-lg" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="flex-1 space-y-3 overflow-y-auto pr-2">
+<!-- Alert Card -->
+<div class="bg-error-container/10 border-l-2 border-error p-3 flex flex-col gap-1 transition-colors hover:bg-error-container/20 cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="text-[10px] font-headline font-bold text-error uppercase">Suspicious Exfiltration</span>
+<span class="text-[9px] text-on-surface-variant">0.4s ago</span>
+</div>
+<p class="text-[11px] text-on-surface leading-tight">192.168.1.105 → 88.21.0.4 (RU) via SSH/22. 542MB transferred in burst.</p>
+<div class="flex gap-2 mt-1">
+<span class="bg-error/20 text-error text-[8px] px-1 font-bold uppercase">Critical</span>
+<span class="bg-surface-container-highest text-on-surface-variant text-[8px] px-1 font-bold uppercase">Node_42</span>
+</div>
+</div>
+<!-- Warning Card -->
+<div class="bg-tertiary-container/10 border-l-2 border-tertiary p-3 flex flex-col gap-1 transition-colors hover:bg-tertiary-container/20 cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="text-[10px] font-headline font-bold text-tertiary uppercase">DNS Tunneling Potential</span>
+<span class="text-[9px] text-on-surface-variant">2m ago</span>
+</div>
+<p class="text-[11px] text-on-surface leading-tight">High frequency of TXT records to unknown domain: 'sh-cloud.io'</p>
+<div class="flex gap-2 mt-1">
+<span class="bg-tertiary/20 text-tertiary text-[8px] px-1 font-bold uppercase">Warning</span>
+</div>
+</div>
+<!-- Warning Card -->
+<div class="bg-tertiary-container/10 border-l-2 border-tertiary p-3 flex flex-col gap-1 transition-colors hover:bg-tertiary-container/20 cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="text-[10px] font-headline font-bold text-tertiary uppercase">Tor Exit Node Detected</span>
+<span class="text-[9px] text-on-surface-variant">5m ago</span>
+</div>
+<p class="text-[11px] text-on-surface leading-tight">Internal node communicating with known Tor entry relay.</p>
+</div>
+</div>
+<button class="w-full bg-surface-container border border-outline-variant py-2 text-[10px] font-headline font-bold text-on-surface-variant uppercase tracking-widest hover:text-[#7bd0ff] hover:border-[#7bd0ff] transition-all">View All Alerts</button>
+</div>
+<!-- Protocol Distribution (Bottom Left) -->
+<div class="col-span-3 row-span-2 bg-surface-container-low p-4 flex flex-col gap-4">
+<h3 class="text-xs font-headline font-black text-[#7bd0ff] uppercase tracking-widest">Protocol Stats</h3>
+<div class="flex-1 flex flex-col justify-center gap-3">
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-headline uppercase">
+<span>TLS (HTTPS)</span>
+<span class="text-[#7bd0ff]">42%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container">
+<div class="h-full bg-[#7bd0ff]" style="width: 42%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-headline uppercase">
+<span>TCP (Raw)</span>
+<span class="text-[#7bd0ff]">28%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container">
+<div class="h-full bg-[#7bd0ff]/70" style="width: 28%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-headline uppercase">
+<span>DNS</span>
+<span class="text-tertiary">15%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container">
+<div class="h-full bg-tertiary" style="width: 15%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-headline uppercase">
+<span>UDP</span>
+<span class="text-[#7bd0ff]/40">10%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container">
+<div class="h-full bg-[#7bd0ff]/40" style="width: 10%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Packet Stream (Bottom Wide) -->
+<div class="col-span-9 row-span-2 bg-surface-container-low overflow-hidden flex flex-col">
+<div class="px-4 h-10 flex items-center justify-between border-b border-outline-variant/10">
+<h3 class="text-xs font-headline font-black text-[#7bd0ff] uppercase tracking-widest flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                            Live Packet Stream
+                        </h3>
+<div class="flex gap-4">
+<span class="text-[9px] font-headline text-on-surface-variant uppercase">Packets/Sec: 1,429</span>
+<span class="text-[9px] font-headline text-on-surface-variant uppercase">Dropped: 0</span>
+</div>
+</div>
+<div class="flex-1 overflow-auto">
+<table class="w-full border-collapse">
+<thead class="sticky top-0 bg-surface-container-low z-10 shadow-sm shadow-black">
+<tr class="text-left border-b border-outline-variant/10">
+<th class="py-2 px-4 text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Timestamp</th>
+<th class="py-2 px-4 text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Source</th>
+<th class="py-2 px-4 text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Destination</th>
+<th class="py-2 px-4 text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Protocol</th>
+<th class="py-2 px-4 text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Len</th>
+<th class="py-2 px-4 text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Info</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent font-mono text-[10px]">
+<tr class="bg-surface hover:bg-surface-container-high transition-colors">
+<td class="py-1.5 px-4 text-[#7bd0ff]/60">14:22:01.054</td>
+<td class="py-1.5 px-4">192.168.1.105</td>
+<td class="py-1.5 px-4">88.21.0.4</td>
+<td class="py-1.5 px-4"><span class="bg-error/20 text-error px-1 font-bold">SSH</span></td>
+<td class="py-1.5 px-4">1440</td>
+<td class="py-1.5 px-4 text-on-surface-variant">[PSH, ACK] Seq=1441 Ack=1 Win=64240 Len=1380</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="py-1.5 px-4 text-[#7bd0ff]/60">14:22:01.056</td>
+<td class="py-1.5 px-4">88.21.0.4</td>
+<td class="py-1.5 px-4">192.168.1.105</td>
+<td class="py-1.5 px-4"><span class="bg-error/20 text-error px-1 font-bold">SSH</span></td>
+<td class="py-1.5 px-4">60</td>
+<td class="py-1.5 px-4 text-on-surface-variant">[ACK] Seq=1 Ack=2821 Win=251 Len=0</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container-high transition-colors">
+<td class="py-1.5 px-4 text-[#7bd0ff]/60">14:22:01.059</td>
+<td class="py-1.5 px-4">192.168.1.12</td>
+<td class="py-1.5 px-4">1.1.1.1</td>
+<td class="py-1.5 px-4"><span class="bg-tertiary/20 text-tertiary px-1 font-bold">DNS</span></td>
+<td class="py-1.5 px-4">78</td>
+<td class="py-1.5 px-4 text-on-surface-variant">Standard query 0x1a2b TXT sh-cloud.io</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors">
+<td class="py-1.5 px-4 text-[#7bd0ff]/60">14:22:01.062</td>
+<td class="py-1.5 px-4">10.0.0.5</td>
+<td class="py-1.5 px-4">52.201.2.14</td>
+<td class="py-1.5 px-4"><span class="bg-primary/20 text-primary px-1 font-bold">TLSv1.3</span></td>
+<td class="py-1.5 px-4">512</td>
+<td class="py-1.5 px-4 text-on-surface-variant">Application Data (Encrypted)</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container-high transition-colors">
+<td class="py-1.5 px-4 text-[#7bd0ff]/60">14:22:01.065</td>
+<td class="py-1.5 px-4">192.168.1.105</td>
+<td class="py-1.5 px-4">88.21.0.4</td>
+<td class="py-1.5 px-4"><span class="bg-error/20 text-error px-1 font-bold">SSH</span></td>
+<td class="py-1.5 px-4">1440</td>
+<td class="py-1.5 px-4 text-on-surface-variant">[PSH, ACK] Seq=2821 Ack=1 Win=64240 Len=1380</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- System Status Bar -->
+<footer class="h-8 bg-surface-container-highest flex items-center px-6 justify-between border-t border-outline-variant/10 text-[9px] font-headline uppercase tracking-[0.2em] text-on-surface-variant">
+<div class="flex gap-6">
+<span class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-[#7bd0ff] rounded-full"></span>
+                Node: SENTINEL-01-VX
+            </span>
+<span>Uptime: 142:22:11</span>
+</div>
+<div class="flex gap-6">
+<span class="text-error font-bold">Encrypted Tunnel Active</span>
+<span>Auth: Forensic_Admin_04</span>
+</div>
+</footer>
+</body></html>

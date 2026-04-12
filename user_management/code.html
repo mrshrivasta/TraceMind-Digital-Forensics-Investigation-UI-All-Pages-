@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS | User Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#00445e",
+                    "surface-dim": "#060e20",
+                    "on-tertiary": "#573500",
+                    "on-tertiary-fixed": "#2a1700",
+                    "primary-container": "#004c69",
+                    "on-surface": "#dee5ff",
+                    "secondary": "#909fb4",
+                    "primary-fixed-dim": "#a2dcff",
+                    "tertiary-fixed-dim": "#e79400",
+                    "on-primary-container": "#97d8ff",
+                    "on-secondary-fixed": "#324052",
+                    "primary-fixed": "#c4e7ff",
+                    "surface-container": "#05183c",
+                    "on-secondary-container": "#b1c0d6",
+                    "tertiary-dim": "#e79400",
+                    "background": "#060e20",
+                    "on-primary": "#004560",
+                    "error-container": "#7f2927",
+                    "on-secondary": "#122131",
+                    "secondary-dim": "#909fb4",
+                    "error-dim": "#bb5551",
+                    "tertiary-fixed": "#f8a010",
+                    "inverse-primary": "#00668b",
+                    "error": "#ee7d77",
+                    "surface-container-high": "#031d4b",
+                    "surface-variant": "#00225a",
+                    "outline": "#5b74b1",
+                    "on-tertiary-container": "#4a2c00",
+                    "primary": "#7bd0ff",
+                    "tertiary-container": "#f8a010",
+                    "inverse-surface": "#faf8ff",
+                    "surface-container-low": "#06122d",
+                    "tertiary": "#ffb148",
+                    "outline-variant": "#2b4680",
+                    "secondary-container": "#2e3c4e",
+                    "surface-container-lowest": "#000000",
+                    "on-secondary-fixed-variant": "#4e5d6f",
+                    "on-error-container": "#ff9993",
+                    "on-tertiary-fixed-variant": "#563400",
+                    "surface-bright": "#002867",
+                    "secondary-fixed": "#d4e4fa",
+                    "on-primary-fixed-variant": "#006286",
+                    "surface-tint": "#7bd0ff",
+                    "surface": "#060e20",
+                    "secondary-fixed-dim": "#c6d6ec",
+                    "on-error": "#490106",
+                    "on-background": "#dee5ff",
+                    "on-surface-variant": "#91aaeb",
+                    "inverse-on-surface": "#4d556b",
+                    "primary-dim": "#47c4ff",
+                    "surface-container-highest": "#00225a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #060e20; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #2b4680; }
+        .glass-panel { backdrop-filter: blur(12px); background-color: rgba(0, 34, 90, 0.6); }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-[#060e20] flex justify-between items-center w-full px-6 h-16 shrink-0 z-50">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-widest text-[#7bd0ff] uppercase font-['Space_Grotesk']">SENTINEL_FORENSICS</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="text-[#dee5ff] opacity-70 font-['Space_Grotesk'] tracking-tight hover:bg-[#031d4b] hover:text-white transition-colors duration-150 px-3 py-2" href="#">Dashboard</a>
+<a class="text-[#dee5ff] opacity-70 font-['Space_Grotesk'] tracking-tight hover:bg-[#031d4b] hover:text-white transition-colors duration-150 px-3 py-2" href="#">Investigations</a>
+<a class="text-[#dee5ff] opacity-70 font-['Space_Grotesk'] tracking-tight hover:bg-[#031d4b] hover:text-white transition-colors duration-150 px-3 py-2" href="#">Evidence</a>
+<a class="text-[#dee5ff] opacity-70 font-['Space_Grotesk'] tracking-tight hover:bg-[#031d4b] hover:text-white transition-colors duration-150 px-3 py-2" href="#">Network</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-4 py-1.5 font-bold uppercase text-xs tracking-wider active:scale-95 duration-150">New Case</button>
+<div class="flex gap-2">
+<span class="material-symbols-outlined cursor-pointer text-[#7bd0ff] p-2 hover:bg-[#031d4b]">notifications</span>
+<span class="material-symbols-outlined cursor-pointer text-[#7bd0ff] p-2 hover:bg-[#031d4b]">settings</span>
+</div>
+<img alt="Administrator Avatar" class="w-8 h-8 object-cover" data-alt="Close-up headshot of a professional investigator with a neutral expression against a dark blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqkhbFt_w4m4bT_VwupdtFMBvghkjB-Z9b1HUSvERmqM4uDMjkY-lmWoYd4PZ17aIJebRFERv5jrhM-5L5SLbLmE6KVxpJlMxZVoMNPx-UbzI2zliepsR_rnaIRaSeG8E8XYhKYL39UoBDIRZB6LYzDV5Egn440uWhS3ElbR_V_Yqdhd5XoLJlvTQS1xCcdEpKetnsrV64qnughmDIm6CfIOOwZDwTeoi9x4Iip8eRyWq06byKMeLwI9xJgSvj86oCfVmiBDmVyYE"/>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-[#06122d] flex flex-col h-full w-64 shrink-0 font-['Space_Grotesk'] text-sm uppercase tracking-wider">
+<div class="p-6 flex flex-col gap-1">
+<span class="text-lg font-black text-[#7bd0ff]">ADMIN_CORE</span>
+<span class="text-[10px] opacity-40 font-mono">V.2.4.0-STABLE</span>
+</div>
+<nav class="flex-1 flex flex-col py-4">
+<a class="text-[#7bd0ff] bg-[#031d4b] border-l-4 border-[#7bd0ff] px-4 py-3 flex items-center gap-3 transition-all duration-150 translate-x-1" href="#">
+<span class="material-symbols-outlined">group</span> User Management
+                </a>
+<a class="text-[#dee5ff] opacity-60 px-4 py-3 flex items-center gap-3 hover:bg-[#00225a] hover:opacity-100 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">history_edu</span> Audit Logs
+                </a>
+<a class="text-[#dee5ff] opacity-60 px-4 py-3 flex items-center gap-3 hover:bg-[#00225a] hover:opacity-100 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">verified_user</span> Access Control
+                </a>
+<a class="text-[#dee5ff] opacity-60 px-4 py-3 flex items-center gap-3 hover:bg-[#00225a] hover:opacity-100 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">vpn_key</span> Key Management
+                </a>
+<a class="text-[#dee5ff] opacity-60 px-4 py-3 flex items-center gap-3 hover:bg-[#00225a] hover:opacity-100 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">terminal</span> System Health
+                </a>
+</nav>
+<div class="p-4 flex flex-col gap-4">
+<button class="w-full bg-[#031d4b] border border-[#2b4680] text-[#7bd0ff] py-2 hover:bg-[#00225a] transition-colors">Generate Report</button>
+<div class="flex flex-col gap-2">
+<a class="text-[#dee5ff] opacity-60 px-4 py-2 flex items-center gap-3 hover:opacity-100 text-xs" href="#">
+<span class="material-symbols-outlined text-sm">help</span> Support
+                    </a>
+<a class="text-[#dee5ff] opacity-60 px-4 py-2 flex items-center gap-3 hover:opacity-100 text-xs" href="#">
+<span class="material-symbols-outlined text-sm">logout</span> Logout
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Table Section -->
+<section class="flex-1 flex flex-col p-6 bg-surface overflow-hidden">
+<div class="flex justify-between items-end mb-6">
+<div class="flex-1">
+<h1 class="text-2xl font-bold tracking-tight mb-4">ENTITY_ACCESS_CONTROL</h1>
+<div class="flex gap-4 items-center">
+<div class="relative flex-1 max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none pl-10 pr-4 py-2 text-sm focus:ring-0 focus:border-l-2 focus:border-primary placeholder:opacity-30" placeholder="SEARCH_USER_ID_OR_NAME" type="text"/>
+</div>
+<select class="bg-surface-container-low border-none text-xs px-4 py-2 uppercase tracking-widest text-on-surface-variant focus:ring-0">
+<option>DEP_ALL</option>
+<option>CYBER_FORENSICS</option>
+<option>FIELD_OPS</option>
+<option>INTEL_LIAISON</option>
+</select>
+<select class="bg-surface-container-low border-none text-xs px-4 py-2 uppercase tracking-widest text-on-surface-variant focus:ring-0">
+<option>LVL_ANY</option>
+<option>OMEGA_HIGH</option>
+<option>ALPHA_CORE</option>
+<option>BETA_EXT</option>
+</select>
+</div>
+</div>
+<button class="bg-primary text-on-primary h-10 px-6 font-bold uppercase text-xs tracking-widest active:scale-95 transition-transform">
+                        INITIALIZE_NEW_USER
+                    </button>
+</div>
+<!-- Forensic Data Table -->
+<div class="flex-1 overflow-auto custom-scrollbar border-t border-outline-variant/15">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface z-10">
+<tr class="bg-surface-container-low">
+<th class="py-3 px-4 text-[10px] font-bold uppercase tracking-[0.1em] text-on-surface-variant">NAME / UID</th>
+<th class="py-3 px-4 text-[10px] font-bold uppercase tracking-[0.1em] text-on-surface-variant">ROLE_SPEC</th>
+<th class="py-3 px-4 text-[10px] font-bold uppercase tracking-[0.1em] text-on-surface-variant text-center">CLEARANCE</th>
+<th class="py-3 px-4 text-[10px] font-bold uppercase tracking-[0.1em] text-on-surface-variant text-center">CASES</th>
+<th class="py-3 px-4 text-[10px] font-bold uppercase tracking-[0.1em] text-on-surface-variant">STATUS_SIGNAL</th>
+<th class="py-3 px-4 text-[10px] font-bold uppercase tracking-[0.1em] text-on-surface-variant text-right">LAST_SYNC</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<!-- Row 1 (Selected State) -->
+<tr class="bg-surface-container-high/40 hover:bg-surface-container-high transition-colors cursor-pointer border-l-2 border-primary">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary-container flex items-center justify-center text-[10px] font-bold">AV</div>
+<div>
+<div class="text-sm font-semibold">ARTHUR_VALENTINE</div>
+<div class="text-[10px] font-mono text-outline">ID-8829-QX</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="text-[11px] bg-secondary-container text-on-secondary-container px-2 py-0.5 uppercase">Lead Analyst</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="text-[11px] text-primary border border-primary/30 px-2 py-0.5 font-bold">OMEGA</span>
+</td>
+<td class="py-4 px-4 text-center font-mono text-xs">14</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-primary"></div>
+<span class="text-[10px] uppercase font-bold tracking-tight">Active</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-[10px] opacity-60">2023.10.24 14:22:01</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer border-l-2 border-transparent">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container flex items-center justify-center text-[10px] font-bold">SK</div>
+<div>
+<div class="text-sm font-semibold">SARAH_KORD</div>
+<div class="text-[10px] font-mono text-outline">ID-1044-LZ</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="text-[11px] bg-secondary-container/50 text-on-secondary-container px-2 py-0.5 uppercase">Junior Investigator</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="text-[11px] text-on-surface opacity-70 border border-outline-variant px-2 py-0.5 font-bold">ALPHA</span>
+</td>
+<td class="py-4 px-4 text-center font-mono text-xs">03</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-tertiary"></div>
+<span class="text-[10px] uppercase font-bold tracking-tight">In Field</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-[10px] opacity-60">2023.10.24 11:05:44</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer border-l-2 border-transparent">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container flex items-center justify-center text-[10px] font-bold">ML</div>
+<div>
+<div class="text-sm font-semibold">MARCUS_LENNOX</div>
+<div class="text-[10px] font-mono text-outline">ID-2991-PD</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="text-[11px] bg-secondary-container/50 text-on-secondary-container px-2 py-0.5 uppercase">External Liaison</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="text-[11px] text-on-surface opacity-50 border border-outline-variant px-2 py-0.5 font-bold">BETA</span>
+</td>
+<td class="py-4 px-4 text-center font-mono text-xs">01</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-error"></div>
+<span class="text-[10px] uppercase font-bold tracking-tight">Suspended</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-[10px] opacity-60">2023.10.20 09:12:12</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer border-l-2 border-transparent">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container flex items-center justify-center text-[10px] font-bold">JT</div>
+<div>
+<div class="text-sm font-semibold">JAMES_THORNE</div>
+<div class="text-[10px] font-mono text-outline">ID-5502-RE</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="text-[11px] bg-secondary-container/50 text-on-secondary-container px-2 py-0.5 uppercase">Lead Analyst</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="text-[11px] text-primary border border-primary/30 px-2 py-0.5 font-bold">OMEGA</span>
+</td>
+<td class="py-4 px-4 text-center font-mono text-xs">09</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-primary"></div>
+<span class="text-[10px] uppercase font-bold tracking-tight">Active</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right font-mono text-[10px] opacity-60">2023.10.24 15:00:00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Details Panel (Asymmetric Sidebar) -->
+<aside class="w-96 bg-surface-container-low border-l border-outline-variant/20 flex flex-col overflow-hidden">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="flex justify-between items-start mb-6">
+<div class="w-24 h-24 bg-surface-container-high p-1">
+<img alt="Arthur Valentine Profile" class="w-full h-full object-cover" data-alt="Digital forensic expert profile photo in high contrast monochrome with a subtle blue tint" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqur2dqBo-CwXNhgZ4f93l179HQnm7MBQd9KxVMj_KUOSvwK8Vz6c1zzVGgF31B9rNakQR4tAbLGo_VSpFO_ei8LEWz3p1y7cWrRj5h0h2QmCG_RdoaOq1KA-WAsQ8iUzaWXzQxqycz3LjldhIg_Y0VjZa5K9nWWVvLmg-dCp2k1ipkNtrv13JAiihZnqSb0ZhD4SCOUcf_DmSfpj9gR2_KpZTip9PCF6P45TI-jTYA5RWCJhPz7vgfshu2EMK_wvU9eiEt1USC6M"/>
+</div>
+<div class="flex gap-1">
+<button class="p-2 hover:bg-surface-container-high text-primary"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="p-2 hover:bg-surface-container-high text-tertiary"><span class="material-symbols-outlined text-lg">lock</span></button>
+<button class="p-2 hover:bg-surface-container-high text-error"><span class="material-symbols-outlined text-lg">delete</span></button>
+</div>
+</div>
+<h2 class="text-xl font-bold font-headline tracking-tight uppercase">Arthur Valentine</h2>
+<p class="font-mono text-[10px] text-primary opacity-80 mt-1">SYSTEM_ACCESS_GRANTED // UID: 8829-QX</p>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-8">
+<!-- Hardware Section -->
+<div>
+<h3 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.2em] mb-3">Assigned_Hardware</h3>
+<div class="space-y-2">
+<div class="flex justify-between items-center bg-surface-container p-3 border-l-2 border-primary/40">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">terminal</span>
+<span class="text-xs font-mono">WS-ALPHA-09</span>
+</div>
+<span class="text-[9px] font-bold text-primary px-1 bg-primary/10">ENCRYPTED</span>
+</div>
+<div class="flex justify-between items-center bg-surface-container p-3 border-l-2 border-outline-variant/40">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">smartphone</span>
+<span class="text-xs font-mono">MOB-SEC-55</span>
+</div>
+<span class="text-[9px] font-bold text-on-surface-variant px-1 bg-surface-variant">ACTIVE</span>
+</div>
+</div>
+</div>
+<!-- Permissions Section -->
+<div>
+<h3 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.2em] mb-3">Access_Matrix</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-xs uppercase tracking-wide">Read/Write Evidence</span>
+<div class="w-8 h-4 bg-primary relative cursor-pointer">
+<div class="absolute right-1 top-1 w-2 h-2 bg-on-primary"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs uppercase tracking-wide">Export Reports</span>
+<div class="w-8 h-4 bg-primary relative cursor-pointer">
+<div class="absolute right-1 top-1 w-2 h-2 bg-on-primary"></div>
+</div>
+</div>
+<div class="flex items-center justify-between opacity-50">
+<span class="text-xs uppercase tracking-wide">System Admin</span>
+<div class="w-8 h-4 bg-surface-container-highest relative cursor-pointer border border-outline-variant">
+<div class="absolute left-1 top-1 w-2 h-2 bg-outline"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Access Logs Section -->
+<div>
+<h3 class="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.2em] mb-3">Recent_Event_Log</h3>
+<div class="space-y-4">
+<div class="relative pl-4 border-l border-outline-variant/30">
+<div class="absolute -left-[4.5px] top-1 w-2 h-2 bg-primary"></div>
+<div class="text-[10px] font-mono text-outline">2023.10.24 14:10:02</div>
+<div class="text-xs font-bold uppercase mt-1">EVIDENCE_ENTRY_REDACTED</div>
+<div class="text-[9px] opacity-60 font-mono mt-0.5">IP: 192.168.1.104</div>
+</div>
+<div class="relative pl-4 border-l border-outline-variant/30">
+<div class="absolute -left-[4.5px] top-1 w-2 h-2 bg-outline"></div>
+<div class="text-[10px] font-mono text-outline">2023.10.24 12:45:12</div>
+<div class="text-xs font-bold uppercase mt-1">LOGIN_REMOTE_SECURE</div>
+<div class="text-[9px] opacity-60 font-mono mt-0.5">IP: 10.0.44.12</div>
+</div>
+<div class="relative pl-4 border-l border-outline-variant/30">
+<div class="absolute -left-[4.5px] top-1 w-2 h-2 bg-outline"></div>
+<div class="text-[10px] font-mono text-outline">2023.10.24 09:22:58</div>
+<div class="text-xs font-bold uppercase mt-1">REPORT_X_GENERATE</div>
+<div class="text-[9px] opacity-60 font-mono mt-0.5">IP: 192.168.1.104</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Status (Asymmetric Detail) -->
+<div class="p-4 bg-surface-container-highest flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-primary animate-pulse"></div>
+<span class="text-[9px] font-bold uppercase tracking-widest text-primary">Live Connection</span>
+</div>
+<span class="text-[9px] font-mono opacity-40">LATENCY: 12ms</span>
+</div>
+</aside>
+</main>
+</div>
+<!-- Mobile Bottom NavBar Suppression (Replaced by functional shell layout for web) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#06122d] flex items-center justify-around border-t border-outline-variant/10">
+<span class="material-symbols-outlined text-[#7bd0ff]">dashboard</span>
+<span class="material-symbols-outlined text-[#dee5ff] opacity-60">group</span>
+<span class="material-symbols-outlined text-[#dee5ff] opacity-60">inventory_2</span>
+<span class="material-symbols-outlined text-[#dee5ff] opacity-60">settings</span>
+</div>
+</body></html>

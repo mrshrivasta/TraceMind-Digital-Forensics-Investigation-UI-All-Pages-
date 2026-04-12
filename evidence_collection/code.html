@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evidence Collection | Sentinel Forensics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#1b7fff",
+                        "surface-container": "#142034",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#8e9196",
+                        "secondary-fixed": "#d1e4ff",
+                        "inverse-on-surface": "#263046",
+                        "on-tertiary": "#00363d",
+                        "on-surface": "#d7e2ff",
+                        "surface-dim": "#071327",
+                        "surface-bright": "#2e394f",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "on-primary-fixed-variant": "#004493",
+                        "on-tertiary-container": "#0090a1",
+                        "on-primary-fixed": "#001a41",
+                        "surface-container-low": "#101b30",
+                        "surface-container-highest": "#2a354b",
+                        "surface": "#071327",
+                        "inverse-primary": "#005bc0",
+                        "surface-container-high": "#1f2a3f",
+                        "on-tertiary-fixed": "#001f24",
+                        "tertiary-fixed": "#9cf0ff",
+                        "error-container": "#93000a",
+                        "on-secondary": "#17324d",
+                        "primary-container": "#00193e",
+                        "primary-fixed-dim": "#adc7ff",
+                        "tertiary": "#00daf3",
+                        "secondary": "#afc9ea",
+                        "on-background": "#d7e2ff",
+                        "on-tertiary-fixed-variant": "#004f58",
+                        "on-secondary-fixed": "#001d36",
+                        "primary": "#adc7ff",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#00daf3",
+                        "surface-container-lowest": "#030e22",
+                        "inverse-surface": "#d7e2ff",
+                        "on-surface-variant": "#c4c6cc",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#2f4865",
+                        "tertiary-container": "#001e23",
+                        "background": "#071327",
+                        "surface-tint": "#adc7ff",
+                        "on-primary": "#002e68",
+                        "surface-variant": "#2a354b",
+                        "outline-variant": "#44474c",
+                        "on-secondary-container": "#9eb7d8",
+                        "primary-fixed": "#d8e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-active {
+            border-left: 2px solid #adc7ff;
+            background: rgba(173, 199, 255, 0.05);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-slate-950/80 backdrop-blur-md shadow-[0px_16px_32px_rgba(173,199,255,0.04)]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-blue-100 font-headline uppercase">Sentinel Forensics</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-slate-400 font-label hover:bg-slate-800/50 transition-colors px-3 py-1 rounded" href="#">Dashboard</a>
+<a class="text-blue-400 font-bold border-b-2 border-blue-400 font-label px-3 py-1" href="#">Evidence</a>
+<a class="text-slate-400 font-label hover:bg-slate-800/50 transition-colors px-3 py-1 rounded" href="#">Workspace</a>
+<a class="text-slate-400 font-label hover:bg-slate-800/50 transition-colors px-3 py-1 rounded" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:bg-slate-800/50 transition-colors rounded">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-slate-800/50 transition-colors rounded">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Investigator Profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Close up portrait of a professional investigator in a dark room with blue screen glow reflecting on glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuHdwaGCai7rXEdaLaVcdQr9EHwIb4p6OTK79aqhXyDKUsaSqxbv0AYdQdzfnpyZpVFKbdZOy2Rf0IQObfjkmF0SzxUi89698kHSvkYdSHu71nNjg_EbkQZJvDfbXsi_Cq8xZEpNCwRRCzw1BsLYq0DPyjRY1UianBOm0QP5XZCORtw54pUeccoK5LcrEADjZfwou7GD30V2FQuZby_n7t7P6bmkt0aMKwFku-aFGekYEojhkmiRIZBmJJ4IQlEZJCO17gvQz8DJw"/>
+</div>
+</header>
+<!-- SideNavBar (Hidden on small screens) -->
+<aside class="fixed left-0 top-0 h-full w-64 flex flex-col py-8 bg-slate-950 border-r border-slate-800/20 pt-20 hidden lg:flex">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-blue-400" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-headline font-bold text-blue-50 tracking-tight">Case SF-2024</span>
+</div>
+<p class="text-slate-500 text-xs font-label uppercase tracking-widest">Active Investigation</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 hover:text-slate-300 hover:bg-slate-900/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-label">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-blue-400 border-l-2 border-blue-400 bg-blue-400/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-xl">fingerprint</span>
+<span class="font-label">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 hover:text-slate-300 hover:bg-slate-900/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-xl">biotech</span>
+<span class="font-label">Workspace</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 hover:text-slate-300 hover:bg-slate-900/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="font-label">Reports</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="font-label">New Collection</span>
+</button>
+<div class="mt-8 space-y-4">
+<a class="flex items-center gap-3 text-slate-600 hover:text-cyan-400 transition-colors text-xs uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+<span>Help</span>
+</a>
+<a class="flex items-center gap-3 text-slate-600 hover:text-cyan-400 transition-colors text-xs uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:pl-64 pt-16 min-h-screen pb-12">
+<div class="max-w-6xl mx-auto px-6 py-10">
+<!-- Page Header -->
+<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="font-headline text-4xl font-bold text-on-surface tracking-tight mb-2">Evidence Collection</h1>
+<p class="text-on-surface-variant max-w-xl">Initiate secure ingestion protocols and chain of custody documentation for new digital artifacts.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-low p-2 rounded-lg">
+<div class="flex -space-x-2">
+<img alt="Inv 1" class="w-8 h-8 rounded-full border-2 border-surface-container shadow-sm" data-alt="Profile photo of male forensic investigator in a tech workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFWimHY2JhPAj9T3v-pUCTEMLO_ZWkv3mgO6CW5we1qCqWOV_B7dZqV2DosV9C6yPtkCSi83euEeeUiUvtN-REv_iC5gKFTdHsYrigI9VJSLg23uPG7irM6bxp6pZcpm2QoU5J0yzi62Onf4QNDC1hHw_wnGNvdYtogS0r2CC1qGRk27V1QbpwrZBdIEYYqugGprqsdTEI8rd_EUQKO2ND4AIkv0UgTldM7_UbXhpcbJfoQGWivt1-Ar2ZP-JYRpRghaDTUSEFIMk"/>
+<img alt="Inv 2" class="w-8 h-8 rounded-full border-2 border-surface-container shadow-sm" data-alt="Profile photo of female forensic investigator in a bright modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBufM0vLTTPOXuR_WSlaxRxlSTGTErb5DpD-Tr8xHIHQMPGRQE1FDHiRtg9eSaUJSc2B6fYhJOhXG9Z9wms2RV8vDhkUf1a0112P8Wbfw4Ch1Tnc91tiFP8KqQF4cioSw14lWkhIXqH_yIzUBNycu6dDoLpmMszJMb9i74d4Vk86zJymr6Jod0rehkFdJvLWBGGlX3h_vFp0vWW4XBPIpg8Py1dNwpySlNx1rfophFcKzua2FPpA6akJQABOI6K5vZmfM61clpPBrQ"/>
+</div>
+<div class="text-[10px] uppercase tracking-tighter text-on-surface-variant font-bold">
+                        Lead: Investigator Miller + 2 others
+                    </div>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-8">
+<!-- Left: Wizard Steps (Asymmetric Sidebar) -->
+<div class="col-span-12 lg:col-span-3 space-y-4">
+<div class="sticky top-24">
+<div class="space-y-1">
+<div class="flex items-center gap-4 px-4 py-4 rounded-lg bg-primary-container border-l-2 border-primary">
+<span class="w-6 h-6 flex items-center justify-center bg-primary text-on-primary rounded text-xs font-bold">01</span>
+<span class="font-label font-bold text-primary">Metadata</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-4 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="w-6 h-6 flex items-center justify-center bg-surface-container-highest rounded text-xs font-bold">02</span>
+<span class="font-label">Ingestion Source</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-4 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="w-6 h-6 flex items-center justify-center bg-surface-container-highest rounded text-xs font-bold">03</span>
+<span class="font-label">Verification</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-4 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="w-6 h-6 flex items-center justify-center bg-surface-container-highest rounded text-xs font-bold">04</span>
+<span class="font-label">Custody Log</span>
+</div>
+</div>
+<!-- Progress Micro-Component -->
+<div class="mt-12 p-6 bg-surface-container-low rounded-xl border border-outline-variant/10">
+<div class="flex justify-between items-center mb-4">
+<span class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant">System Load</span>
+<span class="text-tertiary text-xs font-headline font-bold">STABLE</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[24%] transition-all duration-1000"></div>
+</div>
+<p class="mt-3 text-[10px] text-on-surface-variant leading-relaxed">
+                                Secure tunnel active. <br/>
+                                Encrypted node: 128.0.0.1
+                            </p>
+</div>
+</div>
+</div>
+<!-- Right: Content Workspace -->
+<div class="col-span-12 lg:col-span-9 space-y-8">
+<!-- Main Ingestion Panel -->
+<section class="bg-surface-container p-8 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8 opacity-5">
+<span class="material-symbols-outlined text-9xl">folder_managed</span>
+</div>
+<div class="relative z-10">
+<h2 class="font-headline text-xl font-bold mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                                Collection Metadata
+                            </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+<div class="space-y-1">
+<label class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant px-1">Case Identifier</label>
+<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-tertiary outline-none py-2 text-on-surface transition-all font-label" type="text" value="SF-2024-ALPHA-09"/>
+</div>
+<div class="space-y-1">
+<label class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant px-1">Investigator Assigned</label>
+<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-tertiary outline-none py-2 text-on-surface transition-all font-label" type="text" value="Special Agent Aris"/>
+</div>
+<div class="space-y-1">
+<label class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant px-1">Evidence Type</label>
+<select class="w-full bg-transparent border-b-2 border-outline-variant focus:border-tertiary outline-none py-2 text-on-surface transition-all font-label appearance-none">
+<option>Disk Image (E01)</option>
+<option>Mobile Acquisition</option>
+<option>Network Packet Capture</option>
+<option>Memory Dump</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant px-1">Evidence Source</label>
+<input class="w-full bg-transparent border-b-2 border-outline-variant focus:border-tertiary outline-none py-2 text-on-surface transition-all font-label" placeholder="e.g. SATA Port 0 / Remote Host" type="text"/>
+</div>
+</div>
+<h2 class="font-headline text-xl font-bold mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">upload_file</span>
+                                Ingestion Source
+                            </h2>
+<!-- Drag and Drop Bento Component -->
+<div class="border-2 border-dashed border-outline-variant/30 rounded-xl p-12 bg-surface-container-low flex flex-col items-center justify-center text-center group hover:border-primary/50 transition-all cursor-pointer">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">add_to_drive</span>
+</div>
+<h3 class="font-headline text-lg font-bold mb-2">Drop evidence files or point to device path</h3>
+<p class="text-on-surface-variant text-sm mb-6 max-w-sm">Supports bit-for-bit physical acquisitions, logical extractions, and cloud containers.</p>
+<div class="flex gap-4">
+<button class="px-6 py-2 bg-surface-container-highest border border-outline-variant hover:bg-surface-bright transition-colors rounded text-sm font-label font-bold">Select Local File</button>
+<button class="px-6 py-2 bg-surface-container-highest border border-outline-variant hover:bg-surface-bright transition-colors rounded text-sm font-label font-bold">Mount Physical Drive</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Chain of Custody & Verification Bento Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Chain of Custody Log -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+<h3 class="font-headline font-bold text-on-surface mb-6 flex items-center justify-between">
+                                Chain of Custody
+                                <span class="material-symbols-outlined text-sm text-on-surface-variant">history</span>
+</h3>
+<div class="space-y-4">
+<div class="flex gap-4 relative">
+<div class="w-2 bg-primary/20 rounded-full h-12"></div>
+<div>
+<p class="text-[10px] text-primary font-bold uppercase tracking-widest">Entry: Creation</p>
+<p class="text-xs text-on-surface leading-tight mt-1">Case SF-2024 initialized by Admin.</p>
+<p class="text-[9px] text-on-surface-variant mt-1">2024-05-24 09:14:12 UTC</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-2 bg-tertiary/20 rounded-full h-12"></div>
+<div>
+<p class="text-[10px] text-tertiary font-bold uppercase tracking-widest">Action: Validation</p>
+<p class="text-xs text-on-surface leading-tight mt-1">Source path verified for collection.</p>
+<p class="text-[9px] text-on-surface-variant mt-1">2024-05-24 10:02:45 UTC</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 text-[10px] uppercase font-bold tracking-widest text-on-surface-variant border border-outline-variant/30 hover:bg-surface-container transition-colors rounded">
+                                Add Custody Note
+                            </button>
+</div>
+<!-- Verification Options -->
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10">
+<h3 class="font-headline font-bold text-on-surface mb-6 flex items-center justify-between">
+                                Hash Verification
+                                <span class="material-symbols-outlined text-sm text-on-surface-variant" style="font-variation-settings: 'FILL' 1;">verified</span>
+</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-bold text-on-surface">MD5 Checksum</p>
+<p class="text-[10px] text-on-surface-variant">Legacy verification protocol</p>
+</div>
+<div class="w-10 h-5 bg-surface-container-highest rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-3 h-3 bg-on-surface-variant rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-sm font-bold text-on-surface">SHA-256 (Recommended)</p>
+<p class="text-[10px] text-on-surface-variant">Cryptographic evidence integrity</p>
+</div>
+<div class="w-10 h-5 bg-primary/20 rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-3 h-3 bg-primary rounded-full"></div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/10">
+<div class="bg-surface-container p-3 rounded text-[11px] font-mono text-tertiary flex items-center gap-2 overflow-hidden">
+<span class="material-symbols-outlined text-xs">code</span>
+<span class="truncate">e3b0c44298fc1c149afbf4c8996fb92427ae41e...</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Action Bar (Fixed-style within content) -->
+<div class="flex items-center justify-between p-6 bg-surface-container-high rounded-xl border border-primary/20 shadow-lg">
+<div class="flex items-center gap-6">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Security Status</span>
+<span class="text-xs text-tertiary flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-tertiary rounded-full animate-pulse"></span>
+                                    Encryption: AES-256
+                                </span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Selected Size</span>
+<span class="text-xs text-on-surface">-- GB</span>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 text-sm font-label font-bold text-on-surface hover:bg-surface-bright transition-colors rounded-lg">Cancel</button>
+<button class="px-8 py-3 bg-primary text-on-primary font-label font-bold rounded-lg hover:shadow-[0_0_20px_rgba(173,199,255,0.3)] transition-all">Start Acquisition</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Status -->
+<footer class="fixed bottom-0 w-full z-40 flex justify-between items-center px-4 h-8 bg-slate-950 border-t border-slate-800/30">
+<div class="text-slate-600 font-label text-[10px] uppercase tracking-widest">
+            System Status: <span class="text-cyan-400">Operational</span> | Latency: 14ms
+        </div>
+<div class="flex gap-6">
+<a class="text-slate-600 hover:text-cyan-400 font-label text-[10px] uppercase tracking-widest transition-colors" href="#">System Logs</a>
+<a class="text-slate-600 hover:text-cyan-400 font-label text-[10px] uppercase tracking-widest transition-colors" href="#">Network Traffic</a>
+<a class="text-slate-600 hover:text-cyan-400 font-label text-[10px] uppercase tracking-widest transition-colors" href="#">API Status</a>
+</div>
+</footer>
+</body></html>

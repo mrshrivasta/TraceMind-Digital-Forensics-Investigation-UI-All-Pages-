@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS | Memory Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-dim": "#909fb4",
+                        "on-error-container": "#ff9993",
+                        "on-secondary-fixed-variant": "#4e5d6f",
+                        "error-dim": "#bb5551",
+                        "on-primary-container": "#97d8ff",
+                        "primary": "#7bd0ff",
+                        "tertiary": "#ffb148",
+                        "surface-container": "#05183c",
+                        "surface-variant": "#00225a",
+                        "error-container": "#7f2927",
+                        "surface-container-low": "#06122d",
+                        "error": "#ee7d77",
+                        "secondary": "#909fb4",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "on-secondary-fixed": "#324052",
+                        "on-tertiary-container": "#4a2c00",
+                        "surface-container-highest": "#00225a",
+                        "tertiary-container": "#f8a010",
+                        "on-secondary-container": "#b1c0d6",
+                        "primary-fixed-dim": "#a2dcff",
+                        "surface-container-high": "#031d4b",
+                        "on-error": "#490106",
+                        "on-primary-fixed-variant": "#006286",
+                        "background": "#060e20",
+                        "primary-fixed": "#c4e7ff",
+                        "secondary-fixed": "#d4e4fa",
+                        "on-surface-variant": "#91aaeb",
+                        "tertiary-dim": "#e79400",
+                        "on-primary": "#004560",
+                        "inverse-on-surface": "#4d556b",
+                        "tertiary-fixed-dim": "#e79400",
+                        "on-tertiary": "#573500",
+                        "surface-bright": "#002867",
+                        "on-background": "#dee5ff",
+                        "on-surface": "#dee5ff",
+                        "outline": "#5b74b1",
+                        "primary-container": "#004c69",
+                        "on-primary-fixed": "#00445e",
+                        "primary-dim": "#47c4ff",
+                        "on-tertiary-fixed-variant": "#563400",
+                        "surface-dim": "#060e20",
+                        "inverse-primary": "#00668b",
+                        "surface-tint": "#7bd0ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-lowest": "#000000",
+                        "on-secondary": "#122131",
+                        "surface": "#060e20",
+                        "inverse-surface": "#faf8ff",
+                        "tertiary-fixed": "#f8a010",
+                        "outline-variant": "#2b4680",
+                        "secondary-container": "#2e3c4e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #060e20; color: #dee5ff; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #060e20; }
+        ::-webkit-scrollbar-thumb { background: #2b4680; }
+        ::-webkit-scrollbar-thumb:hover { background: #7bd0ff; }
+    </style>
+</head>
+<body class="h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-[#060e20] text-[#7bd0ff] font-['Space_Grotesk'] tracking-tight flex justify-between items-center w-full px-6 h-14 shrink-0 z-50">
+<div class="text-xl font-bold tracking-widest text-[#7bd0ff] uppercase">SENTINEL_FORENSICS</div>
+<nav class="hidden md:flex items-center gap-8 h-full">
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 h-full flex items-center px-2" href="#">Dashboard</a>
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] pb-1 h-full flex items-center px-2" href="#">Memory</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 h-full flex items-center px-2" href="#">Registry</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 h-full flex items-center px-2" href="#">Network</a>
+<a class="text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 h-full flex items-center px-2" href="#">Filesystem</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="relative">
+<input class="bg-surface-container border-none text-xs text-primary-fixed placeholder:text-primary-container focus:ring-1 focus:ring-primary w-64 h-8 px-3" placeholder="GLOBAL_SEARCH..." type="text"/>
+<span class="material-symbols-outlined absolute right-2 top-1.5 text-sm opacity-50">search</span>
+</div>
+<button class="material-symbols-outlined hover:bg-[#031d4b] p-1 transition-all">notifications</button>
+<button class="material-symbols-outlined hover:bg-[#031d4b] p-1 transition-all">settings</button>
+<div class="h-8 w-8 bg-surface-container-high border border-outline-variant/30 flex items-center justify-center overflow-hidden">
+<img alt="Investigator Profile" class="w-full h-full object-cover" data-alt="close-up profile of a serious cyber security professional in a dimly lit high-tech environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfDZFOEke7D5LmSOLocBJfMu74fZ2k6TKMEXj5tZOu0vbo8Ykqzv9V4WbbSQPIoiV2OZi-pTEtzHqwB3WmdWPDK_i3yJfqWP4KGfFJD4g3PnfZwpOqTFVES1RJdJ7TqYKqP9OGsYkUTi2-BNwBzn6Q5emMq85IfBSmqr6tJ3VH0CFWzZhbKpPAYf9cIMEcrKqoKNAa75X28c-2U2ifQuWpqVZsqj2VygZtGkxJ2JO8akyUmgr2b4eQbJXayYvXiTLyx7xO9BeYVmI"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-[#06122d] text-[#7bd0ff] font-['Space_Grotesk'] text-xs uppercase tracking-wider flex flex-col h-full w-64 shrink-0 border-r border-outline-variant/10">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 bg-primary/10 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary">memory</span>
+</div>
+<div>
+<div class="font-bold text-on-surface">MEMORY_ANALYSIS</div>
+<div class="text-[10px] text-secondary opacity-60">ID: 0xBF32-99</div>
+</div>
+</div>
+<button class="w-full py-2 bg-primary text-on-primary font-bold text-[10px] tracking-widest hover:bg-primary-dim transition-all">
+                    EXPORT EVIDENCE
+                </button>
+</div>
+<nav class="flex-1 py-4 overflow-y-auto">
+<div class="px-3 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 text-[#7bd0ff] bg-[#031d4b] border-l-4 border-[#7bd0ff]" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Processes</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#dee5ff]/40 hover:text-[#7bd0ff] hover:bg-[#031d4b]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span>Memory Map</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#dee5ff]/40 hover:text-[#7bd0ff] hover:bg-[#031d4b]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+<span>Artifacts</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#dee5ff]/40 hover:text-[#7bd0ff] hover:bg-[#031d4b]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="segment">segment</span>
+<span>Strings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#dee5ff]/40 hover:text-[#7bd0ff] hover:bg-[#031d4b]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span>YARA Scans</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-[#dee5ff]/40 hover:text-[#7bd0ff] hover:bg-[#031d4b]/50 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>Timeline</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-outline-variant/10 space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 text-[#dee5ff]/40 hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+<span>Help</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-[#dee5ff]/40 hover:text-[#7bd0ff] transition-all" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col bg-surface overflow-hidden">
+<!-- Case Header -->
+<section class="h-20 bg-surface-container-low border-b border-outline-variant/10 flex items-center px-6 justify-between shrink-0">
+<div class="flex gap-10">
+<div>
+<span class="block text-[10px] text-on-surface-variant uppercase font-semibold">Case ID</span>
+<span class="text-sm font-mono text-primary-fixed">SENT-2024-089A</span>
+</div>
+<div>
+<span class="block text-[10px] text-on-surface-variant uppercase font-semibold">Investigator</span>
+<span class="text-sm text-on-surface">LEAD_TECH_04</span>
+</div>
+<div>
+<span class="block text-[10px] text-on-surface-variant uppercase font-semibold">Memory Image</span>
+<span class="text-sm text-on-surface">win10_x64_dump.mem</span>
+</div>
+<div>
+<span class="block text-[10px] text-on-surface-variant uppercase font-semibold">Acquisition Time</span>
+<span class="text-sm text-on-surface">2024-05-12 14:22:01 UTC</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="px-3 py-1 bg-tertiary/10 border border-tertiary/30 text-tertiary text-[10px] font-bold">SCANNING_IN_PROGRESS</div>
+<div class="w-32 h-1 bg-surface-container overflow-hidden">
+<div class="w-2/3 h-full bg-tertiary"></div>
+</div>
+</div>
+</section>
+<!-- Central Split View -->
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Split: Process Explorer & Artifacts -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Process Explorer -->
+<div class="w-1/2 flex flex-col border-r border-outline-variant/10">
+<div class="h-10 bg-surface-container-high flex items-center px-4 justify-between border-b border-outline-variant/20">
+<span class="text-[11px] font-headline font-bold tracking-widest text-on-surface">PROCESS_EXPLORER</span>
+<span class="text-[10px] text-secondary opacity-60">TOTAL: 142</span>
+</div>
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left text-[11px] border-collapse">
+<thead class="sticky top-0 bg-surface-container text-on-surface-variant uppercase tracking-wider font-semibold z-10">
+<tr>
+<th class="py-2 px-4 border-b border-outline-variant/10">PID</th>
+<th class="py-2 px-4 border-b border-outline-variant/10">Process Name</th>
+<th class="py-2 px-4 border-b border-outline-variant/10 text-center">Risk</th>
+<th class="py-2 px-4 border-b border-outline-variant/10">User</th>
+<th class="py-2 px-4 border-b border-outline-variant/10">Image Path</th>
+</tr>
+</thead>
+<tbody class="font-mono">
+<tr class="bg-surface hover:bg-surface-container-high cursor-pointer transition-colors border-b border-outline-variant/5">
+<td class="py-1 px-4 text-primary">0004</td>
+<td class="py-1 px-4">System</td>
+<td class="py-1 px-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span></td>
+<td class="py-1 px-4 text-secondary-dim">NT AUTHORITY\SYSTEM</td>
+<td class="py-1 px-4 opacity-40">N/A</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high cursor-pointer transition-colors border-b border-outline-variant/5">
+<td class="py-1 px-4 text-primary">0528</td>
+<td class="py-1 px-4">smss.exe</td>
+<td class="py-1 px-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span></td>
+<td class="py-1 px-4 text-secondary-dim">NT AUTHORITY\SYSTEM</td>
+<td class="py-1 px-4 opacity-40">\SystemRoot\System32\smss.exe</td>
+</tr>
+<tr class="bg-error-container/10 border-l-4 border-error hover:bg-error-container/20 cursor-pointer transition-colors">
+<td class="py-1 px-4 text-error font-bold">2944</td>
+<td class="py-1 px-4 text-error font-bold">svchost.exe</td>
+<td class="py-1 px-4 text-center"><span class="w-2 h-2 rounded-full bg-error inline-block animate-pulse"></span></td>
+<td class="py-1 px-4 text-secondary-dim">USER_ADMIN</td>
+<td class="py-1 px-4 text-error opacity-80 font-mono">C:\Users\Admin\AppData\Local\Temp\svchost.exe</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high cursor-pointer transition-colors border-b border-outline-variant/5">
+<td class="py-1 px-4 text-primary">0680</td>
+<td class="py-1 px-4">services.exe</td>
+<td class="py-1 px-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span></td>
+<td class="py-1 px-4 text-secondary-dim">NT AUTHORITY\SYSTEM</td>
+<td class="py-1 px-4 opacity-40">\SystemRoot\System32\services.exe</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container-high cursor-pointer transition-colors border-b border-outline-variant/5">
+<td class="py-1 px-4 text-primary">0688</td>
+<td class="py-1 px-4">lsass.exe</td>
+<td class="py-1 px-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span></td>
+<td class="py-1 px-4 text-secondary-dim">NT AUTHORITY\SYSTEM</td>
+<td class="py-1 px-4 opacity-40">\SystemRoot\System32\lsass.exe</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high cursor-pointer transition-colors border-b border-outline-variant/5">
+<td class="py-1 px-4 text-primary">1120</td>
+<td class="py-1 px-4">explorer.exe</td>
+<td class="py-1 px-4 text-center"><span class="w-2 h-2 rounded-full bg-tertiary inline-block"></span></td>
+<td class="py-1 px-4 text-secondary-dim">USER_ADMIN</td>
+<td class="py-1 px-4 opacity-40">C:\Windows\explorer.exe</td>
+</tr>
+<!-- Repeating Rows to simulate density -->
+<tr class="bg-surface hover:bg-surface-container-high cursor-pointer transition-colors border-b border-outline-variant/5">
+<td class="py-1 px-4 text-primary">4012</td>
+<td class="py-1 px-4">chrome.exe</td>
+<td class="py-1 px-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span></td>
+<td class="py-1 px-4 text-secondary-dim">USER_ADMIN</td>
+<td class="py-1 px-4 opacity-40">C:\Program Files\Google\Chrome\Application\chrome.exe</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high cursor-pointer transition-colors border-b border-outline-variant/5">
+<td class="py-1 px-4 text-primary">4018</td>
+<td class="py-1 px-4">chrome.exe</td>
+<td class="py-1 px-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span></td>
+<td class="py-1 px-4 text-secondary-dim">USER_ADMIN</td>
+<td class="py-1 px-4 opacity-40">C:\Program Files\Google\Chrome\Application\chrome.exe</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Artifact Browser -->
+<div class="w-1/2 flex flex-col">
+<div class="h-10 bg-surface-container-high flex border-b border-outline-variant/20">
+<button class="px-4 text-[10px] font-bold tracking-widest text-primary border-b-2 border-primary">MODULES</button>
+<button class="px-4 text-[10px] font-bold tracking-widest text-on-surface-variant hover:text-on-surface">HANDLES</button>
+<button class="px-4 text-[10px] font-bold tracking-widest text-on-surface-variant hover:text-on-surface">NETWORK_SOCKETS</button>
+<button class="px-4 text-[10px] font-bold tracking-widest text-on-surface-variant hover:text-on-surface">STRINGS</button>
+</div>
+<div class="flex-1 overflow-auto p-4 space-y-2">
+<div class="bg-surface-container-low p-2 border-l-2 border-primary flex justify-between items-center">
+<div>
+<span class="text-xs font-mono">0x00007FFB34010000</span>
+<span class="mx-2 text-on-surface-variant">/</span>
+<span class="text-xs font-bold text-on-surface">ntdll.dll</span>
+</div>
+<span class="text-[10px] text-secondary opacity-50">1,984 KB</span>
+</div>
+<div class="bg-surface-container-low p-2 border-l-2 border-primary flex justify-between items-center">
+<div>
+<span class="text-xs font-mono">0x00007FFB32E80000</span>
+<span class="mx-2 text-on-surface-variant">/</span>
+<span class="text-xs font-bold text-on-surface">kernel32.dll</span>
+</div>
+<span class="text-[10px] text-secondary opacity-50">724 KB</span>
+</div>
+<div class="bg-surface-container-low p-2 border-l-2 border-error/50 flex justify-between items-center">
+<div>
+<span class="text-xs font-mono">0x00007FFB10200000</span>
+<span class="mx-2 text-on-surface-variant">/</span>
+<span class="text-xs font-bold text-error">unknown_payload.bin</span>
+</div>
+<span class="px-2 py-0.5 bg-error/20 text-error text-[9px] font-bold">UNGUARDED_REGION</span>
+<span class="text-[10px] text-secondary opacity-50">256 KB</span>
+</div>
+<div class="bg-surface-container-low p-2 border-l-2 border-primary flex justify-between items-center">
+<div>
+<span class="text-xs font-mono">0x00007FFB331A0000</span>
+<span class="mx-2 text-on-surface-variant">/</span>
+<span class="text-xs font-bold text-on-surface">user32.dll</span>
+</div>
+<span class="text-[10px] text-secondary opacity-50">1,620 KB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Panel: Hex/VAD -->
+<div class="h-64 bg-surface-container-low border-t border-outline-variant/20 flex flex-col">
+<div class="h-8 bg-surface-container flex items-center px-4 justify-between">
+<div class="flex gap-4">
+<span class="text-[10px] font-bold tracking-widest text-primary uppercase">HEX_VIEWER</span>
+<span class="text-[10px] font-bold tracking-widest text-on-surface-variant uppercase opacity-50">VAD_INFO</span>
+</div>
+<span class="text-[10px] font-mono text-secondary opacity-60">OFFSET: 0x00007FFB10200040</span>
+</div>
+<div class="flex-1 flex font-mono text-[11px] p-4 overflow-hidden gap-8">
+<div class="flex-1 select-all overflow-y-auto leading-relaxed text-secondary-dim">
+<div class="flex gap-4">
+<span class="text-primary-fixed-dim/40">00000000</span>
+<span>4D 5A 90 00 03 00 00 00 04 00 00 00 FF FF 00 00</span>
+<span class="text-on-surface-variant opacity-60">MZ..............</span>
+</div>
+<div class="flex gap-4">
+<span class="text-primary-fixed-dim/40">00000010</span>
+<span>B8 00 00 00 00 00 00 00 40 00 00 00 00 00 00 00</span>
+<span class="text-on-surface-variant opacity-60">........@.......</span>
+</div>
+<div class="flex gap-4 bg-error-container/20">
+<span class="text-primary-fixed-dim/40">00000020</span>
+<span>00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</span>
+<span class="text-on-surface-variant opacity-60">................</span>
+</div>
+<div class="flex gap-4">
+<span class="text-primary-fixed-dim/40">00000030</span>
+<span>00 00 00 00 00 00 00 00 00 00 00 00 80 00 00 00</span>
+<span class="text-on-surface-variant opacity-60">................</span>
+</div>
+<div class="flex gap-4 text-error">
+<span class="text-primary-fixed-dim/40">00000040</span>
+<span>0E 1F BA 0E 00 B4 09 CD 21 B8 01 4C CD 21 54 68</span>
+<span class="text-error/80">........!..L.!Th</span>
+</div>
+<div class="flex gap-4 text-error font-bold">
+<span class="text-primary-fixed-dim/40">00000050</span>
+<span>69 73 20 70 72 6F 67 72 61 6D 20 63 61 6E 6E 6F</span>
+<span class="text-error/80">is program canno</span>
+</div>
+<div class="flex gap-4 text-error font-bold">
+<span class="text-primary-fixed-dim/40">00000060</span>
+<span>74 20 62 65 20 72 75 6E 20 69 6E 20 44 4F 53 20</span>
+<span class="text-error/80">t be run in DOS </span>
+</div>
+</div>
+<div class="w-64 bg-surface px-4 py-2 border border-outline-variant/10 text-[10px] space-y-2 overflow-y-auto">
+<div class="border-b border-outline-variant/10 pb-1 font-bold text-on-surface-variant">VAD_DETAILS</div>
+<div class="flex justify-between"><span>Tag:</span><span class="text-primary">VadS</span></div>
+<div class="flex justify-between"><span>Level:</span><span class="text-primary">4</span></div>
+<div class="flex justify-between"><span>Start:</span><span class="text-primary">0x7FFB10200000</span></div>
+<div class="flex justify-between"><span>End:</span><span class="text-primary">0x7FFB10240000</span></div>
+<div class="flex justify-between"><span>Protection:</span><span class="text-error font-bold">EXECUTE_READWRITE</span></div>
+<div class="flex justify-between"><span>Commit:</span><span class="text-primary">256 KB</span></div>
+<div class="mt-4 p-2 bg-error/10 border border-error/20 text-error leading-tight">
+                                WARN: VAD region has PAGE_EXECUTE_READWRITE permissions. This is highly suggestive of code injection or unpacking.
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Right Sidebar (Analysis Panel) -->
+<aside class="w-80 bg-[#06122d] border-l border-outline-variant/20 flex flex-col shrink-0">
+<!-- Automated Insights -->
+<div class="flex-1 flex flex-col overflow-hidden">
+<div class="h-10 bg-surface-container-high flex items-center px-4 border-b border-outline-variant/20">
+<span class="text-[11px] font-headline font-bold tracking-widest text-tertiary">AUTOMATED_INSIGHTS</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<div class="bg-error-container/10 border-l-4 border-error p-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-error text-sm">warning</span>
+<span class="text-[10px] font-bold text-error uppercase">Critical Alert</span>
+</div>
+<p class="text-[11px] font-bold text-on-surface mb-1">Injected Code detected in explorer.exe</p>
+<p class="text-[10px] text-secondary-dim leading-snug">Private memory region at 0x7FFB10200000 contains an unbacked MZ header.</p>
+</div>
+<div class="bg-tertiary/10 border-l-4 border-tertiary p-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-tertiary text-sm">report_problem</span>
+<span class="text-[10px] font-bold text-tertiary uppercase">Heuristic Warning</span>
+</div>
+<p class="text-[11px] font-bold text-on-surface mb-1">Possible API Hooking</p>
+<p class="text-[10px] text-secondary-dim leading-snug">IAT modification detected in kernel32.dll for CreateRemoteThread.</p>
+</div>
+<div class="bg-surface-container-highest p-3 border-l-4 border-outline-variant">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary text-sm">info</span>
+<span class="text-[10px] font-bold text-secondary uppercase">Information</span>
+</div>
+<p class="text-[11px] font-bold text-on-surface mb-1">Hidden VAD region</p>
+<p class="text-[10px] text-secondary-dim leading-snug">Region identified with VadS tag but no associated file object.</p>
+</div>
+</div>
+</div>
+<!-- YARA Scan Results -->
+<div class="h-1/3 flex flex-col border-t border-outline-variant/20">
+<div class="h-10 bg-surface-container-high flex items-center px-4 border-b border-outline-variant/20">
+<span class="text-[11px] font-headline font-bold tracking-widest text-primary">YARA_SCAN_RESULTS</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-2">
+<div class="flex items-center justify-between text-[11px]">
+<span class="text-on-surface font-mono">CobaltStrike_Beacon</span>
+<span class="px-2 py-0.5 bg-error text-on-error font-bold text-[9px]">MATCH</span>
+</div>
+<div class="flex items-center justify-between text-[11px]">
+<span class="text-on-surface font-mono">Process_Hollowing_Std</span>
+<span class="px-2 py-0.5 bg-tertiary text-on-tertiary font-bold text-[9px]">SUSPICIOUS</span>
+</div>
+<div class="flex items-center justify-between text-[11px] opacity-40">
+<span class="text-on-surface font-mono">Ransomware_Locky</span>
+<span class="text-[9px]">CLEAN</span>
+</div>
+<div class="flex items-center justify-between text-[11px] opacity-40">
+<span class="text-on-surface font-mono">Emotet_Module_V4</span>
+<span class="text-[9px]">CLEAN</span>
+</div>
+<div class="flex items-center justify-between text-[11px] opacity-40">
+<span class="text-on-surface font-mono">Metasploit_Payload</span>
+<span class="text-[9px]">CLEAN</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- System Status Bar -->
+<footer class="h-6 bg-surface-container-highest flex items-center px-4 justify-between border-t border-outline-variant/10 text-[9px] uppercase tracking-widest font-bold text-secondary-dim">
+<div class="flex gap-4 items-center">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> SYSTEM_ONLINE</span>
+<span>MEM_USAGE: 4.2GB / 16GB</span>
+<span>NODES: 0x4F2, 0x991</span>
+</div>
+<div class="flex gap-4">
+<span>VERSION: 4.8.0-SENTINEL</span>
+<span class="text-primary">ENCRYPTED_STREAM_ACTIVE</span>
+</div>
+</footer>
+</body></html>

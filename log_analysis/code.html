@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary": "#909fb4",
+                        "surface-container": "#05183c",
+                        "secondary-fixed": "#d4e4fa",
+                        "inverse-on-surface": "#4d556b",
+                        "on-secondary-fixed": "#324052",
+                        "on-background": "#dee5ff",
+                        "on-surface-variant": "#91aaeb",
+                        "surface-tint": "#7bd0ff",
+                        "surface-dim": "#060e20",
+                        "primary-fixed-dim": "#a2dcff",
+                        "on-tertiary": "#573500",
+                        "error-container": "#7f2927",
+                        "on-primary": "#004560",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "background": "#060e20",
+                        "surface-bright": "#002867",
+                        "on-secondary": "#122131",
+                        "surface-container-highest": "#00225a",
+                        "tertiary-container": "#f8a010",
+                        "outline": "#5b74b1",
+                        "on-surface": "#dee5ff",
+                        "tertiary-fixed-dim": "#e79400",
+                        "on-secondary-container": "#b1c0d6",
+                        "on-tertiary-fixed-variant": "#563400",
+                        "on-secondary-fixed-variant": "#4e5d6f",
+                        "inverse-surface": "#faf8ff",
+                        "error-dim": "#bb5551",
+                        "surface": "#060e20",
+                        "secondary-container": "#2e3c4e",
+                        "on-tertiary-container": "#4a2c00",
+                        "primary-dim": "#47c4ff",
+                        "on-primary-fixed-variant": "#006286",
+                        "surface-container-low": "#06122d",
+                        "tertiary-fixed": "#f8a010",
+                        "surface-container-high": "#031d4b",
+                        "on-primary-fixed": "#00445e",
+                        "primary": "#7bd0ff",
+                        "error": "#ee7d77",
+                        "on-error": "#490106",
+                        "on-primary-container": "#97d8ff",
+                        "outline-variant": "#2b4680",
+                        "on-error-container": "#ff9993",
+                        "tertiary": "#ffb148",
+                        "inverse-primary": "#00668b",
+                        "primary-container": "#004c69",
+                        "tertiary-dim": "#e79400",
+                        "primary-fixed": "#c4e7ff",
+                        "surface-variant": "#00225a",
+                        "secondary-dim": "#909fb4",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-lowest": "#000000"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #060e20; }
+        ::-webkit-scrollbar-thumb { background: #2b4680; }
+        ::-webkit-scrollbar-thumb:hover { background: #7bd0ff; }
+        .glass-gradient {
+            background: linear-gradient(180deg, rgba(123, 208, 255, 0.05) 0%, rgba(0, 76, 105, 0) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 selection:text-primary min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-6 h-14 w-full bg-slate-950 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-sky-400 font-['Space_Grotesk']">SENTINEL_FORENSICS</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="font-['Space_Grotesk'] tracking-tight text-slate-400 hover:text-slate-200 transition-colors duration-150" href="#">Case Overview</a>
+<a class="font-['Space_Grotesk'] tracking-tight text-slate-400 hover:text-slate-200 transition-colors duration-150" href="#">Evidence</a>
+<a class="font-['Space_Grotesk'] tracking-tight text-slate-400 hover:text-slate-200 transition-colors duration-150" href="#">Timeline</a>
+<a class="font-['Space_Grotesk'] tracking-tight text-slate-400 hover:text-slate-200 transition-colors duration-150" href="#">Reporting</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+<input class="bg-slate-900 border-none text-xs w-64 pl-9 py-1.5 focus:ring-1 focus:ring-sky-400 font-mono text-sky-400" placeholder="Global Search..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-slate-800 transition-colors duration-150 text-slate-400">
+<span class="material-symbols-outlined">account_tree</span>
+</button>
+<button class="p-1.5 hover:bg-slate-800 transition-colors duration-150 text-slate-400">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="p-1.5 hover:bg-slate-800 transition-colors duration-150 text-slate-400 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error"></span>
+</button>
+</div>
+<img alt="Investigator Profile" class="w-8 h-8 object-cover grayscale brightness-75 hover:grayscale-0 transition-all" data-alt="Professional headshot of a cyber forensics investigator in a dark office environment with blue computer screen reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkG8zTA3IgfvNCkaNM2mekp20xiu5fuTqQ6Hcgv8U49w4i7C6QCAffDF7l7Xo4hFCIdEU6QJ2cJ0lDvou7tAGkIs2-ulMVdqzmshyyLhXrNNvzAGWiYtAvcCuAx9IAELMQuvyxrxj106ZbyLYAqIW2vp5aGY0QoVn8sfuthZ-cGu-IHGcwLSPCcPJ04SqohP8XwSDf4sNBeOO7VAKnnsHjZgMou1ScsNakDBgc34BVTEKfMB2cFa2bTSwKroIpSWpqA42z7_BA18M"/>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-64 flex flex-col bg-slate-950 z-40">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary animate-pulse"></div>
+<div class="flex flex-col">
+<span class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-on-surface">CASE: 882-ALPHA</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-widest text-primary font-bold">STATUS: ACTIVE SCAN</span>
+</div>
+</div>
+</div>
+<nav class="flex-1 py-4 overflow-y-auto">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-4 px-6 py-3 font-['Space_Grotesk'] text-xs uppercase tracking-widest text-slate-500 hover:text-slate-300 hover:bg-slate-900 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                            Dashboard
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-3 font-['Space_Grotesk'] text-xs uppercase tracking-widest bg-sky-900/30 text-sky-400 border-l-4 border-sky-400 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                            Log Analyzer
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-3 font-['Space_Grotesk'] text-xs uppercase tracking-widest text-slate-500 hover:text-slate-300 hover:bg-slate-900 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+                            Registry
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-3 font-['Space_Grotesk'] text-xs uppercase tracking-widest text-slate-500 hover:text-slate-300 hover:bg-slate-900 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+                            File System
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-3 font-['Space_Grotesk'] text-xs uppercase tracking-widest text-slate-500 hover:text-slate-300 hover:bg-slate-900 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">hub</span>
+                            Network
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-3 font-['Space_Grotesk'] text-xs uppercase tracking-widest text-slate-500 hover:text-slate-300 hover:bg-slate-900 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">biotech</span>
+                            Malware
+                        </a>
+</li>
+</ul>
+</nav>
+<div class="mt-auto py-4 border-t border-outline-variant/10">
+<a class="flex items-center gap-4 px-6 py-3 font-['Space_Grotesk'] text-xs uppercase tracking-widest text-slate-500 hover:text-slate-300 hover:bg-slate-900 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </a>
+<a class="flex items-center gap-4 px-6 py-3 font-['Space_Grotesk'] text-xs uppercase tracking-widest text-slate-500 hover:text-slate-300 hover:bg-slate-900 transition-all duration-150" href="#">
+<span class="material-symbols-outlined">lock</span>
+                    Lock
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-[calc(100vh-3.5rem)] bg-surface overflow-hidden">
+<!-- Header Section -->
+<section class="p-6 bg-surface-container-low flex justify-between items-end border-b border-outline-variant/10">
+<div>
+<nav class="flex items-center gap-2 mb-1">
+<span class="text-[10px] uppercase tracking-widest text-slate-500">CASES</span>
+<span class="material-symbols-outlined text-xs text-slate-600">chevron_right</span>
+<span class="text-[10px] uppercase tracking-widest text-primary">882-ALPHA</span>
+</nav>
+<h1 class="text-3xl font-headline font-bold tracking-tighter text-on-surface uppercase">Log Analyzer</h1>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 font-headline font-bold text-sm tracking-wide uppercase hover:bg-primary-dim transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export Logs
+                </button>
+</section>
+<!-- Query & Filter Panel -->
+<section class="px-6 py-4 bg-surface-container-low flex flex-col gap-4">
+<div class="flex gap-4">
+<div class="flex-1 relative group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+<input class="w-full bg-surface-container border-none py-3 px-4 font-mono text-sm text-sky-400 placeholder:text-slate-600 focus:ring-0" placeholder="event_id: 4624 AND severity: critical | stats count by source" type="text"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
+<span class="text-[10px] text-slate-500 font-mono">KQL</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-primary text-sm">history</span>
+</div>
+</div>
+<div class="w-48 bg-surface-container flex items-center px-4 cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm text-slate-500 mr-2">calendar_today</span>
+<span class="text-xs uppercase tracking-widest font-headline">Last 24h</span>
+<span class="material-symbols-outlined text-sm text-slate-500 ml-auto">expand_more</span>
+</div>
+</div>
+<div class="flex gap-6 items-center overflow-x-auto pb-1">
+<div class="flex items-center gap-3 shrink-0">
+<span class="text-[10px] uppercase tracking-widest font-bold text-slate-500">Source:</span>
+<div class="flex gap-2">
+<span class="bg-primary-container text-on-primary-container text-[10px] px-2 py-0.5 font-bold uppercase cursor-pointer">System</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 font-bold uppercase cursor-pointer hover:bg-secondary-container">Security</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-2 py-0.5 font-bold uppercase cursor-pointer hover:bg-secondary-container">Application</span>
+</div>
+</div>
+<div class="h-4 w-px bg-outline-variant/30 shrink-0"></div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="text-[10px] uppercase tracking-widest font-bold text-slate-500">Severity:</span>
+<div class="flex gap-2">
+<span class="bg-error/20 text-error border border-error/30 text-[10px] px-2 py-0.5 font-bold uppercase cursor-pointer">Critical</span>
+<span class="bg-error-container/20 text-error-dim border border-error-container/30 text-[10px] px-2 py-0.5 font-bold uppercase cursor-pointer">Error</span>
+<span class="bg-tertiary/20 text-tertiary border border-tertiary/30 text-[10px] px-2 py-0.5 font-bold uppercase cursor-pointer">Warning</span>
+<span class="bg-primary/10 text-primary border border-primary/30 text-[10px] px-2 py-0.5 font-bold uppercase cursor-pointer">Info</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Timeline Visualization -->
+<section class="px-6 py-4 bg-surface-container-low">
+<div class="h-16 flex items-end gap-1 w-full relative">
+<!-- Grid Background -->
+<div class="absolute inset-0 grid grid-cols-12 grid-rows-1 pointer-events-none opacity-5">
+<div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div><div class="border-r border-on-surface"></div>
+</div>
+<!-- Sample Data Bars -->
+<div class="flex-1 h-[30%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[45%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[20%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[60%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[85%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[40%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[35%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[25%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[95%] bg-error/40 hover:bg-error transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[100%] bg-error hover:bg-error/80 transition-colors cursor-pointer relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-error text-on-error text-[8px] font-bold px-1 py-0.5">SPIKE</div>
+</div>
+<div class="flex-1 h-[50%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[40%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[30%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[15%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[20%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[45%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[60%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[35%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[25%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+<div class="flex-1 h-[10%] bg-sky-900/40 hover:bg-sky-400 transition-colors cursor-pointer"></div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] font-headline text-slate-500 uppercase tracking-widest">
+<span>14:00:00</span>
+<span>16:00:00</span>
+<span>18:00:00</span>
+<span>20:00:00</span>
+<span>22:00:00</span>
+<span>00:00:00</span>
+</div>
+</section>
+<!-- Data Table -->
+<section class="flex-1 overflow-auto bg-surface-container-low">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-high z-10">
+<tr>
+<th class="p-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Timestamp (ISO 8601)</th>
+<th class="p-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Source</th>
+<th class="p-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Event ID</th>
+<th class="p-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Severity</th>
+<th class="p-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Message</th>
+</tr>
+</thead>
+<tbody class="font-mono text-[11px] leading-tight">
+<!-- Row 1 (Critical) -->
+<tr class="group hover:bg-surface-container-highest transition-colors cursor-pointer bg-surface border-b border-outline-variant/5">
+<td class="p-3 text-slate-400">2023-11-24T18:42:01.332Z</td>
+<td class="p-3 text-sky-400">Security</td>
+<td class="p-3 text-on-surface font-bold">4624</td>
+<td class="p-3">
+<span class="text-error bg-error/10 px-2 py-0.5 font-bold uppercase text-[9px]">Critical</span>
+</td>
+<td class="p-3 text-slate-300 truncate max-w-xl">An account was successfully logged on. Possible credential stuffing detected from unknown IP.</td>
+</tr>
+<!-- Row 2 (Warning) -->
+<tr class="group hover:bg-surface-container-highest transition-colors cursor-pointer bg-surface-container-low border-b border-outline-variant/5">
+<td class="p-3 text-slate-400">2023-11-24T18:41:55.109Z</td>
+<td class="p-3 text-sky-400">System</td>
+<td class="p-3 text-on-surface font-bold">7036</td>
+<td class="p-3">
+<span class="text-tertiary bg-tertiary/10 px-2 py-0.5 font-bold uppercase text-[9px]">Warning</span>
+</td>
+<td class="p-3 text-slate-300 truncate max-w-xl">The Print Spooler service entered the stopped state unexpectedly.</td>
+</tr>
+<!-- Row 3 (Error) -->
+<tr class="group hover:bg-surface-container-highest transition-colors cursor-pointer bg-surface border-b border-outline-variant/5">
+<td class="p-3 text-slate-400">2023-11-24T18:41:48.882Z</td>
+<td class="p-3 text-sky-400">Application</td>
+<td class="p-3 text-on-surface font-bold">1000</td>
+<td class="p-3">
+<span class="text-error-dim bg-error-container/10 px-2 py-0.5 font-bold uppercase text-[9px]">Error</span>
+</td>
+<td class="p-3 text-slate-300 truncate max-w-xl">Faulting application name: ForensicsTool.exe, version: 1.0.4.0, time stamp: 0x654e2a1b</td>
+</tr>
+<!-- Row 4 (Info) -->
+<tr class="group hover:bg-surface-container-highest transition-colors cursor-pointer bg-surface-container-low border-b border-outline-variant/5">
+<td class="p-3 text-slate-400">2023-11-24T18:40:12.001Z</td>
+<td class="p-3 text-sky-400">Security</td>
+<td class="p-3 text-on-surface font-bold">4634</td>
+<td class="p-3">
+<span class="text-primary bg-primary/10 px-2 py-0.5 font-bold uppercase text-[9px]">Info</span>
+</td>
+<td class="p-3 text-slate-300 truncate max-w-xl">An account was logged off. Subject User Name: SYSTEM.</td>
+</tr>
+<!-- Row 5 (Critical) -->
+<tr class="group hover:bg-surface-container-highest transition-colors cursor-pointer bg-surface border-b border-outline-variant/5">
+<td class="p-3 text-slate-400">2023-11-24T18:38:59.452Z</td>
+<td class="p-3 text-sky-400">Security</td>
+<td class="p-3 text-on-surface font-bold">4672</td>
+<td class="p-3">
+<span class="text-error bg-error/10 px-2 py-0.5 font-bold uppercase text-[9px]">Critical</span>
+</td>
+<td class="p-3 text-slate-300 truncate max-w-xl">Special privileges assigned to new logon. TargetUser: Administrator.</td>
+</tr>
+<!-- Row 6 (Info) -->
+<tr class="group hover:bg-surface-container-highest transition-colors cursor-pointer bg-surface-container-low border-b border-outline-variant/5">
+<td class="p-3 text-slate-400">2023-11-24T18:37:21.010Z</td>
+<td class="p-3 text-sky-400">System</td>
+<td class="p-3 text-on-surface font-bold">20</td>
+<td class="p-3">
+<span class="text-primary bg-primary/10 px-2 py-0.5 font-bold uppercase text-[9px]">Info</span>
+</td>
+<td class="p-3 text-slate-300 truncate max-w-xl">The system time has changed to 2023-11-24T18:37:21.000000000Z from 2023-11-24T18:37:19.452312000Z.</td>
+</tr>
+<!-- Row 7 (Info) -->
+<tr class="group hover:bg-surface-container-highest transition-colors cursor-pointer bg-surface border-b border-outline-variant/5">
+<td class="p-3 text-slate-400">2023-11-24T18:35:10.992Z</td>
+<td class="p-3 text-sky-400">Application</td>
+<td class="p-3 text-on-surface font-bold">102</td>
+<td class="p-3">
+<span class="text-primary bg-primary/10 px-2 py-0.5 font-bold uppercase text-[9px]">Info</span>
+</td>
+<td class="p-3 text-slate-300 truncate max-w-xl">Application check-in successful. All modules reporting operational.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<!-- Status Bar -->
+<footer class="h-8 bg-slate-950 px-6 flex items-center justify-between border-t border-outline-variant/10 text-[10px] font-['Space_Grotesk'] uppercase tracking-widest">
+<div class="flex gap-6 items-center">
+<div class="flex items-center gap-2">
+<span class="text-slate-500">TOTAL ENTRIES:</span>
+<span class="text-on-surface font-bold">1,248,392</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-slate-500">FILTERS:</span>
+<span class="text-primary font-bold">ACTIVE (2)</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<span class="text-slate-500">SCANNING:</span>
+<div class="w-32 h-1 bg-surface-container overflow-hidden">
+<div class="h-full bg-primary w-[72%]"></div>
+</div>
+<span class="text-primary font-bold">72%</span>
+</div>
+<div class="h-3 w-px bg-slate-800"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[12px] text-primary">circle</span>
+<span class="text-primary">SYSTEM CONNECTED</span>
+</div>
+</div>
+</footer>
+</main>
+</div>
+<!-- Floating Action Button Suppression - Not applicable here as per rules -->
+</body></html>

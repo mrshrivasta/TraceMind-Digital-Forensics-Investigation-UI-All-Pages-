@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CIPHER_OBSIDIAN // RESET_PASSWORD</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#573500",
+                    "surface-dim": "#060e20",
+                    "on-primary-fixed": "#00445e",
+                    "primary-fixed-dim": "#a2dcff",
+                    "secondary": "#909fb4",
+                    "on-surface": "#dee5ff",
+                    "primary-container": "#004c69",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-secondary-container": "#b1c0d6",
+                    "surface-container": "#05183c",
+                    "primary-fixed": "#c4e7ff",
+                    "on-secondary-fixed": "#324052",
+                    "on-primary-container": "#97d8ff",
+                    "tertiary-fixed-dim": "#e79400",
+                    "inverse-primary": "#00668b",
+                    "error": "#ee7d77",
+                    "tertiary-fixed": "#f8a010",
+                    "error-dim": "#bb5551",
+                    "secondary-dim": "#909fb4",
+                    "on-secondary": "#122131",
+                    "error-container": "#7f2927",
+                    "on-primary": "#004560",
+                    "background": "#060e20",
+                    "tertiary-dim": "#e79400",
+                    "primary": "#7bd0ff",
+                    "on-tertiary-container": "#4a2c00",
+                    "outline": "#5b74b1",
+                    "surface-variant": "#00225a",
+                    "surface-container-high": "#031d4b",
+                    "secondary-container": "#2e3c4e",
+                    "tertiary": "#ffb148",
+                    "outline-variant": "#2b4680",
+                    "surface-container-low": "#06122d",
+                    "inverse-surface": "#faf8ff",
+                    "tertiary-container": "#f8a010",
+                    "surface-tint": "#7bd0ff",
+                    "on-primary-fixed-variant": "#006286",
+                    "surface-bright": "#002867",
+                    "secondary-fixed": "#d4e4fa",
+                    "on-tertiary-fixed-variant": "#563400",
+                    "on-error-container": "#ff9993",
+                    "surface-container-lowest": "#000000",
+                    "on-secondary-fixed-variant": "#4e5d6f",
+                    "surface-bright": "#002867",
+                    "primary-dim": "#47c4ff",
+                    "on-surface-variant": "#91aaeb",
+                    "inverse-on-surface": "#4d556b",
+                    "on-background": "#dee5ff",
+                    "surface": "#060e20",
+                    "secondary-fixed-dim": "#c6d6ec",
+                    "on-error": "#490106"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .grid-bg {
+            background-image: linear-gradient(rgba(43, 70, 128, 0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(43, 70, 128, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen flex flex-col">
+<!-- TopNavBar Component -->
+<nav class="bg-[#060e20] flex justify-between items-center w-full px-6 py-3 fixed top-0 z-50">
+<div class="flex items-center gap-2">
+<span class="text-lg font-black tracking-tighter text-[#7bd0ff]">SENTINEL_OS</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="font-['Space_Grotesk'] tracking-wider uppercase text-xs text-[#dee5ff]/60 hover:bg-[#031d4b] transition-colors duration-150 px-2 py-1" href="#">RECOVERY_PROTOCOL</a>
+<span class="material-symbols-outlined text-[#7bd0ff] cursor-pointer">security</span>
+</div>
+</nav>
+<!-- Main Content Stage -->
+<main class="flex-grow flex items-center justify-center pt-16 pb-12 grid-bg relative overflow-hidden">
+<!-- Decorative Ambient Light -->
+<div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 blur-[120px] pointer-events-none"></div>
+<div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] pointer-events-none"></div>
+<div class="max-w-[520px] w-full px-6 relative z-10">
+<!-- Secure Container -->
+<div class="bg-surface-container-low p-8 shadow-2xl relative">
+<!-- Header Status -->
+<div class="flex justify-between items-start mb-8">
+<div>
+<h1 class="font-headline text-2xl font-bold tracking-tight text-primary">CREDENTIAL_RESET</h1>
+<p class="font-headline text-[10px] tracking-widest text-on-surface-variant uppercase mt-1">SESSION_ID: 0x8849-FF21-DECA</p>
+</div>
+<div class="bg-primary/10 px-3 py-1 border border-primary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-headline text-[10px] font-bold tracking-wider text-primary uppercase">Identity Verified</span>
+</div>
+</div>
+<!-- Forensic Form -->
+<form class="space-y-6">
+<!-- Verification Code (MFA) -->
+<div class="space-y-2">
+<label class="font-headline text-[11px] font-semibold text-on-surface-variant tracking-[0.05em] uppercase flex items-center gap-2">
+                            MFA_HARDWARE_TOKEN_CODE
+                            <span class="text-[8px] opacity-40">●●●●●●</span>
+</label>
+<div class="relative">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-primary"></div>
+<input class="w-full bg-surface-container border-none text-on-surface placeholder:text-on-surface/20 font-mono tracking-[1em] text-center focus:ring-0 py-4" maxlength="6" placeholder="000000" type="text"/>
+</div>
+<p class="text-[10px] text-on-surface/40 italic">Code dispatched to registered hardware-key "TITAN_04"</p>
+</div>
+<!-- New Password Field -->
+<div class="space-y-2">
+<label class="font-headline text-[11px] font-semibold text-on-surface-variant tracking-[0.05em] uppercase">
+                            SET_NEW_PASSWORD
+                        </label>
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-transparent group-focus-within:bg-primary transition-colors"></div>
+<input class="w-full bg-surface-container border-none text-on-surface focus:ring-0 py-3 pr-12" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface/40 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+<!-- Strength Indicator -->
+<div class="grid grid-cols-4 gap-1 mt-2">
+<div class="h-1 bg-primary"></div>
+<div class="h-1 bg-primary"></div>
+<div class="h-1 bg-primary"></div>
+<div class="h-1 bg-surface-variant"></div>
+</div>
+<div class="flex justify-between mt-1">
+<span class="text-[9px] font-headline text-primary uppercase font-bold">STRENGTH: HIGH_INTEGRITY</span>
+<span class="text-[9px] font-headline text-on-surface/40 uppercase">ENTROPY: 84.2 BITS</span>
+</div>
+</div>
+<!-- Confirm Password Field -->
+<div class="space-y-2">
+<label class="font-headline text-[11px] font-semibold text-on-surface-variant tracking-[0.05em] uppercase">
+                            CONFIRM_NEW_PASSWORD
+                        </label>
+<div class="relative group">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-transparent group-focus-within:bg-primary transition-colors"></div>
+<input class="w-full bg-surface-container border-none text-on-surface focus:ring-0 py-3" type="password"/>
+</div>
+</div>
+<!-- Security Requirements Checklist -->
+<div class="bg-surface-container-high p-4 border border-outline-variant/10">
+<h4 class="font-headline text-[10px] font-bold text-on-surface/60 uppercase tracking-widest mb-3">Protocol Requirements</h4>
+<ul class="space-y-2">
+<li class="flex items-center gap-2 text-[11px]">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface/80">Minimum 16 characters</span>
+</li>
+<li class="flex items-center gap-2 text-[11px]">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-surface/80">Non-Dictionary algorithmic complexity</span>
+</li>
+<li class="flex items-center gap-2 text-[11px]">
+<span class="material-symbols-outlined text-[16px] text-primary/30">radio_button_unchecked</span>
+<span class="text-on-surface/40">Include alpha-numeric and special syntax</span>
+</li>
+</ul>
+</div>
+<!-- Action Button -->
+<div class="pt-4">
+<button class="w-full bg-primary text-on-primary font-headline font-bold py-4 uppercase tracking-[0.2em] text-sm hover:bg-primary-dim active:scale-[0.98] transition-all relative overflow-hidden group" type="submit">
+<span class="relative z-10">AUTHORIZE_KEY_UPDATE</span>
+<div class="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+</button>
+<a class="block text-center mt-6 font-headline text-[10px] text-on-surface/40 uppercase tracking-widest hover:text-primary transition-colors" href="#">
+                            CANCEL_OPERATION // ABORT_TO_LOGIN
+                        </a>
+</div>
+</form>
+<!-- Corner Decorations -->
+<div class="absolute top-0 right-0 w-8 h-8 border-t border-r border-primary/20"></div>
+<div class="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-primary/20"></div>
+</div>
+<!-- Metadata Footer for Card -->
+<div class="mt-4 flex justify-between items-center px-2">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[9px] font-mono text-primary/60 uppercase">ENCRYPTION: AES-256_GCM</span>
+</div>
+<span class="text-[9px] font-mono text-on-surface/20 uppercase">LOC: 37.7749° N, 122.4194° W</span>
+</div>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-[#060e20] fixed bottom-0 w-full flex justify-between px-6 py-2 items-center z-50">
+<span class="font-['Inter'] text-[10px] tracking-[0.05em] uppercase text-[#7bd0ff]/60">© 2024 CIPHER_OBSIDIAN // FORENSIC_INTEGRITY_VERIFIED</span>
+<div class="flex gap-4">
+<span class="font-['Inter'] text-[10px] tracking-[0.05em] uppercase text-[#7bd0ff]">SYSTEM_STATUS: NOMINAL</span>
+<span class="font-['Inter'] text-[10px] tracking-[0.05em] uppercase text-[#dee5ff]/40">ENCRYPTION: AES-256</span>
+</div>
+</footer>
+</body></html>

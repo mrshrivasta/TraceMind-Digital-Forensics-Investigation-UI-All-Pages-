@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LITHOGRAPH_FORENSICS - Evidence Details Viewer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#131313",
+                        "primary-container": "#002c31",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-container": "#00a352",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary": "#00363d",
+                        "secondary": "#ffd799",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-error-container": "#ffdad6",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#004f58",
+                        "tertiary": "#00e475",
+                        "tertiary-fixed-dim": "#00e475",
+                        "error-container": "#93000a",
+                        "secondary-container": "#feb300",
+                        "surface-bright": "#393939",
+                        "surface-container-highest": "#353534",
+                        "on-secondary": "#432c00",
+                        "on-primary-fixed": "#001f24",
+                        "surface-tint": "#45d8ed",
+                        "on-surface-variant": "#c1c7cb",
+                        "on-tertiary": "#003918",
+                        "primary": "#45d8ed",
+                        "on-secondary-container": "#6a4800",
+                        "secondary-fixed-dim": "#ffba38",
+                        "on-tertiary-fixed": "#00210b",
+                        "on-tertiary-fixed-variant": "#005226",
+                        "primary-fixed": "#98f0ff",
+                        "primary-fixed-dim": "#45d8ed",
+                        "surface-dim": "#131313",
+                        "tertiary-container": "#002e12",
+                        "outline-variant": "#41484b",
+                        "inverse-on-surface": "#313030",
+                        "tertiary-fixed": "#62ff96",
+                        "on-primary-container": "#009cad",
+                        "on-secondary-fixed": "#281900",
+                        "secondary-fixed": "#ffdeac",
+                        "background": "#131313",
+                        "surface-variant": "#353534",
+                        "outline": "#8b9295",
+                        "surface-container": "#201f1f",
+                        "on-error": "#690005",
+                        "inverse-primary": "#006874"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            font-size: 1.25rem;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #353534;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #45d8ed;
+        }
+        .tonal-border {
+            border-color: rgba(65, 72, 75, 0.15);
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen">
+<!-- TopNavBar -->
+<header class="bg-[#131313] dark:bg-[#131313] text-[#45D8ED] dark:text-[#45D8ED] font-['Space_Grotesk'] tracking-tighter docked full-width top-0 border-b-0 bg-[#1C1B1B] flat no shadows flex justify-between items-center w-full px-6 h-14 z-50">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold uppercase tracking-widest text-[#45D8ED]">LITHOGRAPH_FORENSICS</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="text-[#C1C7CB] hover:text-[#E5E2E1] transition-colors duration-100" href="#">Case Dashboard</a>
+<a class="text-[#45D8ED] border-b-2 border-[#45D8ED] pb-1" href="#">Evidence Registry</a>
+<a class="text-[#C1C7CB] hover:text-[#E5E2E1] transition-colors duration-100" href="#">Chain of Custody</a>
+<a class="text-[#C1C7CB] hover:text-[#E5E2E1] transition-colors duration-100" href="#">Report Generator</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-[#2A2A2A] px-4 py-1.5 text-xs font-bold text-[#45D8ED] hover:bg-[#353534] transition-colors duration-100">Finalize Case</button>
+<div class="flex gap-2">
+<span class="material-symbols-outlined cursor-pointer hover:bg-[#2A2A2A] p-1 transition-colors duration-100" data-icon="settings">settings</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-[#2A2A2A] p-1 transition-colors duration-100" data-icon="help_outline">help_outline</span>
+</div>
+</div>
+</header>
+<!-- Main Layout Shell -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left SideNavBar -->
+<aside class="bg-[#1C1B1B] dark:bg-[#1C1B1B] font-['Inter'] text-sm uppercase tracking-tight docked left-0 h-full w-64 border-r-0 flat no shadows fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex flex-col z-40">
+<div class="p-4 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+</div>
+<div>
+<div class="text-[#45D8ED] font-black leading-none">CASE_DE_772</div>
+<div class="text-[10px] text-on-surface-variant mt-1">Lead: Forensic Architect</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-2">
+<div class="flex items-center border-l-2 border-[#45D8ED] bg-[#2A2A2A] text-[#45D8ED] font-bold px-4 py-3">
+<span class="material-symbols-outlined mr-3" data-icon="folder_open">folder_open</span>
+                    File System
+                </div>
+<div class="flex items-center text-[#C1C7CB] px-4 py-3 hover:bg-[#2A2A2A] transition-all duration-75 cursor-pointer">
+<span class="material-symbols-outlined mr-3" data-icon="account_tree">account_tree</span>
+                    Registry
+                </div>
+<div class="flex items-center text-[#C1C7CB] px-4 py-3 hover:bg-[#2A2A2A] transition-all duration-75 cursor-pointer">
+<span class="material-symbols-outlined mr-3" data-icon="schedule">schedule</span>
+                    Timeline
+                </div>
+<div class="flex items-center text-[#C1C7CB] px-4 py-3 hover:bg-[#2A2A2A] transition-all duration-75 cursor-pointer">
+<span class="material-symbols-outlined mr-3" data-icon="memory">memory</span>
+                    Memory
+                </div>
+<div class="flex items-center text-[#C1C7CB] px-4 py-3 hover:bg-[#2A2A2A] transition-all duration-75 cursor-pointer">
+<span class="material-symbols-outlined mr-3" data-icon="biotech">biotech</span>
+                    Artifacts
+                </div>
+<!-- Tree View Mockup -->
+<div class="mt-4 px-4 font-mono text-[11px] normal-case text-on-surface-variant">
+<div class="flex items-center gap-2 py-1 opacity-60"><span class="material-symbols-outlined text-[14px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span> Disk Image</div>
+<div class="pl-4 flex items-center gap-2 py-1 opacity-60"><span class="material-symbols-outlined text-[14px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span> Partition 1</div>
+<div class="pl-8 flex items-center gap-2 py-1 opacity-60"><span class="material-symbols-outlined text-[14px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span> UserData</div>
+<div class="pl-12 flex items-center gap-2 py-1 bg-surface-container-highest text-primary"><span class="material-symbols-outlined text-[14px]" data-icon="image">image</span> image.jpg</div>
+<div class="pl-12 flex items-center gap-2 py-1 hover:text-on-surface cursor-pointer"><span class="material-symbols-outlined text-[14px]" data-icon="description">description</span> logs.txt</div>
+<div class="pl-12 flex items-center gap-2 py-1 hover:text-on-surface cursor-pointer text-secondary"><span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span> suspicious.exe</div>
+</div>
+</nav>
+<div class="mt-auto border-t border-outline-variant/10">
+<div class="flex items-center text-[#C1C7CB] px-4 py-3 hover:bg-[#2A2A2A] cursor-pointer">
+<span class="material-symbols-outlined mr-3" data-icon="terminal">terminal</span>
+                    Terminal
+                </div>
+<div class="flex items-center text-[#C1C7CB] px-4 py-3 hover:bg-[#2A2A2A] cursor-pointer">
+<span class="material-symbols-outlined mr-3" data-icon="list_alt">list_alt</span>
+                    Logs
+                </div>
+</div>
+</aside>
+<!-- Content Canvas -->
+<main class="ml-64 flex flex-1 overflow-hidden bg-surface">
+<!-- Central Pane: Evidence Content -->
+<section class="flex-1 flex flex-col border-r border-outline-variant/10">
+<!-- Breadcrumbs -->
+<div class="h-10 px-4 flex items-center bg-surface-container-low text-[11px] font-mono text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/5">
+                    Case #772 <span class="mx-2 opacity-30">&gt;</span> Disk Image <span class="mx-2 opacity-30">&gt;</span> Partition 1 <span class="mx-2 opacity-30">&gt;</span> UserData <span class="mx-2 opacity-30">&gt;</span> <span class="text-primary">image.jpg</span>
+</div>
+<!-- Tabs -->
+<div class="flex bg-surface-container-lowest">
+<button class="px-6 py-2 text-[11px] font-bold uppercase tracking-widest border-t-2 border-primary bg-surface-container-low text-primary">Media Preview</button>
+<button class="px-6 py-2 text-[11px] font-bold uppercase tracking-widest border-t-2 border-transparent text-on-surface-variant hover:bg-surface-container-low">Metadata</button>
+<button class="px-6 py-2 text-[11px] font-bold uppercase tracking-widest border-t-2 border-transparent text-on-surface-variant hover:bg-surface-container-low">Hex View</button>
+<button class="px-6 py-2 text-[11px] font-bold uppercase tracking-widest border-t-2 border-transparent text-on-surface-variant hover:bg-surface-container-low">Text Strings</button>
+</div>
+<!-- Content Area -->
+<div class="flex-1 overflow-auto custom-scrollbar bg-surface-container-low p-6 flex flex-col items-center">
+<!-- Media Preview Mock -->
+<div class="w-full max-w-2xl bg-surface border border-outline-variant/10 aspect-video relative overflow-hidden flex items-center justify-center">
+<img alt="Digital circuitry visualization" class="w-full h-full object-cover opacity-80 mix-blend-screen" data-alt="Close up of a green microchip motherboard with glowing blue fiber optic data lines and sharp industrial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOKEqXAks5ZqNfOMr9qVUfJ7wxB_RyIEsEE0yYijoQWUqG4S-zO_qFV_hKoXKPATXj_9tscnjwRgELIn7pLMuVaACVPTk5T3UoD5VoInTFKBILj7gQNk75KmANLGNzX3YDjOuIGw0y9_71c41CPyuu6sOpxImnsLVMosazU3nm_c2XXCGRZA1k7q8i8R3Dl41wVaJ35IdAKoGBluutpe34dec6CpRkY9HN6a3tOHd6uH1JS_umyWbXy6NYWXKMrm8nA0HfRzDD3TQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute bottom-4 left-4 font-mono text-[10px] text-primary bg-surface/80 px-2 py-1">
+                            IMG_RENDER_OVR: 4096x2160_HDR
+                        </div>
+</div>
+<!-- Toolbar Actions -->
+<div class="w-full max-w-2xl mt-6 flex gap-3">
+<button class="flex-1 py-2 bg-on-primary-container text-primary-fixed font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:brightness-110">
+<span class="material-symbols-outlined text-[18px]" data-icon="file_download">file_download</span>
+                            Export Artifact
+                        </button>
+<button class="flex-1 py-2 border border-outline-variant/30 text-on-surface font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[18px] text-secondary" data-icon="flag">flag</span>
+                            Flag for Review
+                        </button>
+<button class="flex-1 py-2 border border-outline-variant/30 text-on-surface font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[18px] text-tertiary" data-icon="verified_user">verified_user</span>
+                            Verify Hash
+                        </button>
+</div>
+<!-- Hex Fragment Overlay -->
+<div class="w-full max-w-2xl mt-8 font-mono text-[10px] leading-relaxed opacity-40 select-none">
+<div class="flex gap-4 border-b border-outline-variant/5 pb-1 mb-1">
+<span class="w-16">OFFSET</span>
+<span class="flex-1">HEX DATA</span>
+<span class="w-24">ASCII</span>
+</div>
+<div class="flex gap-4 py-0.5">
+<span class="w-16 text-primary">00000000</span>
+<span class="flex-1">FF D8 FF E0 00 10 4A 46 49 46 00 01 01 01 00 48</span>
+<span class="w-24">......JFIF.....H</span>
+</div>
+<div class="flex gap-4 py-0.5">
+<span class="w-16 text-primary">00000010</span>
+<span class="flex-1">00 48 00 00 FF DB 00 43 00 03 02 02 03 02 02 03</span>
+<span class="w-24">.H.....C........</span>
+</div>
+<div class="flex gap-4 py-0.5">
+<span class="w-16 text-primary">00000020</span>
+<span class="flex-1">03 03 03 04 03 03 04 05 08 05 05 04 04 05 0A 07</span>
+<span class="w-24">................</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: Details & Metadata -->
+<aside class="w-80 flex flex-col bg-surface-container-low border-l border-outline-variant/10">
+<div class="p-4 border-b border-outline-variant/10">
+<h2 class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="info">info</span>
+                        Artifact Details
+                    </h2>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
+<!-- Metadata Properties -->
+<section>
+<h3 class="text-[10px] font-bold text-outline uppercase tracking-widest mb-3">Core Metadata</h3>
+<div class="space-y-3">
+<div>
+<label class="text-[9px] text-on-surface-variant block uppercase mb-1">MIME TYPE</label>
+<div class="text-xs font-mono bg-surface-container-lowest p-2 border-l-2 border-primary">image/jpeg</div>
+</div>
+<div>
+<label class="text-[9px] text-on-surface-variant block uppercase mb-1">FILE SIZE</label>
+<div class="text-xs font-mono">2.41 MB (2,534,112 bytes)</div>
+</div>
+<div>
+<label class="text-[9px] text-on-surface-variant block uppercase mb-1">SHA-256</label>
+<div class="text-[10px] font-mono break-all opacity-80 leading-tight">8f2e...9a41c...3d2e...11f0</div>
+</div>
+<div>
+<label class="text-[9px] text-on-surface-variant block uppercase mb-1">ACCESSED</label>
+<div class="text-xs font-mono">2023-11-24 14:22:01 UTC</div>
+</div>
+</div>
+</section>
+<!-- Tag Management -->
+<section>
+<h3 class="text-[10px] font-bold text-outline uppercase tracking-widest mb-3">Investigation Tags</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-primary-container text-primary text-[10px] font-bold uppercase tracking-tighter">EXFILTRATION</span>
+<span class="px-2 py-1 bg-surface-container-high border border-outline-variant/30 text-on-surface-variant text-[10px] font-bold uppercase tracking-tighter">PHASE_2</span>
+<span class="px-2 py-1 bg-surface-container-high border border-outline-variant/30 text-on-surface-variant text-[10px] font-bold uppercase tracking-tighter">USER_GENERATED</span>
+<button class="px-2 py-1 border border-dashed border-outline-variant/40 text-outline text-[10px] hover:text-primary transition-colors">+ ADD TAG</button>
+</div>
+</section>
+<!-- Investigator Notes -->
+<section>
+<h3 class="text-[10px] font-bold text-outline uppercase tracking-widest mb-3">Lead Notes</h3>
+<div class="relative group">
+<textarea class="w-full bg-surface-container-lowest border-none border-b border-outline-variant/20 focus:border-primary text-xs p-3 h-32 resize-none custom-scrollbar font-body" placeholder="Enter findings..."></textarea>
+<div class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-xs cursor-pointer text-outline hover:text-on-surface" data-icon="save">save</span>
+</div>
+</div>
+<div class="mt-2 text-[9px] text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span>
+                            Autosaved 2 mins ago
+                        </div>
+</section>
+</div>
+<!-- Footer Stats -->
+<div class="p-3 bg-surface-container-lowest text-[10px] font-mono text-outline border-t border-outline-variant/5">
+<div class="flex justify-between">
+<span>ENTROPY: 7.92</span>
+<span>CLUSTERS: 618-621</span>
+</div>
+</div>
+</aside>
+</main>
+</div>
+<!-- Floating Action Button (Only for specific contexts) -->
+<!-- Suppressed on Details screen according to rules -->
+</body></html>

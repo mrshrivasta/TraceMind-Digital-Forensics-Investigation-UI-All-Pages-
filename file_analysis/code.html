@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS | File Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#e79400",
+                        "surface-variant": "#00225a",
+                        "on-primary-fixed": "#00445e",
+                        "on-secondary": "#122131",
+                        "primary-fixed-dim": "#a2dcff",
+                        "inverse-surface": "#faf8ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-surface": "#dee5ff",
+                        "background": "#060e20",
+                        "outline-variant": "#2b4680",
+                        "on-primary-fixed-variant": "#006286",
+                        "surface-container": "#05183c",
+                        "on-secondary-fixed-variant": "#4e5d6f",
+                        "tertiary-container": "#f8a010",
+                        "surface-bright": "#002867",
+                        "on-error-container": "#ff9993",
+                        "surface": "#060e20",
+                        "error": "#ee7d77",
+                        "secondary-fixed": "#d4e4fa",
+                        "primary-fixed": "#c4e7ff",
+                        "error-dim": "#bb5551",
+                        "tertiary": "#ffb148",
+                        "surface-container-low": "#06122d",
+                        "surface-dim": "#060e20",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "surface-container-lowest": "#000000",
+                        "on-error": "#490106",
+                        "on-surface-variant": "#91aaeb",
+                        "primary-container": "#004c69",
+                        "on-secondary-container": "#b1c0d6",
+                        "on-tertiary-fixed-variant": "#563400",
+                        "secondary-container": "#2e3c4e",
+                        "tertiary-fixed": "#f8a010",
+                        "on-tertiary-container": "#4a2c00",
+                        "secondary-dim": "#909fb4",
+                        "on-tertiary": "#573500",
+                        "on-primary-container": "#97d8ff",
+                        "primary-dim": "#47c4ff",
+                        "on-background": "#dee5ff",
+                        "inverse-on-surface": "#4d556b",
+                        "primary": "#7bd0ff",
+                        "tertiary-dim": "#e79400",
+                        "surface-container-high": "#031d4b",
+                        "error-container": "#7f2927",
+                        "surface-container-highest": "#00225a",
+                        "outline": "#5b74b1",
+                        "inverse-primary": "#00668b",
+                        "secondary": "#909fb4",
+                        "on-secondary-fixed": "#324052",
+                        "on-primary": "#004560",
+                        "surface-tint": "#7bd0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #06122d; }
+        ::-webkit-scrollbar-thumb { background: #2b4680; }
+        ::-webkit-scrollbar-thumb:hover { background: #7bd0ff; }
+        
+        .hex-grid {
+            display: grid;
+            grid-template-columns: 80px 1fr 160px;
+            gap: 16px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-6 h-16 bg-[#060e20] font-['Space_Grotesk'] tracking-tight border-b border-outline-variant/20 z-50 fixed top-0 left-0">
+<div class="text-xl font-bold tracking-widest text-[#7bd0ff] uppercase">SENTINEL_FORENSICS</div>
+<nav class="hidden md:flex gap-8 h-full items-center">
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] pb-1 h-full flex items-center transition-all" href="#">Case View</a>
+<a class="text-[#dee5ff] opacity-70 hover:bg-[#031d4b] transition-colors duration-150 px-3 h-full flex items-center" href="#">Active Scans</a>
+<a class="text-[#dee5ff] opacity-70 hover:bg-[#031d4b] transition-colors duration-150 px-3 h-full flex items-center" href="#">Vault</a>
+<a class="text-[#dee5ff] opacity-70 hover:bg-[#031d4b] transition-colors duration-150 px-3 h-full flex items-center" href="#">Reports</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center bg-surface-container px-3 py-1.5 border-l-2 border-primary">
+<span class="material-symbols-outlined text-sm mr-2 text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs w-48 text-on-surface placeholder:text-on-surface-variant/50" placeholder="Global Search..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-[#031d4b] transition-all active:scale-95 text-[#7bd0ff]"><span class="material-symbols-outlined">file_download</span></button>
+<button class="p-2 hover:bg-[#031d4b] transition-all active:scale-95 text-[#7bd0ff]"><span class="material-symbols-outlined">bookmark</span></button>
+<button class="p-2 hover:bg-[#031d4b] transition-all active:scale-95 text-[#7bd0ff]"><span class="material-symbols-outlined">fingerprint</span></button>
+</div>
+</div>
+</header>
+<div class="flex h-screen pt-16">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-full border-r-0 bg-[#06122d] w-64 flex-shrink-0 z-40">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 bg-surface-container-high flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+</div>
+<div>
+<div class="text-xs uppercase tracking-wider font-headline font-black text-[#7bd0ff]">Unit 702</div>
+<div class="text-[10px] opacity-50 uppercase font-headline">Lead Forensic Analyst</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary font-headline text-xs font-bold uppercase tracking-widest py-3 hover:bg-primary-dim transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> New Investigation
+                </button>
+</div>
+<nav class="flex-grow overflow-y-auto">
+<div class="space-y-1">
+<a class="flex items-center gap-4 px-6 py-3 bg-[#031d4b] text-[#7bd0ff] border-l-4 border-[#7bd0ff] font-headline text-xs uppercase tracking-wider transition-all duration-150" href="#">
+<span class="material-symbols-outlined">account_tree</span> Evidence Tree
+                    </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff] opacity-50 hover:bg-[#00225a] hover:opacity-100 font-headline text-xs uppercase tracking-wider transition-all duration-150" href="#">
+<span class="material-symbols-outlined">terminal</span> Process Logs
+                    </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff] opacity-50 hover:bg-[#00225a] hover:opacity-100 font-headline text-xs uppercase tracking-wider transition-all duration-150" href="#">
+<span class="material-symbols-outlined">hub</span> Network Artifacts
+                    </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff] opacity-50 hover:bg-[#00225a] hover:opacity-100 font-headline text-xs uppercase tracking-wider transition-all duration-150" href="#">
+<span class="material-symbols-outlined">storage</span> Registry Hive
+                    </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff] opacity-50 hover:bg-[#00225a] hover:opacity-100 font-headline text-xs uppercase tracking-wider transition-all duration-150" href="#">
+<span class="material-symbols-outlined">memory</span> Memory Dump
+                    </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff] opacity-50 hover:bg-[#00225a] hover:opacity-100 font-headline text-xs uppercase tracking-wider transition-all duration-150" href="#">
+<span class="material-symbols-outlined">schedule</span> Timeline
+                    </a>
+</div>
+</nav>
+<div class="p-4 bg-[#031d4b]/30 border-t border-outline-variant/10">
+<div class="flex justify-between">
+<button class="p-2 text-[#dee5ff] opacity-50 hover:opacity-100 transition-all"><span class="material-symbols-outlined">settings</span></button>
+<button class="p-2 text-[#dee5ff] opacity-50 hover:opacity-100 transition-all"><span class="material-symbols-outlined">wysiwyg</span></button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col min-w-0 bg-surface overflow-hidden">
+<!-- Breadcrumb / Header -->
+<div class="px-6 py-3 bg-surface-container-low border-b border-outline-variant/10 flex items-center justify-between">
+<div class="flex items-center gap-2 text-[11px] font-mono tracking-tight text-on-surface-variant">
+<span class="opacity-50">Case 702</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="opacity-50">Evidence</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="opacity-50">Windows_Image.ad1</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="opacity-50">Users</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="opacity-50">Admin</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="opacity-50">Documents</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary font-bold">suspicious_payload.exe</span>
+</div>
+<div class="flex gap-2">
+<span class="bg-error/20 text-error px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest border border-error/30">Threat Detected</span>
+<span class="bg-primary/20 text-primary px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest border border-primary/30">PE32 Executable</span>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="flex-grow flex overflow-hidden">
+<!-- Left Panel: Metadata Summary -->
+<aside class="w-72 border-r border-outline-variant/10 bg-surface-container-low/50 overflow-y-auto flex-shrink-0">
+<div class="p-4 space-y-6">
+<section>
+<h3 class="text-[10px] font-headline font-black text-on-surface-variant uppercase tracking-[0.2em] mb-3">File Attributes</h3>
+<div class="space-y-2">
+<div class="bg-surface-container p-2 border-l-2 border-outline-variant/30">
+<div class="text-[9px] uppercase text-on-surface-variant/60 font-bold">Filename</div>
+<div class="text-xs font-mono break-all">suspicious_payload.exe</div>
+</div>
+<div class="bg-surface-container p-2 border-l-2 border-outline-variant/30">
+<div class="text-[9px] uppercase text-on-surface-variant/60 font-bold">File Size</div>
+<div class="text-xs font-mono">1.42 MB (1,492,012 bytes)</div>
+</div>
+<div class="bg-surface-container p-2 border-l-2 border-outline-variant/30">
+<div class="text-[9px] uppercase text-on-surface-variant/60 font-bold">Format</div>
+<div class="text-xs font-mono">PE32 for MS Windows (GUI)</div>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-[10px] font-headline font-black text-on-surface-variant uppercase tracking-[0.2em] mb-3">Cryptographic Hashes</h3>
+<div class="space-y-2">
+<div class="bg-surface-container p-2 group relative">
+<div class="text-[9px] uppercase text-on-surface-variant/60 font-bold flex justify-between">
+                                        MD5 <span class="material-symbols-outlined text-xs cursor-pointer hover:text-primary">content_copy</span>
+</div>
+<div class="text-[10px] font-mono break-all text-tertiary">a1b2c3d4e5f607182930415263748596</div>
+</div>
+<div class="bg-surface-container p-2">
+<div class="text-[9px] uppercase text-on-surface-variant/60 font-bold flex justify-between">
+                                        SHA-256 <span class="material-symbols-outlined text-xs cursor-pointer hover:text-primary">content_copy</span>
+</div>
+<div class="text-[10px] font-mono break-all text-on-surface">f6e5d4c3b2a109876543210fedcba9876543210fedcba9876543210fedcba987</div>
+</div>
+</div>
+</section>
+<section>
+<h3 class="text-[10px] font-headline font-black text-on-surface-variant uppercase tracking-[0.2em] mb-3">Temporal Data</h3>
+<div class="space-y-1">
+<div class="flex justify-between text-[11px] py-1 border-b border-outline-variant/5">
+<span class="text-on-surface-variant">Created:</span>
+<span class="font-mono">2023-11-20 14:22:01</span>
+</div>
+<div class="flex justify-between text-[11px] py-1 border-b border-outline-variant/5">
+<span class="text-on-surface-variant">Modified:</span>
+<span class="font-mono">2023-11-21 09:15:44</span>
+</div>
+<div class="flex justify-between text-[11px] py-1 border-b border-outline-variant/5">
+<span class="text-on-surface-variant">Accessed:</span>
+<span class="font-mono">2023-11-24 18:02:11</span>
+</div>
+</div>
+</section>
+<section class="mt-auto">
+<div class="bg-surface-container-highest p-3 border border-outline-variant/20">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-error text-sm" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-[10px] font-bold text-on-surface uppercase tracking-wider">Entropy Check</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 mb-1">
+<div class="bg-error h-full" style="width: 88%"></div>
+</div>
+<div class="flex justify-between text-[10px] font-mono">
+<span>7.12 bits/byte</span>
+<span class="text-error">High (Packed)</span>
+</div>
+</div>
+</section>
+</div>
+</aside>
+<!-- Central Panel: Tabbed Interface -->
+<section class="flex-grow flex flex-col min-w-0 bg-surface">
+<!-- Tab Header -->
+<div class="flex border-b border-outline-variant/10 px-4 gap-1">
+<button class="px-6 py-3 text-xs font-headline font-bold uppercase tracking-wider text-primary border-b-2 border-primary bg-surface-container-high/40">Hex View</button>
+<button class="px-6 py-3 text-xs font-headline font-bold uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 transition-all">Strings</button>
+<button class="px-6 py-3 text-xs font-headline font-bold uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 transition-all">Metadata</button>
+<button class="px-6 py-3 text-xs font-headline font-bold uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 transition-all">Signature Analysis</button>
+</div>
+<!-- Analysis Canvas -->
+<div class="flex-grow overflow-auto p-4 bg-surface-container-lowest/30">
+<!-- HEX VIEW TAB CONTENT -->
+<div class="font-mono text-[12px] leading-relaxed text-on-surface/80 max-w-full">
+<div class="hex-grid border-b border-outline-variant/10 pb-2 mb-4 font-headline text-[10px] font-black uppercase text-on-surface-variant tracking-widest">
+<div>Offset</div>
+<div>Hex Data (8-bit)</div>
+<div>ASCII Decode</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000000</div>
+<div class="flex justify-between text-tertiary">
+<span>4D 5A 90 00 03 00 00 00</span>
+<span>04 00 00 00 FF FF 00 00</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">MZ..............</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000010</div>
+<div class="flex justify-between">
+<span>B8 00 00 00 00 00 00 00</span>
+<span>40 00 00 00 00 00 00 00</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">........@.......</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000020</div>
+<div class="flex justify-between">
+<span>00 00 00 00 00 00 00 00</span>
+<span>00 00 00 00 00 00 00 00</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">................</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000030</div>
+<div class="flex justify-between">
+<span>00 00 00 00 00 00 00 00</span>
+<span>00 00 00 00 80 00 00 00</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">................</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000040</div>
+<div class="flex justify-between">
+<span>0E 1F BA 0E 00 B4 09 CD</span>
+<span>21 B8 01 4C CD 21 54 68</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">........!..L.!Th</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000050</div>
+<div class="flex justify-between text-primary">
+<span>69 73 20 70 72 6F 67 72</span>
+<span>61 6D 20 63 61 6E 6E 6F</span>
+</div>
+<div class="text-primary border-l border-outline-variant/10 pl-4">is program canno</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000060</div>
+<div class="flex justify-between text-primary">
+<span>74 20 62 65 20 72 75 6E</span>
+<span>20 69 6E 20 44 4F 53 20</span>
+</div>
+<div class="text-primary border-l border-outline-variant/10 pl-4">t be run in DOS </div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000070</div>
+<div class="flex justify-between">
+<span>6D 6F 64 65 2E 0D 0D 0A</span>
+<span>24 00 00 00 00 00 00 00</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">mode....$.......</div>
+</div>
+<!-- Repeated blocks for visual density -->
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000080</div>
+<div class="flex justify-between">
+<span>78 7E 1F AE B0 FC BF 21</span>
+<span>B0 FC BF 21 B0 FC BF 21</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">x~.....!...!...!</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">00000090</div>
+<div class="flex justify-between text-error">
+<span>52 69 63 68 B0 FC BF 21</span>
+<span>00 00 00 00 00 00 00 00</span>
+</div>
+<div class="text-error border-l border-outline-variant/10 pl-4">Rich...!........</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">000000A0</div>
+<div class="flex justify-between">
+<span>50 45 00 00 4C 01 04 00</span>
+<span>99 2F B3 65 00 00 00 00</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">PE..L..../.e....</div>
+</div>
+<div class="hex-grid group hover:bg-surface-container/30 py-0.5">
+<div class="text-on-surface-variant/40">000000B0</div>
+<div class="flex justify-between">
+<span>00 00 00 00 E0 00 02 21</span>
+<span>0B 01 0E 00 00 02 00 00</span>
+</div>
+<div class="text-on-surface-variant border-l border-outline-variant/10 pl-4">.......!........</div>
+</div>
+</div>
+</div>
+<!-- Bottom Panel: Analysis Notes -->
+<div class="h-48 border-t border-outline-variant/20 bg-surface-container-low flex flex-col flex-shrink-0">
+<div class="px-4 py-2 bg-surface-container border-b border-outline-variant/10 flex justify-between items-center">
+<h4 class="text-[10px] font-headline font-black text-primary uppercase tracking-[0.2em]">Investigator Analysis Console</h4>
+<div class="flex items-center gap-4">
+<span class="text-[9px] text-on-surface-variant font-mono">TID: 702-X-99 | STATUS: LOGGING</span>
+<button class="text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+</button>
+</div>
+</div>
+<div class="flex-grow flex flex-col p-2 gap-2">
+<textarea class="flex-grow bg-surface-container-lowest/50 border-none focus:ring-0 text-xs font-mono p-3 text-on-surface placeholder:text-on-surface-variant/30 resize-none" placeholder="[CMD] Enter forensic observations here..."></textarea>
+<div class="flex justify-between items-center px-2">
+<div class="flex gap-2">
+<span class="text-[10px] bg-outline-variant/20 px-2 py-0.5 rounded-full text-on-surface-variant">AUTO-SAVE ENABLED</span>
+<span class="text-[10px] bg-primary-container/20 px-2 py-0.5 rounded-full text-primary">ENCRYPTED LOG</span>
+</div>
+<button class="bg-surface-container-high border border-outline-variant/30 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#7bd0ff] hover:bg-[#00225a] transition-all">Commit to Case File</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Floating Action Button (FAB) - Suppression Logic: Hidden on Detail/Transactional Screens -->
+<!-- (Per prompt: Hide shell if specialized. This is a detail screen, so FAB is suppressed.) -->
+</body></html>

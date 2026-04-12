@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS | Secure Provisioning</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "secondary-container": "#2e3c4e",
+                "primary": "#7bd0ff",
+                "tertiary-fixed": "#f8a010",
+                "on-error": "#490106",
+                "primary-container": "#004c69",
+                "on-tertiary-fixed-variant": "#563400",
+                "tertiary-dim": "#e79400",
+                "inverse-surface": "#faf8ff",
+                "primary-dim": "#47c4ff",
+                "surface-container-highest": "#00225a",
+                "on-tertiary": "#573500",
+                "secondary-dim": "#909fb4",
+                "tertiary": "#ffb148",
+                "surface-dim": "#060e20",
+                "on-secondary-container": "#b1c0d6",
+                "surface": "#060e20",
+                "outline-variant": "#2b4680",
+                "surface-container-lowest": "#000000",
+                "on-primary-fixed": "#00445e",
+                "on-surface-variant": "#91aaeb",
+                "on-background": "#dee5ff",
+                "surface-container": "#05183c",
+                "on-secondary-fixed-variant": "#4e5d6f",
+                "on-secondary": "#122131",
+                "on-tertiary-container": "#4a2c00",
+                "on-error-container": "#ff9993",
+                "secondary": "#909fb4",
+                "error": "#ee7d77",
+                "on-primary-fixed-variant": "#006286",
+                "primary-fixed": "#c4e7ff",
+                "surface-container-low": "#06122d",
+                "secondary-fixed-dim": "#c6d6ec",
+                "outline": "#5b74b1",
+                "primary-fixed-dim": "#a2dcff",
+                "on-primary": "#004560",
+                "on-tertiary-fixed": "#2a1700",
+                "on-surface": "#dee5ff",
+                "tertiary-container": "#f8a010",
+                "surface-tint": "#7bd0ff",
+                "error-dim": "#bb5551",
+                "tertiary-fixed-dim": "#e79400",
+                "surface-variant": "#00225a",
+                "secondary-fixed": "#d4e4fa",
+                "on-primary-container": "#97d8ff",
+                "on-secondary-fixed": "#324052",
+                "surface-bright": "#002867",
+                "background": "#060e20",
+                "inverse-primary": "#00668b",
+                "inverse-on-surface": "#4d556b",
+                "surface-container-high": "#031d4b",
+                "error-container": "#7f2927"
+            },
+            "borderRadius": {
+                "DEFAULT": "0px",
+                "lg": "0px",
+                "xl": "0px",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline": ["Space Grotesk"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hex-grid-bg {
+            background-image: radial-gradient(#2b4680 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .focus-accent:focus-within {
+            border-left: 2px solid #7bd0ff;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Minimal for Signup Flow) -->
+<nav class="bg-[#060e20] text-[#7bd0ff] font-['Space_Grotesk'] tracking-tight flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50">
+<div class="text-lg font-bold tracking-widest text-[#7bd0ff]">SENTINEL_FORENSICS</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#dee5ff] opacity-60 hover:bg-[#031d4b] transition-colors duration-150 p-1 cursor-pointer">help</span>
+<span class="material-symbols-outlined text-[#dee5ff] opacity-60 hover:bg-[#031d4b] transition-colors duration-150 p-1 cursor-pointer">security</span>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="min-h-screen pt-24 pb-12 flex items-center justify-center relative overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute inset-0 hex-grid-bg opacity-10 pointer-events-none"></div>
+<div class="absolute top-1/4 left-0 w-96 h-96 bg-primary-container opacity-5 blur-[120px]"></div>
+<div class="absolute bottom-1/4 right-0 w-96 h-96 bg-surface-container-highest opacity-5 blur-[120px]"></div>
+<!-- Signup Container -->
+<div class="relative z-10 w-full max-w-2xl px-4">
+<div class="bg-surface-container-low p-8 shadow-2xl border-none">
+<!-- Form Header -->
+<header class="mb-10">
+<div class="inline-block bg-primary-container text-on-primary-container text-[10px] font-headline font-bold tracking-widest px-3 py-1 mb-4 uppercase">
+                        SECURE_ACCESS_PROVISIONING
+                    </div>
+<h1 class="text-3xl font-headline font-bold text-on-background tracking-tight">Identity Registration</h1>
+<p class="text-on-surface-variant text-sm mt-2 font-light">Establish your forensic credentials for system entry.</p>
+</header>
+<form class="space-y-8">
+<!-- Section 1: Account Identity -->
+<div class="space-y-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-primary font-headline text-xs font-bold tracking-widest">01</span>
+<h2 class="text-xs font-headline uppercase tracking-[0.2em] text-on-surface-variant">Account Identity</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="group relative bg-surface-container p-4 focus-accent transition-all duration-150">
+<label class="block text-[10px] font-headline text-on-surface-variant uppercase tracking-widest mb-1">Full Name</label>
+<input class="w-full bg-transparent border-none p-0 text-on-surface placeholder:text-outline focus:ring-0 font-headline font-medium" placeholder="SURNAME, GIVEN NAME" type="text"/>
+</div>
+<div class="group relative bg-surface-container p-4 focus-accent transition-all duration-150 border-r-2 border-primary">
+<label class="block text-[10px] font-headline text-on-surface-variant uppercase tracking-widest mb-1">Professional Email</label>
+<input class="w-full bg-transparent border-none p-0 text-on-surface placeholder:text-outline focus:ring-0 font-headline font-medium" placeholder="official@agency.gov" type="email"/>
+<div class="absolute right-4 bottom-4">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="verified">verified</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container p-4 focus-accent transition-all duration-150">
+<label class="block text-[10px] font-headline text-on-surface-variant uppercase tracking-widest mb-1">Security Keyphrase (Password)</label>
+<input class="w-full bg-transparent border-none p-0 text-on-surface placeholder:text-outline focus:ring-0 font-headline font-medium" placeholder="••••••••••••••••" type="password"/>
+<!-- Password Entropy Meter -->
+<div class="mt-4 flex gap-1 h-1">
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-primary"></div>
+<div class="flex-1 bg-surface-variant"></div>
+<div class="flex-1 bg-surface-variant"></div>
+</div>
+<div class="flex justify-between mt-1">
+<span class="text-[9px] font-headline text-primary uppercase">Entropy: High</span>
+<span class="text-[9px] font-headline text-on-surface-variant uppercase">Req: 16+ Chars</span>
+</div>
+</div>
+</div>
+<!-- Section 2: Professional Verification -->
+<div class="space-y-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-primary font-headline text-xs font-bold tracking-widest">02</span>
+<h2 class="text-xs font-headline uppercase tracking-[0.2em] text-on-surface-variant">Professional Verification</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container p-4 focus-accent transition-all duration-150">
+<label class="block text-[10px] font-headline text-on-surface-variant uppercase tracking-widest mb-1">Organization / Agency</label>
+<input class="w-full bg-transparent border-none p-0 text-on-surface placeholder:text-outline focus:ring-0 font-headline font-medium" placeholder="FEDERAL_BUREAU_INVESTIGATION" type="text"/>
+</div>
+<div class="bg-surface-container p-4 focus-accent transition-all duration-150">
+<label class="block text-[10px] font-headline text-on-surface-variant uppercase tracking-widest mb-1">Badge / Credentials ID</label>
+<input class="w-full bg-transparent border-none p-0 text-on-surface placeholder:text-outline focus:ring-0 font-headline font-medium" placeholder="ID-882-X9" type="text"/>
+</div>
+</div>
+</div>
+<!-- Section 3: Security Clearance -->
+<div class="space-y-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-primary font-headline text-xs font-bold tracking-widest">03</span>
+<h2 class="text-xs font-headline uppercase tracking-[0.2em] text-on-surface-variant">System Clearance Level</h2>
+</div>
+<div class="bg-surface-container p-2 flex gap-2">
+<button class="flex-1 py-4 text-center border border-outline-variant hover:bg-surface-container-high transition-colors" type="button">
+<div class="text-[10px] font-headline text-on-surface-variant mb-1">L1</div>
+<div class="text-xs font-headline font-bold">TECHNICIAN</div>
+</button>
+<button class="flex-1 py-4 text-center bg-surface-container-high border-2 border-primary ring-inset" type="button">
+<div class="text-[10px] font-headline text-primary mb-1">L2</div>
+<div class="text-xs font-headline font-bold text-primary">INVESTIGATOR</div>
+</button>
+<button class="flex-1 py-4 text-center border border-outline-variant hover:bg-surface-container-high transition-colors" type="button">
+<div class="text-[10px] font-headline text-tertiary mb-1">OMEGA</div>
+<div class="text-xs font-headline font-bold">LEAD</div>
+</button>
+</div>
+</div>
+<!-- Section 4: Terms -->
+<div class="pt-4 border-t border-outline-variant/20">
+<label class="flex items-start gap-4 cursor-pointer group">
+<div class="relative flex items-center pt-1">
+<input class="w-4 h-4 bg-surface-container border-outline text-primary focus:ring-0 rounded-none" type="checkbox"/>
+</div>
+<span class="text-xs text-on-surface-variant leading-relaxed group-hover:text-on-surface transition-colors">
+                                I solemnly affirm to uphold the <span class="text-primary underline underline-offset-4">Forensic Integrity &amp; Ethical Use Guidelines</span>. All actions performed within SENTINEL_FORENSICS are logged and subject to judicial review.
+                            </span>
+</label>
+</div>
+<!-- Actions -->
+<div class="space-y-4 pt-4">
+<button class="w-full bg-primary text-on-primary py-4 font-headline font-extrabold tracking-widest text-sm hover:bg-primary-dim active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2" type="submit">
+                            PROVISION ACCOUNT
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<div class="text-center">
+<a class="inline-block text-[10px] font-headline uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="#">
+                                Already have a secure session? <span class="text-primary font-bold">Login</span>
+</a>
+</div>
+</div>
+</form>
+</div>
+<!-- System Footer Status -->
+<footer class="mt-8 flex justify-between items-center px-2">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-primary animate-pulse"></div>
+<span class="text-[9px] font-headline text-on-surface-variant uppercase tracking-tighter">Node: US-EAST-01</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 bg-outline"></div>
+<span class="text-[9px] font-headline text-on-surface-variant uppercase tracking-tighter">Latency: 14ms</span>
+</div>
+</div>
+<div class="text-[9px] font-headline text-outline uppercase tracking-tighter">
+                    V4.2.0-STABLE // ENCRYPTION: AES-256-GCM
+                </div>
+</footer>
+</div>
+</main>
+</body></html>

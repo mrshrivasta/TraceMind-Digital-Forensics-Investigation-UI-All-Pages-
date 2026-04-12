@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_FORENSICS | Case Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#4e5d6f",
+                        "tertiary": "#ffb148",
+                        "surface-variant": "#00225a",
+                        "surface-bright": "#002867",
+                        "tertiary-container": "#f8a010",
+                        "secondary": "#909fb4",
+                        "inverse-on-surface": "#4d556b",
+                        "error-container": "#7f2927",
+                        "surface-dim": "#060e20",
+                        "surface": "#060e20",
+                        "tertiary-dim": "#e79400",
+                        "on-secondary-fixed": "#324052",
+                        "secondary-container": "#2e3c4e",
+                        "tertiary-fixed-dim": "#e79400",
+                        "outline-variant": "#2b4680",
+                        "primary-dim": "#47c4ff",
+                        "inverse-surface": "#faf8ff",
+                        "on-error": "#490106",
+                        "on-tertiary-container": "#4a2c00",
+                        "on-primary-fixed-variant": "#006286",
+                        "on-surface": "#dee5ff",
+                        "outline": "#5b74b1",
+                        "on-tertiary": "#573500",
+                        "surface-tint": "#7bd0ff",
+                        "surface-container-lowest": "#000000",
+                        "on-secondary-container": "#b1c0d6",
+                        "surface-container-high": "#031d4b",
+                        "background": "#060e20",
+                        "on-background": "#dee5ff",
+                        "on-tertiary-fixed-variant": "#563400",
+                        "on-surface-variant": "#91aaeb",
+                        "on-error-container": "#ff9993",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-primary": "#004560",
+                        "secondary-fixed": "#d4e4fa",
+                        "tertiary-fixed": "#f8a010",
+                        "surface-container-highest": "#00225a",
+                        "on-primary-fixed": "#00445e",
+                        "primary-fixed": "#c4e7ff",
+                        "on-primary-container": "#97d8ff",
+                        "secondary-fixed-dim": "#c6d6ec",
+                        "primary-container": "#004c69",
+                        "inverse-primary": "#00668b",
+                        "surface-container": "#05183c",
+                        "error": "#ee7d77",
+                        "primary-fixed-dim": "#a2dcff",
+                        "surface-container-low": "#06122d",
+                        "secondary-dim": "#909fb4",
+                        "on-secondary": "#122131",
+                        "error-dim": "#bb5551",
+                        "primary": "#7bd0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #060e20;
+            color: #dee5ff;
+        }
+        h1, h2, h3, .technical-label {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060e20;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #031d4b;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<header class="bg-[#060e20] dark:bg-[#060e20] text-[#7bd0ff] font-['Space_Grotesk'] tracking-tight fixed top-0 left-0 right-0 z-50 border-b-0 flex justify-between items-center w-full px-6 h-16 bg-[#06122d]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-widest text-[#7bd0ff] uppercase">SENTINEL_FORENSICS</span>
+<div class="hidden md:flex gap-6">
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] px-1 py-4 hover:bg-[#031d4b] transition-colors duration-150" href="#">DASHBOARD</a>
+<a class="text-[#dee5ff]/60 px-1 py-4 hover:bg-[#031d4b] transition-colors duration-150" href="#">INCIDENTS</a>
+<a class="text-[#dee5ff]/60 px-1 py-4 hover:bg-[#031d4b] transition-colors duration-150" href="#">NODES</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined text-[#7bd0ff] p-2 hover:bg-[#031d4b] cursor-pointer">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error"></span>
+</div>
+<span class="material-symbols-outlined text-[#7bd0ff] p-2 hover:bg-[#031d4b] cursor-pointer">settings</span>
+<span class="material-symbols-outlined text-[#7bd0ff] p-2 hover:bg-[#031d4b] cursor-pointer">help</span>
+<div class="h-8 w-px bg-outline-variant/30 mx-2"></div>
+<button class="text-sm font-medium hover:text-white transition-colors">Sign Out</button>
+<img alt="Investigator Profile" class="w-8 h-8 object-cover" data-alt="Close-up portrait of a professional male digital forensics investigator in a high-tech office with blue ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqC5sA-bfSJGY1QpVG-eqet7Tbb7KldTnNHWTvfyndrOe_9zzpXNcR2RgIsQrWBhC1sYq81KhHEkV4Z0QrOJPCFjT5r7NHPHAz-mw3veRD3avNIQPFRGYt7L6L9JxbFXD2DJGhQzlP7NCT9fMgKlQJU9jb7FSgOBf45-PDckml31-GUE6EBajNdOUCWhttDQMSehCH5K5qwzUO4S7I5-r4FGNtofzM90YXR2C751wS1-T3NDStF-hu-lf218XI52wX8v-H7NiP_Hc"/>
+</div>
+</header>
+<div class="flex flex-1 pt-16">
+<aside class="bg-[#06122d] dark:bg-[#06122d] text-[#7bd0ff] font-['Space_Grotesk'] text-sm font-medium flex flex-col h-screen fixed left-0 top-0 pt-16 w-64 border-r-0 z-40">
+<div class="p-6 flex items-center gap-3 border-b border-outline-variant/10">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<div class="text-lg font-black text-[#7bd0ff]">CYBER_UNIT_01</div>
+<div class="text-[10px] text-primary/60 tracking-widest uppercase">Active Session: 04:22:11</div>
+</div>
+</div>
+<nav class="flex-1 py-4">
+<a class="flex items-center gap-4 px-6 py-3 bg-[#031d4b] text-[#7bd0ff] border-l-4 border-[#7bd0ff] scale-[0.99] duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="folder_shared">folder_shared</span>
+<span>Evidence</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span>Analysis</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Reports</span>
+</a>
+</nav>
+<div class="mt-auto py-4 border-t border-outline-variant/10">
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span>System Logs</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#dee5ff]/40 hover:bg-[#031d4b]/50 hover:text-[#7bd0ff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 ml-64 p-8 bg-surface overflow-y-auto">
+<div class="max-w-[1600px] mx-auto space-y-8">
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-low p-6 flex flex-col justify-between h-32">
+<span class="text-xs text-on-surface-variant font-medium tracking-widest uppercase technical-label">Total Cases</span>
+<div class="flex items-end justify-between">
+<span class="text-4xl font-bold technical-label">1,482</span>
+<span class="text-primary text-xs flex items-center"><span class="material-symbols-outlined text-sm">trending_up</span> +4%</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 flex flex-col justify-between h-32">
+<span class="text-xs text-on-surface-variant font-medium tracking-widest uppercase technical-label">Active Investigations</span>
+<div class="flex items-end justify-between">
+<span class="text-4xl font-bold technical-label">24</span>
+<span class="text-tertiary text-xs">Priority: High</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 flex flex-col justify-between h-32">
+<span class="text-xs text-on-surface-variant font-medium tracking-widest uppercase technical-label">Evidence Processed</span>
+<div class="flex items-end justify-between">
+<span class="text-4xl font-bold technical-label">12.8 TB</span>
+<span class="text-primary text-xs">98.2% Integrity</span>
+</div>
+</div>
+<div class="bg-surface-container-high p-6 flex flex-col justify-between h-32 border-l-2 border-error">
+<span class="text-xs text-error font-medium tracking-widest uppercase technical-label">System Alerts</span>
+<div class="flex items-end justify-between">
+<span class="text-4xl font-bold technical-label text-error">09</span>
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<section class="lg:col-span-8 space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-bold tracking-tight">RECENT_CASES</h2>
+<div class="flex gap-2">
+<button class="bg-surface-container text-xs px-3 py-1 hover:bg-surface-container-high transition-colors">EXPORT_CSV</button>
+<button class="bg-surface-container text-xs px-3 py-1 hover:bg-surface-container-high transition-colors">FILTER_ALL</button>
+</div>
+</div>
+<div class="bg-surface-container-low overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="p-4 text-xs font-bold tracking-widest text-on-surface-variant uppercase">Case ID</th>
+<th class="p-4 text-xs font-bold tracking-widest text-on-surface-variant uppercase">Title</th>
+<th class="p-4 text-xs font-bold tracking-widest text-on-surface-variant uppercase">Lead</th>
+<th class="p-4 text-xs font-bold tracking-widest text-on-surface-variant uppercase">Status</th>
+<th class="p-4 text-xs font-bold tracking-widest text-on-surface-variant uppercase">Activity</th>
+</tr>
+</thead>
+<tbody class="text-sm font-body">
+<tr class="hover:bg-surface-container transition-colors border-b border-outline-variant/5">
+<td class="p-4 font-mono text-primary">#SF-2024-001</td>
+<td class="p-4 font-medium">Operation Nightfall / Data Breach</td>
+<td class="p-4">Det. Miller</td>
+<td class="p-4">
+<span class="bg-primary/10 text-primary text-[10px] px-2 py-0.5 font-bold uppercase">Open</span>
+</td>
+<td class="p-4 text-on-surface-variant">2m ago</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors border-b border-outline-variant/5">
+<td class="p-4 font-mono text-primary">#SF-2024-042</td>
+<td class="p-4 font-medium">Crypto-Locker Recovery / Corp-X</td>
+<td class="p-4">Sgt. Aris</td>
+<td class="p-4">
+<span class="bg-tertiary/10 text-tertiary text-[10px] px-2 py-0.5 font-bold uppercase">Pending</span>
+</td>
+<td class="p-4 text-on-surface-variant">14m ago</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors border-b border-outline-variant/5">
+<td class="p-4 font-mono text-primary">#SF-2023-991</td>
+<td class="p-4 font-medium">Volatile Memory Dump / Server_09</td>
+<td class="p-4">Det. Miller</td>
+<td class="p-4">
+<span class="bg-primary/10 text-primary text-[10px] px-2 py-0.5 font-bold uppercase">Open</span>
+</td>
+<td class="p-4 text-on-surface-variant">1h ago</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors border-b border-outline-variant/5">
+<td class="p-4 font-mono text-primary">#SF-2023-882</td>
+<td class="p-4 font-medium">Mobile Forensics / Suspect_A</td>
+<td class="p-4">Lt. Vance</td>
+<td class="p-4">
+<span class="bg-on-surface-variant/10 text-on-surface-variant text-[10px] px-2 py-0.5 font-bold uppercase">Closed</span>
+</td>
+<td class="p-4 text-on-surface-variant">3h ago</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="p-4 font-mono text-primary">#SF-2023-774</td>
+<td class="p-4 font-medium">Cloud Storage Audit / Azure_Region_B</td>
+<td class="p-4">Det. Miller</td>
+<td class="p-4">
+<span class="bg-tertiary/10 text-tertiary text-[10px] px-2 py-0.5 font-bold uppercase">Pending</span>
+</td>
+<td class="p-4 text-on-surface-variant">5h ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<aside class="lg:col-span-4 space-y-8">
+<section class="space-y-4">
+<h2 class="text-xl font-bold tracking-tight uppercase">Quick_Actions</h2>
+<div class="grid grid-cols-1 gap-3">
+<button class="group relative flex items-center justify-between p-4 bg-primary text-on-primary font-bold transition-all hover:bg-primary-dim">
+<span class="technical-label">NEW CASE</span>
+<span class="material-symbols-outlined">add_box</span>
+<div class="absolute top-0 left-0 w-full h-[1px] bg-primary-fixed/20"></div>
+</button>
+<button class="group flex items-center justify-between p-4 bg-surface-container border border-outline-variant/15 text-primary font-bold transition-all hover:bg-surface-container-high">
+<span class="technical-label">INGEST EVIDENCE</span>
+<span class="material-symbols-outlined">upload_file</span>
+</button>
+<button class="group flex items-center justify-between p-4 bg-surface-container border border-outline-variant/15 text-primary font-bold transition-all hover:bg-surface-container-high">
+<span class="technical-label">SEARCH DATABASE</span>
+<span class="material-symbols-outlined">manage_search</span>
+</button>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold tracking-tight uppercase">Task_Queue</h2>
+<div class="bg-surface-container-low p-5 space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-on-surface">Data Imaging: Drive_S01</span>
+<span class="text-primary">82%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 overflow-hidden">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+<div class="flex justify-between text-[10px] text-on-surface-variant font-mono">
+<span>480 GB / 600 GB</span>
+<span>Est. 12m remaining</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-on-surface">Indexing: #SF-2024-001</span>
+<span class="text-tertiary">34%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 overflow-hidden">
+<div class="bg-tertiary h-full w-[34%]"></div>
+</div>
+<div class="flex justify-between text-[10px] text-on-surface-variant font-mono">
+<span>Allocating headers...</span>
+<span>Running</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-on-surface-variant">Integrity Hash Check</span>
+<span class="text-on-surface-variant">Queued</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 overflow-hidden">
+<div class="bg-outline-variant h-full w-0"></div>
+</div>
+</div>
+</div>
+</section>
+</aside>
+</div>
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-surface-container-low p-6 border-l-2 border-primary">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">memory</span>
+<h3 class="font-bold text-sm tracking-widest uppercase technical-label">System Performance</h3>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">CPU LOAD</span>
+<span class="font-mono text-primary">24.5%</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">MEMORY USED</span>
+<span class="font-mono text-primary">16.2 GB / 128 GB</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">NETWORK I/O</span>
+<span class="font-mono text-primary">1.2 GB/s</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 border-l-2 border-tertiary">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary">history</span>
+<h3 class="font-bold text-sm tracking-widest uppercase technical-label">Security Logs</h3>
+</div>
+<div class="space-y-2">
+<div class="text-[11px] font-mono p-2 bg-surface-container">
+<span class="text-tertiary">[WARN]</span> Port 8080 access attempt
+                            </div>
+<div class="text-[11px] font-mono p-2 bg-surface-container">
+<span class="text-primary">[INFO]</span> New node 'PX-SERVER' attached
+                            </div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 border-l-2 border-outline">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-outline">storage</span>
+<h3 class="font-bold text-sm tracking-widest uppercase technical-label">Evidence Vault</h3>
+</div>
+<div class="flex items-center justify-center h-20 border border-outline-variant/20 border-dashed">
+<img alt="Server Farm Storage" class="w-full h-full object-cover opacity-50" data-alt="Modern server room with glowing blue LED indicator lights and fiber optic cables, cinematic technical atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAvyLBFxQp9J9QWJ51YV2bbUuZTQz5H1ueWxWw50SBKk-8BcWW7gt_iBWNF6E-PNlffsyKoyRj8lTvp3vOHf4PAJ18huPJ80UKLG_n8NP97CzvxxP10eyKlsetSyGZ8FCnJZIuMppGMx2VLX9N8-piRPaVy-l1FswX5ACyApNjaryrkQZYX0vTaI5NrTv9H4PGWlouLcDz-EZtaby4g7MOmV8iALyflTfjxm088i6E2ZFuntOdOdtA_CJzyUalL35Vih0syN4jD7k"/>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<div class="fixed bottom-0 left-64 right-0 h-8 bg-surface-container-high border-t border-outline-variant/10 px-6 flex items-center justify-between z-50">
+<div class="flex items-center gap-4 text-[10px] font-mono uppercase text-on-surface-variant tracking-widest">
+<span class="flex items-center gap-1"><span class="w-2 h-2 bg-primary rounded-full"></span> SYSTEM_ONLINE</span>
+<span>Uptime: 242:12:05</span>
+<span>Latency: 12ms</span>
+</div>
+<div class="text-[10px] font-mono text-on-surface-variant uppercase tracking-widest">
+            NODE: SENTINEL-ALPHA-01 // v2.4.0-STABLE
+        </div>
+</div>
+</body></html>
